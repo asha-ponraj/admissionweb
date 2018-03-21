@@ -5,7 +5,6 @@ $(function() {
 });
 
 function loadNewsList() {
-	
 	var paramData = JSON.stringify({
 		'pageNumber' : 1,
 		'pageSize' : 0
