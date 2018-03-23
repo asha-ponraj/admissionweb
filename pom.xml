@@ -156,6 +156,12 @@
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-bundle</artifactId>
+      <version>${cxf.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-common-schemas</artifactId>
       <version>${cxf.commons.version}</version>
     </dependency>
