@@ -7,6 +7,13 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>admissionweb</name>
   <url>http://maven.apache.org</url>
+  
+  <properties>
+    <cxf.version>2.7.3</cxf.version>
+    <cxf.commons.version>2.3.11</cxf.commons.version>
+    <cxf.binding.version>2.5.11</cxf.binding.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -144,85 +151,85 @@
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-api</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-common-schemas</artifactId>
-      <version>2.3.6</version>
+      <version>${cxf.commons.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-common-utilities</artifactId>
-      <version>2.5.0</version>
+      <version>${cxf.commons.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-bindings-http</artifactId>
-      <version>2.3.6</version>
+      <version>${cxf.binding.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-bindings-soap</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.binding.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-bindings-xml</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.binding.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-core</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-databinding-aegis</artifactId>
-      <version>2.3.6</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-databinding-xmlbeans</artifactId>
-      <version>2.3.6</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-      <version>2.3.6</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxws</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-management-web</artifactId>
-      <version>2.3.2</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-transports-http</artifactId>
-      <version>2.7.3</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-tools-common</artifactId>
-      <version>2.5.0</version>
+      <version>${cxf.version}</version>
     </dependency>
     
     <dependency>
