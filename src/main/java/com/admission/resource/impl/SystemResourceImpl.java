@@ -8,6 +8,7 @@ import org.apache.cxf.jaxrs.ext.MessageContext;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.admission.cache.ParameterCache;
 import com.admission.dto.JsonResponse;
 import com.admission.entity.User;
 import com.admission.resource.SystemResource;
@@ -50,6 +51,7 @@ public class SystemResourceImpl implements SystemResource {
 	@Override
 	public JsonResponse reloadcfg() {
 		Profile.reload();
+		ParameterCache.getInstance().reset();
 		
 		JsonResponse res = new JsonResponse();
 		res.setResult("ok");

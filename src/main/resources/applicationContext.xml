@@ -58,6 +58,7 @@
 				<value>com.admission.entity.FamilyMember</value>
 				<value>com.admission.entity.User</value>
 				<value>com.admission.entity.News</value>
+				<value>com.admission.entity.Parameter</value>
 			</list>
 		</property>
 	</bean>

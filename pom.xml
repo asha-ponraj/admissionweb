@@ -12,6 +12,7 @@
     <cxf.version>2.7.3</cxf.version>
     <cxf.commons.version>2.3.11</cxf.commons.version>
     <cxf.binding.version>2.5.11</cxf.binding.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
