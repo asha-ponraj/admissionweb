@@ -141,3 +141,12 @@ CREATE TABLE `t_news` (
 	INDEX `id_news_seq` (`seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `t_parameters`;
+CREATE TABLE `t_parameters` (
+	`id` INT NOT NULL PRIMARY KEY,
+	`name` VARCHAR(128) NOT NULL,
+	`description` VARCHAR(255) NULL,
+	`value` TEXT NULL,
+	CONSTRAINT `uid_parameters_name` UNIQUE INDEX(`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
