@@ -25,14 +25,14 @@
 	</div>
 	<div class="content">
 		<div class="block1">
-			<div class="title">2016年启英幼儿园招生报名安排</div>
-			<div class="oflowitem" style="margin-left: 50px;">4月25日-5月10日<br>在线登记报名</div>
+			<div class="title">2017年启英幼儿园招生报名安排</div>
+			<div class="oflowitem" style="margin-left: 50px;">4月21日-5月7日<br>在线登记报名</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月11日-5月12日<br>受理发放通知</div>
+			<div class="oflowitem">5月8日-5月9日<br>受理发放通知</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月13日-5月15日<br>下载打印报名表</div>
+			<div class="oflowitem">5月10日-5月12日<br>下载打印报名表</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月21日-5月22日<br>面谈活动</div>
+			<div class="oflowitem">5月20日-5月21日<br>面谈活动</div>
 			<div class="oflowend"></div>
 			注意事项：<br>
 			1. 登记时请牢记报名登记时设定的用户名和查询密码，将用于查询报名与招生过程的状态。<br>

@@ -192,6 +192,49 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 	<br />
 	<table border="0" cellspacing="1" cellpadding="4" width="100%">
 		<tr>
+			<th>军烈子女</th>
+			<td>
+				<input id="junlie" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
+	    			</input>
+	    	</td>
+			<th>部队子女</th>
+			<td>
+				<input id="budui" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
+	    			</input>
+	    	</td>
+			<th>优抚子女</th>
+			<td>
+				<input id="youfu" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
+	    			</input>
+	    	</td>
+			<th>低保</th>
+			<td>
+				<input id="dibao" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
+	    			</input>
+	    	</td>
+		</tr>
+		<tr>
+			<th colspan="2">进程务工人员随迁子女</th>
+			<td colspan="2">
+				<input id="suiqian" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
+	    			</input>
+	    	</td>
+			<th colspan="2">留守儿童</th>
+			<td colspan="3">
+				<input id="liushou" class="easyui-combobox" style="width: 180px;"
+	    			data-options="valueField:'id',textField:'text',url:'json_data/liushou_data.json',editable:false">
+	    			</input>
+	    	</td>
+		</tr>
+	</table>
+	<br />
+	<table border="0" cellspacing="1" cellpadding="4" width="100%">
+		<tr>
 			<th rowspan="2">户籍<br/>地址</th>
 			<td colspan="6">
 				<input id="hkaddress" style="width: 900px;"></input>
@@ -236,7 +279,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 		<tr>
 			<th rowspan="2">现住<br/>地址</th>
 			<td colspan="6">
-				<input id="lvaddress" style="width: 900px;"></input>
+				<input id="lvaddress" class="easyui-validatebox" type="text" style="width: 900px;"	data-options="required:true"></input>
 	    	</td>
 		</tr>
 		<tr>

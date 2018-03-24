@@ -12,6 +12,7 @@ import com.admission.dto.JsonResponse;
 import com.admission.entity.User;
 import com.admission.resource.SystemResource;
 import com.admission.service.UserService;
+import com.admission.util.Profile;
 import com.admission.web.config.WebProfile;
 
 @WebService(endpointInterface = "com.admission.resource.SystemResource")
@@ -46,4 +47,13 @@ public class SystemResourceImpl implements SystemResource {
 		return res;
 	}
 
+	@Override
+	public JsonResponse reloadcfg() {
+		Profile.reload();
+		
+		JsonResponse res = new JsonResponse();
+		res.setResult("ok");
+		
+		return res;
+	}
 }

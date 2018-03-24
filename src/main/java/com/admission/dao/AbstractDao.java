@@ -54,5 +54,5 @@ public abstract interface AbstractDao<E extends BaseEntity> {
 	
 	public abstract long queryMax(String property);
 	
-	public abstract List<?> queryList(final String hql, final Object[] paramArr, final Type[] paramTypeArr);
+	public abstract List<?> queryList(String hql, final Object[] paramArr, final Type[] paramTypeArr);
 }

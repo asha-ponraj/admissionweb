@@ -45,6 +45,43 @@ $(function(){
 		editable: false
 	});
 	
+	$('#junlie').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#budui').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#youfu').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#dibao').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#suiqian').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#liushou').combobox({
+		required: true,
+		editable: false
+	});
+	
+	$('#junlie').combobox('setValue', '否');
+	$('#budui').combobox('setValue', '否');
+	$('#youfu').combobox('setValue', '否');
+	$('#dibao').combobox('setValue', '否');
+	$('#suiqian').combobox('setValue', '否');
+	$('#liushou').combobox('setValue', '否');
+	
 	$('#hknature').combobox({
 		required: true,
 		editable: false
@@ -229,7 +266,7 @@ function submitApplication() {
 	}
 	
 	var pidnumber = $.trim($('#pidnumber').val());
-	if(!checkMaxlength('#pidnumber', pidnumber, 20, "身份证件编号", false))
+	if(!checkMaxlength('#pidnumber', pidnumber, 20, "身份证件编号", true))
 		return;
 	
 	var health = $.trim($('#health').val());
@@ -282,6 +319,42 @@ function submitApplication() {
 		return;
 	}
 	
+	var junlie = $('#junlie').combobox('getValue');
+	if(!junlie || junlie=="") {
+		alert("请选择是否军烈子女");
+		return;
+	}
+	
+	var budui = $('#budui').combobox('getValue');
+	if(!budui || budui=="") {
+		alert("请选择是否部队子女");
+		return;
+	}
+	
+	var youfu = $('#youfu').combobox('getValue');
+	if(!youfu || youfu=="") {
+		alert("请选择是否优抚子女");
+		return;
+	}
+	
+	var dibao = $('#dibao').combobox('getValue');
+	if(!dibao || dibao=="") {
+		alert("请选择是否低保");
+		return;
+	}
+	
+	var suiqian = $('#suiqian').combobox('getValue');
+	if(!suiqian || suiqian=="") {
+		alert("请选择是否进程务工人员随迁子女");
+		return;
+	}
+	
+	var liushou = $('#liushou').combobox('getValue');
+	if(!liushou || liushou=="") {
+		alert("请选择是否留守儿童");
+		return;
+	}
+
 	var propertynumber = $.trim($('#propertynumber').val());
 	if(!checkMaxlength('#propertynumber', propertynumber, 64, "产证编号", false))
 		return;
@@ -319,7 +392,7 @@ function submitApplication() {
 		return;
 	
 	var lvaddress = $.trim($('#lvaddress').val());
-	if(!checkMaxlength('#lvaddress', lvaddress, 128, "现住地址", false))
+	if(!checkMaxlength('#lvaddress', lvaddress, 128, "现住地址", true))
 		return;
 	var lvtown = $.trim($('#lvtown').val());
 	if(!checkMaxlength('#lvtown', lvtown, 64, "现住地址所属镇", false))
@@ -414,6 +487,12 @@ function submitApplication() {
 		"health": health,
 		"allergic": allergic,
 		"immunityCert": immunitycert,
+		"junlie": junlie,
+		"budui": budui,
+		"youfu": youfu,
+		"dibao": dibao,
+		"suiqian": suiqian,
+		"liushou": liushou,
 		"specificDisease": specificdisease,
 		"hkNature" : hknature,
 		"hkType" : hktype,
@@ -467,7 +546,7 @@ function submitApplication() {
 	
 	$.messager.defaults.ok = '确定';
 	$.messager.defaults.cancel = '取消';
-	var tip = '</span><br/><span style="font-size:14px;font-weight:bold;color:red;">一旦提交将不能再次修改<br/>确定要提交报名信息吗?</span>'; 
+	var tip = '</span><br/><span style="font-size:14px;font-weight:bold;color:red;">请确认输入了完整而正确的信息<br/>一旦提交将不能再次修改<br/>确定要提交报名信息吗?</span>'; 
 	$.messager.confirm('温馨提示', tip,
 		function(sure) {
 			if(sure) {

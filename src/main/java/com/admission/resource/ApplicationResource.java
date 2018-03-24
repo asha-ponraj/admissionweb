@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.context.annotation.Scope;
 
+import com.admission.dto.AppData;
 import com.admission.dto.AppQueryTO;
 import com.admission.dto.JsonResponse;
 import com.admission.entity.Application;
@@ -43,10 +44,12 @@ public interface ApplicationResource {
 	@Produces(MediaType.TEXT_HTML)
 	public String getApplicationDetail(@QueryParam("id")int id); 
 
+	public JsonResponse createApplication(Application application); 
+	
 	@WebMethod
 	@POST
 	@Path("/create")
-	public JsonResponse createApplication(Application application); 
+	public JsonResponse createApplication(AppData appData);
 
 	@WebMethod
 	@GET

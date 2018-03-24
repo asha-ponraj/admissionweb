@@ -16,7 +16,7 @@
 </head>
 <body>
 <div style="margin-top: 100px;"></div>
-<form name="qyadmission_admin_login_form" onsubmit="return login();">
+<form name="admissionweb_admin_login_form" onsubmit="return login();">
 <table align="center" border="0" cellspacing="5" cellpadding="5">
 	<tr>
 		<td colspan="2"><h2>上海闵行区启英幼儿园招生报名系统</h2></td>

@@ -6,10 +6,13 @@ import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class Profile {
 	private static Profile instance;
+	private static final String SUBPATH_NAME = "qywebsystem";
 	private static final String PROFILE_FILENAME = "qywebsystem.properties";
 	private File profileFile;
 	
@@ -21,6 +24,16 @@ public class Profile {
 	private static final String KEY_DOWNLOADENDTIME = "enddownloadtime";
 	private String selectedNotifyTip;
 	private static final String KEY_SELECTEDNOTIFYTIP = "selectednotifytip";
+	private Date maxBirthday;
+	private static final String KEY_MAXBIRTHDAY = "maxbirthday";
+	private Date minBirthday;
+	private static final String KEY_MINBIRTHDAY = "minbirthday";
+	private String addressFilter;
+	private static final String KEY_ADDRESSFILTER = "addressfilter";
+	private String addressTip;
+	private static final String KEY_ADDRESSTIP = "addresstip";
+	
+	private Pattern addressPattern;
 	
 	public synchronized static Profile getInstance() {
 		if(instance == null) {
@@ -28,6 +41,10 @@ public class Profile {
 		}
 		
 		return instance;
+	}
+	
+	public synchronized static void reload() {
+		instance = new Profile();
 	}
 	
 	private Profile() {
@@ -42,9 +59,9 @@ public class Profile {
 	}
 	
 	public static String getHomePath() {
-//		String homeDir = System.getProperty("user.home");
-		String homeDir = "c:";
-		String path = MessageFormat.format("{0}{1}{2}", homeDir, getFileSeparator(), "qywebsystem");
+		String homeDir = System.getProperty("qy.cfg.home");
+//		String homeDir = "c:";
+		String path = MessageFormat.format("{0}{1}{2}", homeDir, getFileSeparator(), SUBPATH_NAME);
 		File f = new File(path);
 		if(!f.exists()) {
 			f.mkdir();
@@ -88,7 +105,7 @@ public class Profile {
 		Timestamp tmpTime = null;
 		Timestamp startTime = null;
 		try {
-			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_STARTAPPLICATIONTIME, "2015-04-25 00:00:00"));
+			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_STARTAPPLICATIONTIME, "2017-04-10 00:00:00"));
 		} catch (ParseException e) {
 		}
 		if(tmpTime == null)
@@ -100,7 +117,7 @@ public class Profile {
 		
 		Timestamp endTime = null;
 		try {
-			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_ENDAPPLICATIONTIME, "2015-04-28 23:59:59"));
+			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_ENDAPPLICATIONTIME, "2017-04-28 23:59:59"));
 		} catch (ParseException e) {
 		}
 		if(tmpTime == null)
@@ -112,7 +129,7 @@ public class Profile {
 		
 		Timestamp endDownloadTime = null;
 		try {
-			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_DOWNLOADENDTIME, "2015-05-09 18:00:00"));
+			tmpTime = TimeUtil.changeStringtoTimestamp(getPropertyString(pro, KEY_DOWNLOADENDTIME, "2017-05-09 18:00:00"));
 		} catch (ParseException e) {
 		}
 		if(tmpTime == null)
@@ -123,6 +140,28 @@ public class Profile {
 		setDownloadEndTime(endDownloadTime);
 		
 		this.setSelectedNotifyTip(getPropertyString(pro, KEY_SELECTEDNOTIFYTIP, ""));
+		
+		Date tmpDate = null;
+		try {
+			tmpDate = TimeUtil.sqlStringToDate(getPropertyString(pro, KEY_MINBIRTHDAY, "2013-09-01"));
+		} catch(ParseException e){
+		}
+		if(tmpDate == null)
+			setMinBirthday(TimeUtil.createDate(2013, 9, 1));
+		else
+			setMinBirthday(tmpDate);
+		
+		try {
+			tmpDate = TimeUtil.sqlStringToDate(getPropertyString(pro, KEY_MAXBIRTHDAY, "2014-08-31"));
+		} catch(ParseException e){
+		}
+		if(tmpDate == null)
+			setMaxBirthday(TimeUtil.createDate(2014, 8, 31));
+		else
+			setMaxBirthday(tmpDate);
+		
+		this.setAddressFilter(getPropertyString(pro, KEY_ADDRESSFILTER, ""));
+		this.setAddressTip(getPropertyString(pro, KEY_ADDRESSTIP, ""));
 	}
 	
 	public synchronized void save() {
@@ -132,6 +171,10 @@ public class Profile {
 		pro.setProperty(KEY_ENDAPPLICATIONTIME, TimeUtil.getSQLTimestamp(getEndApplicationTime()));
 		pro.setProperty(KEY_DOWNLOADENDTIME, TimeUtil.getSQLTimestamp(getDownloadEndTime()));
 		pro.setProperty(KEY_SELECTEDNOTIFYTIP, getSelectedNotifyTip());
+		pro.setProperty(KEY_MINBIRTHDAY, TimeUtil.dateToSqlString(getMinBirthday()));
+		pro.setProperty(KEY_MAXBIRTHDAY, TimeUtil.dateToSqlString(getMaxBirthday()));
+		pro.setProperty(KEY_ADDRESSFILTER, getAddressFilter());
+		pro.setProperty(KEY_ADDRESSTIP, getAddressTip());
 		
 		try {
 			pro.store(new FileOutputStream(profileFile), "protential calculator profile file");
@@ -180,5 +223,57 @@ public class Profile {
 
 	public void setSelectedNotifyTip(String selectedNotifyTip) {
 		this.selectedNotifyTip = selectedNotifyTip;
+	}
+
+	public Date getMaxBirthday() {
+		return maxBirthday;
+	}
+
+	public void setMaxBirthday(Date maxBirthday) {
+		this.maxBirthday = maxBirthday;
+	}
+
+	public Date getMinBirthday() {
+		return minBirthday;
+	}
+
+	public void setMinBirthday(Date minBirthday) {
+		this.minBirthday = minBirthday;
+	}
+
+	public String getAddressFilter() {
+		return addressFilter;
+	}
+
+	public void setAddressFilter(String addressFilter) {
+		if(addressFilter != null)
+			this.addressFilter = addressFilter.trim();
+		else
+			this.addressFilter = null;
+	}
+
+	public String getAddressTip() {
+		return addressTip;
+	}
+
+	public void setAddressTip(String addressTip) {
+		if(addressTip != null)
+			this.addressTip = addressTip.trim();
+		else
+			this.addressTip = "";
+	}
+
+	public synchronized Pattern getAddressPattern() {
+		if(addressPattern == null) {
+			if(addressFilter == null || addressFilter.length() == 0)
+				return null;
+			
+			addressPattern = Pattern.compile(addressFilter);
+		}
+		return addressPattern;
+	}
+
+	public void setAddressPattern(Pattern addressPattern) {
+		this.addressPattern = addressPattern;
 	}
 }

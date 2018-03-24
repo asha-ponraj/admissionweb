@@ -209,6 +209,22 @@ public class Application  extends BaseEntity {
 		return "";
 	}
 	
+	public static final int LIUSHOU_NON = 0;
+	public static final int LIUSHOU_DANQIN = 1;
+	public static final int LIUSHOU_SHUANGQIN = 2;
+	public static String liushouDesc(int liushou) {
+		switch(liushou) {
+		case LIUSHOU_NON:
+			return "否";
+		case LIUSHOU_DANQIN:
+			return "单亲留守";
+		case LIUSHOU_SHUANGQIN:
+			return "双亲留守";
+		}
+		
+		return "";
+	}
+	
 	private Integer id;
 	private String subbarcode;
 	private String username;
@@ -246,6 +262,12 @@ public class Application  extends BaseEntity {
 	private boolean allergic; //有无过敏史
 	private String specificDisease; //特殊病史
 	private boolean immunityCert; //计划免疫证
+	private int junlie; //军列子女
+	private int budui; //部队子女
+	private int youfu; //优抚子女
+	private int dibao; //低保
+	private int suiqian; //进城务工人员随迁子女
+	private int liushou; //留守儿童
 	private String remark; //家长需要特别说明的情况
 	private Timestamp createTime;
 	private String createTimeStr;
@@ -659,6 +681,60 @@ public class Application  extends BaseEntity {
 
 	public void setImmunityCert(boolean immunityCert) {
 		this.immunityCert = immunityCert;
+	}
+	
+	@Column(name = "junlie")
+	public int getJunlie() {
+		return junlie;
+	}
+	
+	public void setJunlie(int junlie) {
+		this.junlie = junlie;
+	}
+	
+	@Column(name = "budui")
+	public int getBudui() {
+		return budui;
+	}
+	
+	public void setBudui(int budui) {
+		this.budui = budui;
+	}
+	
+	@Column(name = "youfu")
+	public int getYoufu() {
+		return youfu;
+	}
+	
+	public void setYoufu(int youfu) {
+		this.youfu = youfu;
+	}
+	
+	@Column(name = "dibao")
+	public int getDibao() {
+		return dibao;
+	}
+	
+	public void setDibao(int dibao) {
+		this.dibao = dibao;
+	}
+
+	@Column(name = "suiqian")
+	public int getSuiqian() {
+		return suiqian;
+	}
+	
+	public void setSuiqian(int suiqian) {
+		this.suiqian = suiqian;
+	}
+	
+	@Column(name = "liushou")
+	public int getLiushou() {
+		return liushou;
+	}
+	
+	public void setLiushou(int liushou) {
+		this.liushou = liushou;
 	}
 
 	@Column(name = "remark")

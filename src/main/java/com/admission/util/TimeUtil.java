@@ -56,6 +56,27 @@ public class TimeUtil {
 		SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss");
 		return f.format(date);
 	}
+	
+	/**
+	 * Convert a string "2017-01-28" to a Date object
+	 * @param str date string like "2017-01-28"
+	 * @return date object
+	 * @throws ParseException
+	 */
+	public static Date sqlStringToDate(String str) throws ParseException {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		return f.parse(str);
+	}
+	
+	/**
+	 * Convert a date object to a string like "2017-01-28"
+	 * @param date date object
+	 * @return a string like "2017-01-28"
+	 */
+	public static String dateToSqlString(Date date) {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		return f.format(date);
+	}
     
 	/**
 	 * 得到当前时间 格式为yyyyMMddHHmmssSSS
@@ -89,6 +110,19 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = format.parse(source);
 		return new Timestamp(date.getTime());
+	}
+	
+	/**
+	 * Create a date object specifying year, month, day
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return date object
+	 */
+	public static Date createDate(int year, int month, int day) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, month-1, day, 0, 0, 0);
+		return new Date(c.getTimeInMillis());
 	}
 	
 	/**
@@ -155,5 +189,17 @@ public class TimeUtil {
 			return f.format(t);
 		}
 		return null;
+	}
+	
+	public static void main(String args[]) {
+		String str = "2017-01-28";
+		try {
+			Date d = sqlStringToDate(str);
+			String ts = dateToSqlString(d);
+			System.out.println(ts);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

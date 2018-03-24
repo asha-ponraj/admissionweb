@@ -98,7 +98,7 @@ public class AdmissionWriter {
 
 			// 构建标题，居中对齐，12f表示单倍行距
 			Paragraph title = RTFDocStyleUtils.setParagraphStyle(
-					"2016年上海闵行区启英幼儿园报名表", tfont, 16f, Paragraph.ALIGN_CENTER);
+					"2017年上海闵行区启英幼儿园报名表", tfont, 16f, Paragraph.ALIGN_CENTER);
 			doc.add(title);
 
 			Paragraph gradePar = RTFDocStyleUtils.setParagraphStyle("申请班级："
@@ -374,28 +374,24 @@ public class AdmissionWriter {
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			// 第15行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			addTableCell(table, 1, 3, "健康状况", tableFont);
-			addTableCell(table, 1, 5, app.getHealth(), tableFont);
-			addTableCell(table, 1, 3, "特殊病史", tableFont);
-			addTableCell(table, 1, 7, app.getSpecificDisease(), tableFont);
-			
-			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第16行内容
-			// //////////////////////////////////////////////////////////////////////////////////////////
-			addTableCell(table, 1, 3, "有无过敏史", tableFont);
+			addTableCell(table, 1, 2, "健康状况", tableFont);
+			addTableCell(table, 1, 3, app.getHealth(), tableFont);
+			addTableCell(table, 1, 1, "特殊病史", tableFont);
+			addTableCell(table, 1, 2, app.getSpecificDisease(), tableFont);
+			addTableCell(table, 1, 2, "过敏史", tableFont);
 			s = new StringBuffer();
 			if (app.isAllergic()) {
 				s.append(CHECKED);
-				s.append("有    ");
+				s.append("有 ");
 				s.append(UNCHECKED);
 				s.append("无");
 			} else {
 				s.append(UNCHECKED);
-				s.append("有    ");
+				s.append("有 ");
 				s.append(CHECKED);
 				s.append("无");
 			}
-			addTableCell(table, 1, 5, s.toString(), tableFont);
+			addTableCell(table, 1, 4, s.toString(), tableFont);
 			addTableCell(table, 1, 3, "计划免疫证", tableFont);
 			s = new StringBuffer();
 			if (app.isImmunityCert()) {
@@ -409,10 +405,116 @@ public class AdmissionWriter {
 				s.append(CHECKED);
 				s.append("无");
 			}
-			addTableCell(table, 1, 7, s.toString(), tableFont);
+			addTableCell(table, 1, 1, s.toString(), tableFont);
 			
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			// 第17行内容
+			// //////////////////////////////////////////////////////////////////////////////////////////
+			addTableCell(table, 1, 2, "军烈子女", tableFont);
+			s = new StringBuffer();
+			if (app.getJunlie() != 0) {
+				s.append(CHECKED);
+				s.append("是  ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append(UNCHECKED);
+				s.append("是  ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 3, s.toString(), tableFont);
+			addTableCell(table, 1, 1, "部队子女", tableFont);
+			s = new StringBuffer();
+			if (app.getBudui() != 0) {
+				s.append(CHECKED);
+				s.append("是  ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append(UNCHECKED);
+				s.append("是  ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 2, s.toString(), tableFont);
+			addTableCell(table, 1, 2, "优抚子女", tableFont);
+			s = new StringBuffer();
+			if (app.getYoufu() != 0) {
+				s.append(CHECKED);
+				s.append("是  ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append(UNCHECKED);
+				s.append("是  ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 4, s.toString(), tableFont);
+			addTableCell(table, 1, 3, "低保", tableFont);
+			s = new StringBuffer();
+			if (app.getDibao() != 0) {
+				s.append(CHECKED);
+				s.append("是  ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append(UNCHECKED);
+				s.append("是  ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 1, s.toString(), tableFont);
+			
+			// //////////////////////////////////////////////////////////////////////////////////////////
+			// 第18行内容
+			// //////////////////////////////////////////////////////////////////////////////////////////
+			addTableCell(table, 1, 5, "进程务工人员随迁子女", tableFont);
+			s = new StringBuffer();
+			if (app.getSuiqian() != 0) {
+				s.append(CHECKED);
+				s.append("是  ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append(UNCHECKED);
+				s.append("是  ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 3, s.toString(), tableFont);
+			addTableCell(table, 1, 2, "留守儿童", tableFont);
+			s = new StringBuffer();
+			if (app.getLiushou() == Application.LIUSHOU_DANQIN) {
+				s.append("是(");
+				s.append(CHECKED);
+				s.append("单亲留守 ");
+				s.append(UNCHECKED);
+				s.append("双亲留守) ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else if(app.getLiushou() == Application.LIUSHOU_SHUANGQIN) {
+				s.append("是(");
+				s.append(UNCHECKED);
+				s.append("单亲留守 ");
+				s.append(CHECKED);
+				s.append("双亲留守) ");
+				s.append(UNCHECKED);
+				s.append("否");
+			} else {
+				s.append("是(");
+				s.append(UNCHECKED);
+				s.append("单亲留守 ");
+				s.append(UNCHECKED);
+				s.append("双亲留守) ");
+				s.append(CHECKED);
+				s.append("否");
+			}
+			addTableCell(table, 1, 8, s.toString(), tableFont);
+			
+			// //////////////////////////////////////////////////////////////////////////////////////////
+			// 第19行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 1, "称\n谓", tableFont);
 			addTableCell(table, 1, 2, "姓\n名", tableFont);
@@ -425,7 +527,7 @@ public class AdmissionWriter {
 			addTableCell(table, 1, 1, "移动\n手机", tableFont);
 
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第18行内容
+			// 第20行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			Map<Integer, FamilyMember> memberMap = app.memberMap();
 			addTableCell(table, 1, 1, "父", tableFont);
@@ -447,7 +549,7 @@ public class AdmissionWriter {
 					.getMobile(), tableFont);
 
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第19行内容
+			// 第21行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 1, "母", tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_MOTHER)
@@ -468,7 +570,7 @@ public class AdmissionWriter {
 					.getMobile(), tableFont);
 			
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第20行内容
+			// 第22行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 1, "", tableFont);
 			addTableCell(table, 1, 2, "", tableFont);
@@ -481,13 +583,13 @@ public class AdmissionWriter {
 			addTableCell(table, 1, 1, "", tableFont);
 			
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第21行内容
+			// 第23行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 4, "家长需要特别\n说明或解释的情况", tableFont);
 			addTableCell(table, 1, 14, app.getRemark(), tableFont);
 			
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第22行内容
+			// 第24行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 4, "填表时间", tableFont);
 			addTableCell(table, 1, 4,
@@ -496,7 +598,7 @@ public class AdmissionWriter {
 			addTableCell(table, 1, 7, "", tableFont);
 			
 			// //////////////////////////////////////////////////////////////////////////////////////////
-			// 第23行内容
+			// 第25行内容
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 4, "核表人签名", tableFont);
 			addTableCell(table, 1, 4, "", tableFont);

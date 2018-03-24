@@ -7,5 +7,6 @@ var menuAdmissionData=[
 ];
 var menuSystemData=[
     {id:21,text:"修改密码",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"修改密码",url:"changepwd.jsp"}},
-    {id:22,text:"行政区域数据管理",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"行政区域数据管理",url:"regionalism.jsp"}}
+    {id:22,text:"系统工具",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"系统工具",url:"systool.jsp"}},
+    {id:23,text:"行政区域数据管理",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"行政区域数据管理",url:"regionalism.jsp"}}
 ];
