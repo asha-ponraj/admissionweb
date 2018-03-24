@@ -70,6 +70,9 @@
     <url-pattern>/rest/news/create</url-pattern>
     <url-pattern>/rest/news/update</url-pattern>
     <url-pattern>/rest/news/delete/*</url-pattern>
+    <url-pattern>/rest/parameter/create</url-pattern>
+    <url-pattern>/rest/parameter/update</url-pattern>
+    <url-pattern>/rest/parameter/delete/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>hibReqSessionFilter</filter-name>
