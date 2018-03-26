@@ -21,8 +21,8 @@ import com.admission.web.config.WebProfile;
 
 @Controller
 @RequestMapping("/system")
-public class SystemService {
-	private static Logger log = Logger.getLogger(SystemService.class);
+public class SystemWebService {
+	private static Logger log = Logger.getLogger(SystemWebService.class);
 
 	@Autowired
 	private UserService userService;

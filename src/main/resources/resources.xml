@@ -24,7 +24,6 @@
 	</cxf:bus>
 
 	<bean id="applicationResource" class="com.admission.resource.impl.ApplicationResourceImpl" />
-	<bean id="newsResource" class="com.admission.resource.impl.NewsResourceImpl" />
 	<bean id="parameterResource" class="com.admission.resource.impl.ParameterResourceImpl" />
 	<jaxrs:server id="restServer" address="/"
 		staticSubresourceResolution="true">
@@ -33,7 +32,6 @@
 		</jaxrs:features>
 		<jaxrs:serviceBeans>
 			<ref bean="applicationResource" />
-			<ref bean="newsResource" />
 			<ref bean="parameterResource" />
 		</jaxrs:serviceBeans>
 
