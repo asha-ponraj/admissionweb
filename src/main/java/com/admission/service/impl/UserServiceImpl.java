@@ -43,4 +43,16 @@ public class UserServiceImpl implements UserService {
 		return u;
 	}
 
+	@Override
+	public User login(String username, String password) throws Exception {
+		User u = userDao.findByProperty("username", username);
+		if(u == null)
+			return null;
+		
+		if(u.getPassword().equals(password))
+			return u;
+		
+		return null;
+	}
+
 }

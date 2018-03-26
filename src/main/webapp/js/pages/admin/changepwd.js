@@ -44,9 +44,14 @@ function submitPassword() {
 	
 	$.ajax({
 		url: '../rest/system/password',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
 		type: 'POST',
+		'dataType': 'json',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 			'originPwd': originpwd,
 			'newPwd': newpwd
 		}),//参数设置

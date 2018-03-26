@@ -18,10 +18,15 @@ function login() {
 	}
 	
 	$.ajax({
-		url: 'rest/application/login',
+		url: 'rest/system/login',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
 		type: 'POST',
+		'dataType': 'json',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 			'username': username,
 			'password': password
 		}),//参数设置

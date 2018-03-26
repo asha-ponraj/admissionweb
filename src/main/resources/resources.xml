@@ -23,9 +23,7 @@
 		</cxf:features>
 	</cxf:bus>
 
-	<bean id="regionalismResource" class="com.admission.resource.impl.RegionalismResourceImpl" />
 	<bean id="applicationResource" class="com.admission.resource.impl.ApplicationResourceImpl" />
-	<bean id="systemResource" class="com.admission.resource.impl.SystemResourceImpl" />
 	<bean id="newsResource" class="com.admission.resource.impl.NewsResourceImpl" />
 	<bean id="parameterResource" class="com.admission.resource.impl.ParameterResourceImpl" />
 	<jaxrs:server id="restServer" address="/"
@@ -34,9 +32,7 @@
 			<cxf:logging />
 		</jaxrs:features>
 		<jaxrs:serviceBeans>
-			<ref bean="regionalismResource" />
 			<ref bean="applicationResource" />
-			<ref bean="systemResource" />
 			<ref bean="newsResource" />
 			<ref bean="parameterResource" />
 		</jaxrs:serviceBeans>
