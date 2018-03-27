@@ -19,6 +19,10 @@ function searchApplication() {
 	
 	$.ajax({
 		url: 'rest/application/get',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
 		type: 'GET',
 		timeout: gAjaxTimeout,//超时时间设定
 		data: ({

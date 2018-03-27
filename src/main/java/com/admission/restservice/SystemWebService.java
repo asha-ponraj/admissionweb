@@ -1,5 +1,7 @@
 package com.admission.restservice;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admission.cache.ParameterCache;
@@ -17,6 +20,7 @@ import com.admission.dto.LoginData;
 import com.admission.entity.User;
 import com.admission.service.UserService;
 import com.admission.util.Profile;
+import com.admission.util.TimeUtil;
 import com.admission.web.config.WebProfile;
 
 @Controller
@@ -90,6 +94,37 @@ public class SystemWebService {
 		JsonResponse res = new JsonResponse();
 		res.setResult("ok");
 		
+		return res;
+	}
+	
+	@RequestMapping(value="/settimespace", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse setTimeSpace(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String downloadEndTime) {
+		JsonResponse res = new JsonResponse();
+		
+		try {
+			Timestamp st = TimeUtil.changeStringtoTimestamp(startTime);
+			Timestamp et = TimeUtil.changeStringtoTimestamp(endTime);
+			Timestamp dt = TimeUtil.changeStringtoTimestamp(downloadEndTime);
+			
+			if(et.before(st)) {
+				throw new Exception("报名结束时间早于开始时间");
+			}
+			
+			if(dt.before(et)) {
+				throw new Exception("报名表下载截止时间早于报名结束时间");
+			}
+			
+			Profile.getInstance().setStartApplicationTime(st);
+			Profile.getInstance().setEndApplicationTime(et);
+			Profile.getInstance().setDownloadEndTime(dt);
+			Profile.getInstance().save();
+			
+			res.setResult("ok");
+		} catch (Throwable t) {
+			log.debug("set timespace fail", t);
+			res.setResult("设置时间段错误: " + t.getMessage());
+		}
 		return res;
 	}
 }

@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "t_address")
 @XmlRootElement
@@ -21,6 +23,7 @@ public class Address  extends BaseEntity {
 	public static final int TYPE_PROPERTY = 2;
 	public static final int TYPE_RESIDENCE = 3;
 	
+	@JsonIgnore
 	private Application application;
 	private Integer id;
 	private int type;

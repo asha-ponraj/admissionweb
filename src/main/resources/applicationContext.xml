@@ -10,8 +10,6 @@
 						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
 	default-autowire="byName">
 	
-	<import resource="classpath:resources.xml" />
-	
 	 <!-- loading resource file-->
 	<context:component-scan base-package="com" />
 	<context:property-placeholder properties-ref="applicationProps" />

@@ -30,7 +30,12 @@ function submitTimespace() {
 		return;
 	
 	$.ajax({
-		url: '../rest/application/settimespace',
+		url: '../rest/system/settimespace',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
 		type: 'GET',
 		timeout: gAjaxTimeout,//超时时间设定
 		data: ({

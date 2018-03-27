@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "t_familymember")
 @XmlRootElement
@@ -30,6 +32,7 @@ public class FamilyMember  extends BaseEntity {
 		return "未知";
 	}
 	
+	@JsonIgnore
 	private Application application;
 	private Integer id;
 	private int type;

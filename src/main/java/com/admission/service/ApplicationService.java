@@ -5,7 +5,6 @@ import java.util.List;
 import com.admission.dto.AppQueryTO;
 import com.admission.dto.PageInfo;
 import com.admission.entity.Application;
-import com.admission.entity.User;
 
 public interface ApplicationService {
 	public void createApplication(Application application) throws Exception;
@@ -37,8 +36,6 @@ public interface ApplicationService {
 	public Application checkinApplication(int applicationId) throws Exception;
 	
 	public Application recheckinApplication(int applicationId) throws Exception;
-	
-	public User login(String username, String password) throws Exception;
 	
 	public String resetApplicationPassword(int applicationId) throws Exception;
 	

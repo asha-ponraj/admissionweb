@@ -12,13 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.admission.dao.AddressDao;
 import com.admission.dao.ApplicationDao;
 import com.admission.dao.FamilyMemberDao;
-import com.admission.dao.UserDao;
 import com.admission.dto.AppQueryTO;
 import com.admission.dto.PageInfo;
 import com.admission.entity.Address;
 import com.admission.entity.Application;
 import com.admission.entity.FamilyMember;
-import com.admission.entity.User;
 import com.admission.service.ApplicationService;
 import com.admission.util.StrUtil;
 import com.admission.util.TimeUtil;
@@ -35,9 +33,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 	
 	@Autowired
 	private FamilyMemberDao familyMemberDao;
-	
-	@Autowired
-	private UserDao userDao;
 
 	@Override
 	public void createApplication(Application application) throws Exception {
@@ -129,18 +124,6 @@ public class ApplicationServiceImpl implements ApplicationService {
 			return null;
 		
 		return app.getPassword().equals(password)?app:null;
-	}
-
-	@Override
-	public User login(String username, String password) throws Exception {
-		User u = userDao.findByProperty("username", username);
-		if(u == null)
-			return null;
-		
-		if(u.getPassword().equals(password))
-			return u;
-		
-		return null;
 	}
 
 	@Override

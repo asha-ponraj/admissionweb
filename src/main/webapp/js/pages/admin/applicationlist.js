@@ -205,9 +205,14 @@ function deleteApplication() {
 	if(node){
 		$.ajax({
 			url: '../rest/application/delete/' + node.id,
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			'dataType': 'json',
 			type: 'GET',
 			timeout: gAjaxTimeout,//超时时间设定
-			data: ({
+			data: JSON.stringify({
 			}),//参数设置
 			error: function(xhr, textStatus, thrownError){
 				if(xhr.readyState != 0 && xhr.readyState != 1) {
@@ -253,9 +258,14 @@ function onDlgDenyApplication() {
 	
 	$.ajax({
 		url: '../rest/application/deny',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
 		type: 'POST',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 			"id" : appid,
 			"reason" : reason
 		}),//参数设置
@@ -293,9 +303,14 @@ function resetApplication() {
 	if(node){
 		$.ajax({
 			url: '../rest/application/reset/' + node.id,
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			'dataType': 'json',
 			type: 'GET',
 			timeout: gAjaxTimeout,//超时时间设定
-			data: ({
+			data: JSON.stringify({
 			}),//参数设置
 			error: function(xhr, textStatus, thrownError){
 				if(xhr.readyState != 0 && xhr.readyState != 1) {
@@ -366,6 +381,11 @@ function reloadApplicationTable(pageNumber) {
 	
 	$.ajax({
 		url: '../rest/application/find',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
 		type: 'POST',
 		timeout: gAjaxTimeout,//超时时间设定
 		dataType: "json",
@@ -426,11 +446,15 @@ function resetQueryPassword() {
 	var node = $('#applicationTable').datagrid('getSelected');
 	if(node){
 		$.ajax({
-			url: '../rest/application/resetquerypassword',
+			url: '../rest/application/resetquerypassword/' + node.id,
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			'dataType': 'json',
 			type: 'GET',
 			timeout: gAjaxTimeout,//超时时间设定
-			data: ({
-				'applicationid' : node.id
+			data: JSON.stringify({
 			}),//参数设置
 			error: function(xhr, textStatus, thrownError){
 				if(xhr.readyState != 0 && xhr.readyState != 1) {

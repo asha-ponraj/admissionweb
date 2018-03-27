@@ -78,9 +78,14 @@ function notifyApplication() {
 	
 	$.ajax({
 		url: '../rest/application/notify',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
 		type: 'POST',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 			'fromId': nfromid,
 			'toId': ntoid,
 			'notify': notify

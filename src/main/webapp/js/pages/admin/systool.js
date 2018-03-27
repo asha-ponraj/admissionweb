@@ -5,9 +5,14 @@ $(function() {
 function reloadcfg() {
 	$.ajax({
 		url: '../rest/system/reloadcfg',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
 		type: 'GET',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 		}),//参数设置
 		error: function(xhr, textStatus, thrownError){
 			if(xhr.readyState != 0 && xhr.readyState != 1) {

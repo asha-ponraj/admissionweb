@@ -552,6 +552,10 @@ function submitApplication() {
 			if(sure) {
 				$.ajax({
 					url: 'rest/application/create',
+					headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json' 
+				    },
 					type: 'POST',
 					dataType: "json",
 					contentType: 'application/json;charset=UTF-8',

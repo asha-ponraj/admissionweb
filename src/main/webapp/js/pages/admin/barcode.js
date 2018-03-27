@@ -93,11 +93,10 @@ function query(params) {
 
 function recheckin(appId) {
 	$.ajax({
-		url: '../rest/application/recheckin',
+		url: '../rest/application/recheckin/' + appId,
 		type: 'GET',
 		timeout: gAjaxTimeout,//超时时间设定
 		data: ({
-			'id': appId
 		}),//参数设置
 		error: function(xhr, textStatus, thrownError){
 			if(xhr.readyState != 0 && xhr.readyState != 1) {
