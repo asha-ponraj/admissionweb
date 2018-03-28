@@ -40,9 +40,11 @@ public class ParameterServiceImpl implements ParameterService {
 			throw new Exception("参数不存在");
 		
 		Parameter ts = parameterDao.findByName(parameter.getName());
-		if(ts != null && ts.getId().intValue() == tn.getId().intValue()) {
+		if(ts != null && ts.getId().intValue() != tn.getId().intValue()) {
 			throw new Exception("同名称的参数已经存在了");
 		}
+		
+		ParameterCache.getInstance().deleteParameter(tn.getName());
 		
 		tn.setName(parameter.getName());
 		tn.setDescription(parameter.getDescription());
@@ -67,7 +69,17 @@ public class ParameterServiceImpl implements ParameterService {
 	}
 
 	@Override
-	public Parameter findParameter(String name) throws Exception {
+	public Parameter findParameterById(int id) throws Exception {
+		Parameter p = parameterDao.findById(id);
+		if(p != null) {
+			ParameterCache.getInstance().setParameter(p.getName(), p);
+		}
+
+		return p;
+	}
+
+	@Override
+	public Parameter findParameterByName(String name) throws Exception {
 		Parameter p = ParameterCache.getInstance().getParameter(name);
 		if(p == null) {
 			p = parameterDao.findByName(name);
@@ -75,6 +87,7 @@ public class ParameterServiceImpl implements ParameterService {
 				ParameterCache.getInstance().setParameter(p.getName(), p);
 			}
 		}
+
 		return p;
 	}
 

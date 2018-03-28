@@ -37,7 +37,7 @@ public class ParameterWebService {
 			res.setData(parameter);
 		} catch (Exception e) {
 			log.debug("create parameter fail", e);
-			res.setResult("添加新闻失败: " + e.getMessage());
+			res.setResult("添加参数失败: " + e.getMessage());
 		}
 
 		return res;
@@ -54,7 +54,7 @@ public class ParameterWebService {
 			res.setData(parameter);
 		} catch (Exception e) {
 			log.debug("update parameter fail", e);
-			res.setResult("编辑新闻失败: " + e.getMessage());
+			res.setResult("更新参数失败: " + e.getMessage());
 		}
 
 		return res;
@@ -70,7 +70,7 @@ public class ParameterWebService {
 			res.setResult("ok");
 		} catch (Exception e) {
 			log.debug("delete parameter fail", e);
-			res.setResult("删除新闻失败: " + e.getMessage());
+			res.setResult("删除参数失败: " + e.getMessage());
 		}
 
 		return res;
@@ -97,28 +97,28 @@ public class ParameterWebService {
 			res.setResult("ok");
 			res.setData(dgto);
 		} catch (Throwable t) {
-			log.debug("find application fail", t);
-			res.setResult("查询新闻出错: " + t.getMessage());
+			log.debug("find parameter fail", t);
+			res.setResult("查询参数出错: " + t.getMessage());
 		}
 		return res;
 	}
 
-	@RequestMapping(value="/get/{name}", method=RequestMethod.GET, headers="Accept=application/json")
+	@RequestMapping(value="/get/{id}", method=RequestMethod.GET, headers="Accept=application/json")
 	@ResponseBody 
-	public JsonResponse getParameter(@PathVariable String name) {
+	public JsonResponse getParameter(@PathVariable int id) {
 		JsonResponse res = new JsonResponse();
 		
 		try {
-			Parameter tn = parameterService.findParameter(name);
+			Parameter tn = parameterService.findParameterById(id);
 			if(tn == null) {
-				res.setResult("新闻不存在");
+				res.setResult("参数不存在");
 			} else {
 				res.setResult("ok");
 				res.setData(tn);
 			}
 		} catch (Throwable t) {
-			log.debug("set timespace fail", t);
-			res.setResult("获取新闻错误: " + t.getMessage());
+			log.debug("get parameter fail", t);
+			res.setResult("获取参数错误: " + t.getMessage());
 		}
 		return res;
 	}

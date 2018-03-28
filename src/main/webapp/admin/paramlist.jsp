@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><at:param name="school.name" /> - 新闻管理</title>
+<title><at:param name="school.name" /> - 参数管理</title>
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../css/admin.css">
@@ -18,28 +18,29 @@
 <script type="text/javascript" src="../plugins/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="../plugins/ckeditor/lang/zh-cn.js"></script>
 <script type="text/javascript" src="../plugins/ckeditor/adapters/jquery.js"></script>
-<script type="text/javascript" src="../js/pages/admin/newslist.js"></script>
+<script type="text/javascript" src="../js/pages/admin/paramlist.js"></script>
 </head>
 <body class="easyui-layout">
 <div data-options="region:'center',border:false">
-<table id="newsTable" style="width:990px;height:480px">
+<table id="paramTable" style="width:990px;height:480px">
 </table>
 </div>
-<div id="newsdlg">
-	<input id="newsid" type="hidden" /><input id="actiontype" type="hidden" />
+<div id="paramdlg">
+	<input id="paramid" type="hidden" /><input id="actiontype" type="hidden" />
 	<table>
 		<tr>
-			<th>标题</th>
-			<td><input id="newstitle" class="easyui-validatebox" type="text" style="width: 640px;"
+			<th>名字</th>
+			<td><input id="paramname" class="easyui-validatebox" type="text" style="width: 640px;"
 			data-options="required:true"></td>
 		</tr>
 		<tr>
-			<th>内容</th>
-			<td><textarea id="newscontent" rows="20" cols="30" style="width: 640px; height: 280px;">dddd</textarea></td>
+			<th>描述</th>
+			<td><input id="paramdesc" class="easyui-validatebox" type="text" style="width: 640px;"
+			data-options="required:false"></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td><label><input id="topchk" type="checkbox"> 是否置顶</label></td>
+			<th>内容</th>
+			<td><textarea id="paramvalue" rows="20" cols="30" style="width: 640px; height: 280px;"></textarea></td>
 		</tr>
 	</table>
 </div>

@@ -12,7 +12,9 @@ public interface ParameterService {
 	
 	public void deleteParameter(int id) throws Exception;
 	
-	public Parameter findParameter(String name) throws Exception;
+	public Parameter findParameterById(int id) throws Exception;
+	
+	public Parameter findParameterByName(String name) throws Exception;
 	
 	public List<Parameter> findParameter(PageInfo pageInfo);
 }

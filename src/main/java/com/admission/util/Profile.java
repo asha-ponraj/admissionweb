@@ -6,14 +6,15 @@ import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class Profile {
 	private static Profile instance;
-	private static final String SUBPATH_NAME = "qywebsystem";
-	private static final String PROFILE_FILENAME = "qywebsystem.properties";
+	private static final String SUBPATH_NAME = "data";
+	private static final String PROFILE_FILENAME = "profile.properties";
 	private File profileFile;
 	
 	private Timestamp startApplicationTime;
@@ -59,7 +60,7 @@ public class Profile {
 	}
 	
 	public static String getHomePath() {
-		String homeDir = System.getProperty("qy.cfg.home");
+		String homeDir = System.getProperty("demo.admission.home");
 //		String homeDir = "c:";
 		String path = MessageFormat.format("{0}{1}{2}", homeDir, getFileSeparator(), SUBPATH_NAME);
 		File f = new File(path);
@@ -275,5 +276,10 @@ public class Profile {
 
 	public void setAddressPattern(Pattern addressPattern) {
 		this.addressPattern = addressPattern;
+	}
+	
+	public String getApplicationYear() {
+		SimpleDateFormat f = new SimpleDateFormat("yyyy");
+		return f.format(this.startApplicationTime);
 	}
 }

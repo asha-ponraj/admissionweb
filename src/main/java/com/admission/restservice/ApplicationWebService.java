@@ -1,17 +1,18 @@
 package com.admission.restservice;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -312,16 +313,17 @@ public class ApplicationWebService {
 	}
 	
 	@RequestMapping(value="/download", method=RequestMethod.GET, produces="application/msword", headers="Accept=application/json")
-	@ResponseBody 
-	public Response downloadApplication(HttpSession session) {
+	public void downloadApplication(HttpServletResponse response, HttpSession session) {
 		Integer id = (Integer)session.getAttribute(WebProfile.SESSION_APPLICATIONID);
 
 		if(id == null) {
-			return Response.status(401).build();
+			response.setStatus(401);
+			return;
 		}
 		
 		if(TimeUtil.getCurTime().after(Profile.getInstance().getDownloadEndTime())) {
-			return Response.status(404).build();
+			response.setStatus(404);
+			return;
 		}
 		
 		File appFile = new File(Profile.getApplicationPath(), "application-"+id+".doc");
@@ -329,7 +331,8 @@ public class ApplicationWebService {
 		try {
 			Application app = applicationService.findApplication(id);
 			if(app == null) {
-				return Response.noContent().build();
+				response.setStatus(204);
+				return;
 			} else {
 				String barcode = app.getBarcode();
 				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
@@ -339,30 +342,35 @@ public class ApplicationWebService {
 				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
 				
 				applicationService.markApplicationDownloaded(id);
+				
+				response.setContentType("application/msword");
+				response.setContentLength((int)appFile.length());
+				response.addHeader("Content-Disposition", "attachment; filename=application.doc");
+				InputStream is = new FileInputStream(appFile);
+				org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+			    response.flushBuffer();
 			}
 		} catch (Throwable t) {
 			log.debug("download application", t);
-			return Response.serverError().build();
+			response.setStatus(500);
+			return;
 		}
-		
-		ResponseBuilder response = Response.ok((Object)appFile);
-		response.header("Content-Disposition", "attachment; filename=application.doc");
-		return response.build();
 	}
 	
 	@RequestMapping(value="/downloadall", method=RequestMethod.GET, produces="application/vnd.ms-excel", headers="Accept=application/json")
-	@ResponseBody 
-	public Response downloadApplicationAll() {
+	public void downloadApplicationAll(HttpServletResponse response) {
 		File file = new File(Profile.getExportPath(), TimeUtil.getCurTimeString()+".xls");
 		FileOutputStream fos = null;
 		try {
 			List<Application> apps = applicationService.findAllApplication();
 			HSSFWorkbook wb = ApplicationUtil.buildWorkbook(apps);
+			
 			fos = new FileOutputStream(file);
 			wb.write(fos);
 		} catch (Throwable t) {
-			log.debug("download application", t);
-			return Response.serverError().build();
+			log.debug("generate applications file failed", t);
+			response.setStatus(500);
+			return;
 		} finally {
 			if(fos != null) {
 				try {
@@ -371,9 +379,18 @@ public class ApplicationWebService {
 			}
 		}
 		
-		ResponseBuilder response = Response.ok((Object)file);
-		response.header("Content-Disposition", "attachment; filename=applications.xls");
-		return response.build();
+		try {
+			response.setContentType("application/vnd.ms-excel");
+			response.setContentLength((int)file.length());
+			response.addHeader("Content-Disposition", "attachment; filename="+file.getName());
+
+			FileInputStream fis = new FileInputStream(file);
+			org.apache.commons.io.IOUtils.copy(fis, response.getOutputStream());
+		    response.flushBuffer();
+		} catch (Throwable t) {
+			log.debug("download applications failed", t);
+			response.setStatus(500);
+		}
 	}
 	
 	@RequestMapping(value="/resetquerypassword/{id}", method=RequestMethod.GET, headers="Accept=application/json")

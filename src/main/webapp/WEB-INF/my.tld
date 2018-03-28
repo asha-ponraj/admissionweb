@@ -24,5 +24,18 @@
          <rtexprvalue>true</rtexprvalue>
       </attribute>
    </tag>
+
+   <tag>
+      <name>param</name>
+      <tag-class>com.admission.web.tag.ParameterTag</tag-class>
+      <body-content>Empty</body-content>
+      <description>
+      </description>
+      <attribute>
+         <name>name</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+      </attribute>
+   </tag>
 </taglib>
 

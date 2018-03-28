@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.admission.util.*, java.sql.Timestamp"%>
+<%@taglib uri="/admissionweb/tags" prefix="at" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>上海闵行区启英幼儿园招生报名</title>
+<title><at:param name="school.name" />招生报名</title>
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="css/my.css">
@@ -27,7 +28,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 <div class="page_body">
 <div class="hmenu"><jsp:include page="menu.jsp"></jsp:include></div>
 <div class="board">
-<div class="title">闵行区启英幼儿园报名登记表</div>
+<div class="title"><at:param name="school.name" />报名登记表</div>
 <div class="subtitle"><%= startTimeStr%> ~ <%= endTimeStr%></div>
 <div class="block">
 <table border="0" cellspacing="0" cellpadding="5">

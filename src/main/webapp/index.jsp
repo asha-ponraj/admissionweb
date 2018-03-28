@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.admission.util.Profile" %>
 <%@taglib uri="/admissionweb/tags" prefix="at" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>上海闵行区启英幼儿园</title>
+<title><at:param name="school.name" /></title>
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="css/my.css">
@@ -25,18 +26,16 @@
 	</div>
 	<div class="content">
 		<div class="block1">
-			<div class="title">2017年启英幼儿园招生报名安排</div>
-			<div class="oflowitem" style="margin-left: 50px;">4月21日-5月7日<br>在线登记报名</div>
+			<div class="title"><%=Profile.getInstance().getApplicationYear() %>年<at:param name="school.name" />招生报名安排</div>
+			<div class="oflowitem" style="margin-left: 50px;">4月21日-5月7日<br>登记报名</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月8日-5月9日<br>受理发放通知</div>
+			<div class="oflowitem"><at:param name="admission.accepttimespace" /><br>发放通知</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月10日-5月12日<br>下载打印报名表</div>
+			<div class="oflowitem"><at:param name="admission.downloadtimespace" /><br>打印报名表</div>
 			<div class="oflowrightarrow" ></div>
-			<div class="oflowitem">5月20日-5月21日<br>面谈活动</div>
+			<div class="oflowitem"><at:param name="admission.interviewtimespace" /><br>参加面谈活动</div>
 			<div class="oflowend"></div>
-			注意事项：<br>
-			1. 登记时请牢记报名登记时设定的用户名和查询密码，将用于查询报名与招生过程的状态。<br>
-			2. 参加我园面谈活动时，请携带从我园招生网站下载打印的报名表(收到面谈活动通知后方可下载)。
+			<at:param name="admission.precautions" />
 		</div>
 		<div class="block2">
 			<ul id="newslist">

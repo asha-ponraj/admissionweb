@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +23,7 @@ public class Parameter  extends BaseEntity {
 	private String name;
 	private String description;
 	private String value;
+	private String encodedValue;
 	
 	public Parameter() {
 		
@@ -63,6 +66,20 @@ public class Parameter  extends BaseEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+		if(value == null) {
+			encodedValue = null;
+		} else {
+			encodedValue = StringEscapeUtils.escapeHtml(value);
+		}
+	}
+
+	@Transient
+	public String getEncodedValue() {
+		return encodedValue;
+	}
+
+	public void setEncodedValue(String encodedValue) {
+		this.encodedValue = encodedValue;
 	}
 
 }

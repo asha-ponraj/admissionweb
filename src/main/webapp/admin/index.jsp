@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="/admissionweb/tags" prefix="at" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>上海闵行区启英幼儿园招生报名管理系统</title>
+<title><at:param name="school.name" />招生报名管理系统</title>
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../css/admin.css">
@@ -60,7 +61,7 @@ a:active {
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"	style="height: 65px; background: #fe8642; padding: 0px">
 		<div  style="background: url(../images/qy_logo_64.gif) left top no-repeat;padding:0px; margin:0px;font-size: 16px; float:left;height:64px;width:100%;">
-			<div style="float:left;font-size:22px;padding-top:18px;padding-left:70px;color:#676767;text-shadow:0px -1px #bbb,0 1px #fff;font-weight:bold;font-family:微软雅黑,Tahoma,Verdana,新宋体;">上海闵行区启英幼儿园招生报名管理系统</div></div>
+			<div style="float:left;font-size:22px;padding-top:18px;padding-left:70px;color:#676767;text-shadow:0px -1px #bbb,0 1px #fff;font-weight:bold;font-family:微软雅黑,Tahoma,Verdana,新宋体;"><at:param name="school.name" />招生报名管理系统</div></div>
 		</div>
 	</div>
 	<div data-options="region:'west',split:true,title:'功能主菜单'"
