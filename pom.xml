@@ -7,11 +7,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>admissionweb</name>
   <url>http://maven.apache.org</url>
-  
+
   <properties>
-    <cxf.version>2.7.18</cxf.version>
-    <cxf.commons.version>2.3.11</cxf.commons.version>
-    <cxf.binding.version>2.5.11</cxf.binding.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <org.springframework.version>3.2.18.RELEASE</org.springframework.version>
   </properties>
@@ -29,7 +26,7 @@
       <artifactId>spring-orm</artifactId>
       <version>${org.springframework.version}</version>
     </dependency>
-  
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>

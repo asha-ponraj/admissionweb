@@ -1,6 +1,7 @@
 package com.admission.restservice;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -124,6 +125,32 @@ public class SystemWebService {
 		} catch (Throwable t) {
 			log.debug("set timespace fail", t);
 			res.setResult("设置时间段错误: " + t.getMessage());
+		}
+		return res;
+	}
+	
+	
+	@RequestMapping(value="/setagespace", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse setAgeSpace(@RequestParam String minBirthday, @RequestParam String maxBirthday) {
+		JsonResponse res = new JsonResponse();
+		
+		try {
+			Date st = TimeUtil.sqlStringToDate(minBirthday);
+			Date et = TimeUtil.sqlStringToDate(maxBirthday);
+			
+			if(et.before(st)) {
+				throw new Exception("截止生日早于起始生日");
+			}
+			
+			Profile.getInstance().setMinBirthday(st);
+			Profile.getInstance().setMaxBirthday(et);
+			Profile.getInstance().save();
+			
+			res.setResult("ok");
+		} catch (Throwable t) {
+			log.debug("set age space fail", t);
+			res.setResult("设置年龄段错误: " + t.getMessage());
 		}
 		return res;
 	}

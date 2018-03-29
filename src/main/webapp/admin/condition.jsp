@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.admission.util.*, java.sql.Timestamp"%>
+    pageEncoding="UTF-8" import="com.admission.util.*, java.sql.Timestamp, java.util.Date"%>
 <%@taglib uri="/admissionweb/tags" prefix="at" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,9 +24,16 @@ Timestamp endTime = Profile.getInstance().getEndApplicationTime();
 String endTimeStr = TimeUtil.getSQLTimestamp(endTime);
 Timestamp downloadEndTime = Profile.getInstance().getDownloadEndTime();
 String downloadEndTimeStr = TimeUtil.getSQLTimestamp(downloadEndTime);
+Date minBirthday = Profile.getInstance().getMinBirthday();
+String minBirthdayStr = TimeUtil.getSQLDate(minBirthday);
+Date maxBirthday = Profile.getInstance().getMaxBirthday();
+String maxBirthdayStr = TimeUtil.getSQLDate(maxBirthday);
 %>
-<div data-options="region:'center',border:false,title:'时间段设置'">
-<table align="center" style="margin-top: 10px;" cellspacing="10">
+<div data-options="region:'center',border:false,title:'报名条件设置'">
+<table align="left" style="margin-top: 20px;" cellspacing="10">
+	<tr>
+		<th colspan="2">报名时间段设置</th>
+	</tr>
 	<tr>
 		<th>报名开始时间</th>
 		<td><input id="starttime" style="width: 150px;" value="<%=startTimeStr%>"></td>
@@ -42,6 +49,24 @@ String downloadEndTimeStr = TimeUtil.getSQLTimestamp(downloadEndTime);
 	<tr>
 		<td></td>
 		<td><a id="submitbtn" href="#" onClick="submitTimespace()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">设置</a></td>
+	</tr>
+	<tr>
+		<td colspan="2"></td>
+	</tr>
+	<tr>
+		<th colspan="2">报名年龄段设置</th>
+	</tr>
+	<tr>
+		<th>报名起始生日</th>
+		<td><input id="minbirthday" style="width: 150px;" value="<%=minBirthdayStr%>"></td>
+	</tr>
+	<tr>
+		<th>报名截止生日</th>
+		<td><input id="maxbirthday" style="width: 150px;" value="<%=maxBirthdayStr%>"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><a id="submitbtn2" href="#" onClick="submitAgespace()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">设置</a></td>
 	</tr>
 </table>
 </div>
