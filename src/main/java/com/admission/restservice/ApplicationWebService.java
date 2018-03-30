@@ -131,11 +131,7 @@ public class ApplicationWebService {
 					sb.append("</td><td>");
 					sb.append(tm.getName());
 					sb.append("</td><td>");
-					sb.append(tm.getEducation());
-					sb.append("</td><td>");
 					sb.append(tm.getCompany());
-					sb.append("</td><td>");
-					sb.append(tm.getPosition());
 					sb.append("</td><td>");
 					sb.append(tm.getPhone());
 					sb.append("</td><td>");

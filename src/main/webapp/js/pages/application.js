@@ -2,6 +2,11 @@ $(function(){
 	$('#menu_application').removeClass('item');
 	$('#menu_application').addClass('focusitem');
 	
+	$('#grade').combobox({
+		required: true,
+		editable: false
+	});
+		
 	$('#candidatetype').combobox({
 		required: true,
 		editable: false
@@ -208,6 +213,11 @@ function submitApplication() {
 		alert("查询密码和确认密码不一致");
 		return;
 	}
+	var grade = $.trim($('#grade').combobox('getValue'));
+	if(!grade || grade == "") {
+		alert("请选择申请班级");
+		return;
+	}
 	var candidatetype = $.trim($('#candidatetype').combobox('getValue'));
 	if(!candidatetype || candidatetype == "") {
 		alert("请选择招生对象属性");
@@ -407,9 +417,6 @@ function submitApplication() {
 	var name1 = $.trim($('#name1').val());
 	if(!checkMaxlength('#name1', name1, 32, "父亲的姓名", false))
 		return;
-	var education1 = $.trim($('#education1').combobox('getText'));
-	if(!checkMaxlength('#education1', education1, 32, "父亲的文化程度", false))
-		return;
 	var idnumber1 = $.trim($('#idnumber1').val());
 	if(!checkMaxlength('#idnumber1', idnumber1, 32, "父亲的身份证", false))
 		return;
@@ -418,9 +425,6 @@ function submitApplication() {
 		return;
 	var residentpermit1 = $.trim($('#residentpermit1').val());
 	if(!checkMaxlength('#residentpermit1', residentpermit1, 32, "父亲的居住证类别及编号", false))
-		return;
-	var position1 = $.trim($('#position1').val());
-	if(!checkMaxlength('#position1', position1, 64, "父亲的职位", false))
 		return;
 	var phone1 = $.trim($('#phone1').val());
 	if(!checkMaxlength('#phone1', phone1, 64, "父亲的联系电话", false))
@@ -432,9 +436,6 @@ function submitApplication() {
 	var name2 = $.trim($('#name2').val());
 	if(!checkMaxlength('#name2', name2, 32, "母亲的姓名", false))
 		return;
-	var education2 = $.trim($('#education2').combobox('getText'));
-	if(!checkMaxlength('#education2', education2, 32, "母亲的文化程度", false))
-		return;
 	var idnumber2 = $.trim($('#idnumber2').val());
 	if(!checkMaxlength('#idnumber2', idnumber2, 32, "母亲的身份证", false))
 		return;
@@ -443,9 +444,6 @@ function submitApplication() {
 		return;
 	var residentpermit2 = $.trim($('#residentpermit2').val());
 	if(!checkMaxlength('#residentpermit2', residentpermit2, 32, "母亲的居住证类别及编号", false))
-		return;
-	var position2 = $.trim($('#position2').val());
-	if(!checkMaxlength('#position2', position2, 64, "母亲的职位", false))
 		return;
 	var phone2 = $.trim($('#phone2').val());
 	if(!checkMaxlength('#phone2', phone2, 64, "母亲的联系电话", false))
@@ -468,7 +466,7 @@ function submitApplication() {
 	var applicationData = JSON.stringify({
 		"username" : username,
 		"password": password,
-		"grade" : 1,
+		"grade" : grade,
 		"candidateType": candidatetype,
 		"name": name,
 		"formerName" : formername,
@@ -524,21 +522,17 @@ function submitApplication() {
 		"members": [{
 			"type": 1,
 			"name": name1,
-			"education": education1,
 			"idNumber": idnumber1,
 			"company": company1,
 			"residentPermit": residentpermit1,
-			"position": position1,
 			"phone": phone1,
 			"mobile": mobile1
 		},{
 			"type": 2,
 			"name": name2,
-			"education": education2,
 			"idNumber": idnumber2,
 			"company": company2,
 			"residentPermit": residentpermit2,
-			"position": position2,
 			"phone": phone2,
 			"mobile": mobile2
 		}]

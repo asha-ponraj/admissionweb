@@ -50,7 +50,9 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 <hr />
 <div class="greytable">
 	<div style="margin: 5px 0px 5px 0px;">
-		<b>申请班级: 小班&nbsp;&nbsp;</b>
+		<b>申请班级: <input id="grade" class="easyui-combobox" style="width: 80px;"
+	    			data-options="valueField:'id',textField:'text',url:'rest/component/optionitems?parentComKey=&parentItemValue=&comKey=classgrade',editable:false">
+	    			</input>&nbsp;&nbsp;</b>
 		<b>招生对象属性: 
 			<input id="candidatetype" class="easyui-combobox" style="width: 120px;"
 	    			data-options="valueField:'id',textField:'text',url:'json_data/candidatetype_data.json',editable:false">
@@ -161,7 +163,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 			</td>
 			<th>户籍登记日</th>
 			<td colspan="2">
-				<input id="hkregdate" style="width: 130px;"></input>
+				<input id="hkregdate" style="width: 130px;"></input>(幼儿户口页)
 			</td>
 		</tr>
 		<tr>
@@ -236,7 +238,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 	<br />
 	<table border="0" cellspacing="1" cellpadding="4" width="100%">
 		<tr>
-			<th rowspan="2">户籍<br/>地址</th>
+			<th rowspan="2">户籍地址<br/>按户口本首页填写</th>
 			<td colspan="6">
 				<input id="hkaddress" style="width: 900px;"></input>
 	    	</td>
@@ -257,7 +259,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 	    		 	data-options="required:false"></td>
 		</tr>
 		<tr>
-			<th rowspan="2">产权<br/>地址</th>
+			<th rowspan="2">产权地址<br/>按产证填写</th>
 			<td colspan="6">
 				<input id="praddress" style="width: 900px;"></input>
 	    	</td>
@@ -278,7 +280,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 	    		 	data-options="required:false"></td>
 		</tr>
 		<tr>
-			<th rowspan="2">现住<br/>地址</th>
+			<th rowspan="2">现住地址</th>
 			<td colspan="6">
 				<input id="lvaddress" class="easyui-validatebox" type="text" style="width: 900px;"	data-options="required:true"></input>
 	    	</td>
@@ -304,7 +306,7 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 			<th colspan="9">家长信息</th>
 		</tr>
 		<tr>
-			<th>称谓</th><th>姓名</th><th>文化程度</th><th>身份证</th><th>工作单位及地址</th><th>居住证(非沪籍)</th><th>职务</th><th>联系电话</th><th>手机号码</th>
+			<th>称谓</th><th>姓名</th><th>身份证</th><th>工作单位及地址</th><th>居住证号码<br/>(非沪籍填写)</th><th>单位电话</th><th>移动电话</th>
 		</tr>
 		<tr>
 			<td>父</td>
@@ -313,24 +315,15 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="education1" class="easyui-combobox" style="width: 90px;"
-	    			data-options="valueField:'id',textField:'text',url:'json_data/education_data.json',editable:false">
-	    		</input>
-			</td>
-			<td>
-				<input id="idnumber1" class="easyui-validatebox" type="text" style="width: 130px;"
+				<input id="idnumber1" class="easyui-validatebox" type="text" style="width: 140px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="company1" class="easyui-validatebox" type="text" style="width: 130px;"
+				<input id="company1" class="easyui-validatebox" type="text" style="width: 170px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
 				<input id="residentpermit1" class="easyui-validatebox" type="text" style="width: 130px;"
-					data-options="required:false"></input>
-			</td>
-			<td>
-				<input id="position1" class="easyui-validatebox" type="text" style="width: 50px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
@@ -349,23 +342,15 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="education2" class="easyui-combobox" style="width: 90px;"
-	    			data-options="valueField:'id',textField:'text',url:'json_data/education_data.json',editable:false"></input>
-			</td>
-			<td>
-				<input id="idnumber2" class="easyui-validatebox" type="text" style="width: 130px;"
+				<input id="idnumber2" class="easyui-validatebox" type="text" style="width: 140px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="company2" class="easyui-validatebox" type="text" style="width: 130px;"
+				<input id="company2" class="easyui-validatebox" type="text" style="width: 170px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
 				<input id="residentpermit2" class="easyui-validatebox" type="text" style="width: 130px;"
-					data-options="required:false"></input>
-			</td>
-			<td>
-				<input id="position2" class="easyui-validatebox" type="text" style="width: 50px;"
 					data-options="required:false"></input>
 			</td>
 			<td>

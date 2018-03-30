@@ -150,3 +150,19 @@ CREATE TABLE `t_parameters` (
 	CONSTRAINT `uid_parameters_name` UNIQUE INDEX(`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `t_optionitem`;
+CREATE TABLE `t_optionitem` (
+	`id` INT NOT NULL PRIMARY KEY,
+	`parent_id` INT NULL,
+	`com_key` VARCHAR(64) NOT NULL,
+	`item_value` VARCHAR(255) NOT NULL,
+	`item_text` VARCHAR(255) NOT NULL,
+	`item_seq` INT NOT NULL,
+	`item_selected` BOOLEAN NOT NULL,
+	INDEX `id_optionitem_parent_id` (`parent_id`),
+	INDEX `id_optionitem_com_key` (`com_key`),
+	INDEX `id_optionitem_item_value` (`item_value`),
+	INDEX `id_optionitem_item_seq` (`item_seq`),
+	CONSTRAINT `uid_optionitem_com_key_item_value` UNIQUE INDEX(`com_key`, `item_value`),
+	FOREIGN KEY(`parent_id`) REFERENCES `t_optionitem`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

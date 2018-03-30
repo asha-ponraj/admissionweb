@@ -69,6 +69,7 @@ function displayApplication(app) {
 		$('#resulttable tr:eq(' + ip + ')').remove();
 	}
 	
+	$('#grade').html(app.gradeStr);
 	$('#number').html(app.id);
 	$('#name').html(app.name);
 	$('#gender').html(app.gender);

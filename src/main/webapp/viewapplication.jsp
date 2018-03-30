@@ -67,15 +67,17 @@ var selectedNotifyTip = "<%=Profile.getInstance().getSelectedNotifyTip() %>";
 	<caption></caption>
 	<tr>
 		<th>报名登记号</th>
-		<td colspan="3" id="number"></td>
-		<th width="80">身份证号码</th>
+		<td id="number"></td>
+		<th>班级</th>
+		<td id="grade"></td>
+		<th width="80">证件号码</th>
 		<td colspan="3" id="idnumber"></td>
 	</tr>
 	<tr>
 		<th width="80">姓名</th>
 		<td width="120" id="name"></td>
 		<th width="40">性别</th>
-		<td width="60" id="gender"></td>
+		<td width="80" id="gender"></td>
 		<th width="70">出生年月</th>
 		<td width="180" id="birthday"></td>
 		<th width="50">国别</th>

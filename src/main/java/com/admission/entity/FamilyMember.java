@@ -38,11 +38,9 @@ public class FamilyMember  extends BaseEntity {
 	private int type;
 	private String typeStr;
 	private String name;
-	private String education;
 	private String idNumber;
 	private String company;
 	private String residentPermit;
-	private String position;
 	private String phone;
 	private String mobile;
 	
@@ -90,15 +88,6 @@ public class FamilyMember  extends BaseEntity {
 		this.name = name;
 	}
 
-	@Column(name = "education")
-	public String getEducation() {
-		return education;
-	}
-
-	public void setEducation(String education) {
-		this.education = education;
-	}
-
 	@Column(name = "id_number")
 	public String getIdNumber() {
 		return idNumber;
@@ -124,15 +113,6 @@ public class FamilyMember  extends BaseEntity {
 
 	public void setResidentPermit(String residentPermit) {
 		this.residentPermit = residentPermit;
-	}
-
-	@Column(name = "position")
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
 	}
 
 	@Column(name = "phone")

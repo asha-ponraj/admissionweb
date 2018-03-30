@@ -26,12 +26,10 @@ public class ApplicationUtil {
 		KEY_PROADDR("房产地址"),
 		KEY_LVADDR("居住地址"),
 		KEY_FATHERNAME("父亲姓名"),
-		KEY_FATHEREDU("父亲学历"),
 		KEY_FATHERCOMPANY("父亲公司"),
 		KEY_FATHERPHONE("父亲电话"),
 		KEY_FATHERMOBILE("父亲手机"),
 		KEY_MOTHERNAME("母亲姓名"),
-		KEY_MOTHEREDU("母亲学历"),
 		KEY_MOTHERCOMPANY("母亲公司"),
 		KEY_MOTHERPHONE("母亲电话"),
 		KEY_MOTHERMOBILE("母亲手机"),
@@ -84,8 +82,6 @@ public class ApplicationUtil {
 			return lv == null?"":lv.getContent();
 		case KEY_FATHERNAME:
 			return ff == null?"":ff.getName();
-		case KEY_FATHEREDU:
-			return ff == null?"":ff.getEducation();
 		case KEY_FATHERCOMPANY:
 			return ff == null?"":ff.getCompany();
 		case KEY_FATHERPHONE:
@@ -94,8 +90,6 @@ public class ApplicationUtil {
 			return ff == null?"":ff.getMobile();
 		case KEY_MOTHERNAME:
 			return mf == null?"":mf.getName();
-		case KEY_MOTHEREDU:
-			return mf == null?"":mf.getEducation();
 		case KEY_MOTHERCOMPANY:
 			return mf == null?"":mf.getCompany();
 		case KEY_MOTHERPHONE:

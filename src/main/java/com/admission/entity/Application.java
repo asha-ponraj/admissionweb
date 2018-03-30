@@ -94,6 +94,7 @@ public class Application  extends BaseEntity {
 	public static final int PID_TYPE_3 = 3;
 	public static final int PID_TYPE_4 = 4;
 	public static final int PID_TYPE_5 = 5;
+	public static final int PID_TYPE_6 = 6;
 	public static final String pidTypeDesc(int type) {
 		switch(type) {
 		case PID_TYPE_1:
@@ -105,6 +106,8 @@ public class Application  extends BaseEntity {
 		case PID_TYPE_4:
 			return "护照";
 		case PID_TYPE_5:
+			return "无证件";
+		case PID_TYPE_6:
 			return "其他";
 		}
 		return "";
@@ -230,6 +233,7 @@ public class Application  extends BaseEntity {
 	private String username;
 	private String password;
 	private int grade; //年级
+	private String gradeStr;
 	private int candidateType; //招生对象属性
 	private String name; //姓名
 	private String formerName; //曾用名
@@ -378,6 +382,7 @@ public class Application  extends BaseEntity {
 
 	public void setGrade(int grade) {
 		this.grade = grade;
+		this.setGradeStr(gradeDesc(grade));
 	}
 	
 	@Column(name = "candidate_type")
@@ -922,5 +927,14 @@ public class Application  extends BaseEntity {
 
 	public void setRecheckinStr(String recheckinStr) {
 		this.recheckinStr = recheckinStr;
+	}
+
+	@Transient
+	public String getGradeStr() {
+		return gradeStr;
+	}
+
+	public void setGradeStr(String gradeStr) {
+		this.gradeStr = gradeStr;
 	}
 }

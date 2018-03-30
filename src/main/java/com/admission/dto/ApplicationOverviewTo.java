@@ -9,6 +9,7 @@ public class ApplicationOverviewTo {
 	private Integer id;
 	private String barcode;
 	private String username;
+	private String gradeStr;
 	private String candidateTypeStr;
 	private String name;
 	private String gender;
@@ -79,6 +80,7 @@ public class ApplicationOverviewTo {
 		o.setId(app.getId());
 		o.setBarcode(app.getBarcode());
 		o.setUsername(app.getUsername());
+		o.setGradeStr(Application.gradeDesc(app.getGrade()));
 		o.setCandidateTypeStr(Application.candidateTypeDesc(app.getCandidateType()));
 		o.setName(app.getName());
 		o.setGender(app.getGender());
@@ -142,5 +144,11 @@ public class ApplicationOverviewTo {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public String getGradeStr() {
+		return gradeStr;
+	}
+	public void setGradeStr(String gradeStr) {
+		this.gradeStr = gradeStr;
 	}
 }

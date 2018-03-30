@@ -57,6 +57,7 @@
 				<value>com.admission.entity.User</value>
 				<value>com.admission.entity.News</value>
 				<value>com.admission.entity.Parameter</value>
+				<value>com.admission.entity.OptionItem</value>
 			</list>
 		</property>
 	</bean>

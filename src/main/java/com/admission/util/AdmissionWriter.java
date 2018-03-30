@@ -225,7 +225,9 @@ public class AdmissionWriter {
 			s.append(app.getPidType() == Application.PID_TYPE_4?CHECKED:UNCHECKED);
 			s.append("护照  ");
 			s.append(app.getPidType() == Application.PID_TYPE_5?CHECKED:UNCHECKED);
-			s.append("其他\n证件号码: ");
+			s.append("无证件 ");
+			s.append(app.getPidType() == Application.PID_TYPE_6?CHECKED:UNCHECKED);
+			s.append("其他      证件号码: ");
 			s.append(app.getPidNumber());
 			addTableCell(table, 1, 15, s.toString(), tableFont); // 身份证件类别及号码
 			
@@ -518,11 +520,9 @@ public class AdmissionWriter {
 			// //////////////////////////////////////////////////////////////////////////////////////////
 			addTableCell(table, 1, 1, "称\n谓", tableFont);
 			addTableCell(table, 1, 2, "姓\n名", tableFont);
-			addTableCell(table, 1, 1, "文化\n程度", tableFont);
-			addTableCell(table, 1, 2, "身份证号码", tableFont);
+			addTableCell(table, 1, 3, "身份证号码", tableFont);
 			addTableCell(table, 1, 2, "居住证号码\n(非沪籍填写)", tableFont);
-			addTableCell(table, 1, 3, "工作单位", tableFont);
-			addTableCell(table, 1, 4, "职务", tableFont);
+			addTableCell(table, 1, 7, "工作单位", tableFont);
 			addTableCell(table, 1, 2, "固定\n电话", tableFont);
 			addTableCell(table, 1, 1, "移动\n手机", tableFont);
 
@@ -533,16 +533,12 @@ public class AdmissionWriter {
 			addTableCell(table, 1, 1, "父", tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_FATHER)
 					.getName(), tableFont);
-			addTableCell(table, 1, 1, memberMap.get(FamilyMember.TYPE_FATHER)
-					.getEducation(), tableFont);
-			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_FATHER)
+			addTableCell(table, 1, 3, memberMap.get(FamilyMember.TYPE_FATHER)
 					.getIdNumber(), tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_FATHER)
 					.getResidentPermit(), tableFont);
-			addTableCell(table, 1, 3, memberMap.get(FamilyMember.TYPE_FATHER)
+			addTableCell(table, 1, 7, memberMap.get(FamilyMember.TYPE_FATHER)
 					.getCompany(), tableFont);
-			addTableCell(table, 1, 4, memberMap.get(FamilyMember.TYPE_FATHER)
-					.getPosition(), tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_FATHER)
 					.getPhone(), tableFont);
 			addTableCell(table, 1, 1, memberMap.get(FamilyMember.TYPE_FATHER)
@@ -554,16 +550,12 @@ public class AdmissionWriter {
 			addTableCell(table, 1, 1, "母", tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_MOTHER)
 					.getName(), tableFont);
-			addTableCell(table, 1, 1, memberMap.get(FamilyMember.TYPE_MOTHER)
-					.getEducation(), tableFont);
-			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_MOTHER)
+			addTableCell(table, 1, 3, memberMap.get(FamilyMember.TYPE_MOTHER)
 					.getIdNumber(), tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_MOTHER)
 					.getResidentPermit(), tableFont);
-			addTableCell(table, 1, 3, memberMap.get(FamilyMember.TYPE_MOTHER)
+			addTableCell(table, 1, 7, memberMap.get(FamilyMember.TYPE_MOTHER)
 					.getCompany(), tableFont);
-			addTableCell(table, 1, 4, memberMap.get(FamilyMember.TYPE_MOTHER)
-					.getPosition(), tableFont);
 			addTableCell(table, 1, 2, memberMap.get(FamilyMember.TYPE_MOTHER)
 					.getPhone(), tableFont);
 			addTableCell(table, 1, 1, memberMap.get(FamilyMember.TYPE_MOTHER)
