@@ -16,16 +16,22 @@
 	<util:properties id="applicationProps" location="classpath:application.properties" />
 	<context:annotation-config />
 	
+	<bean id="myDataSource" class="com.admission.util.MyDataSource" />
+	
 	<!-- 使用jndi连接数据库 -->
 	<bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">
 		<property name="driver">
-       		<value>com.mysql.jdbc.Driver</value>
+       		<value>#{myDataSource.driver}</value>
     	</property>
     	<property name="driverUrl">
-        	<value>jdbc:mysql://localhost:3306/demodb?user=demo&amp;password=config&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;useunicode=true&amp;characterEncoding=utf8</value>
+        	<value>#{myDataSource.url}</value>
     	</property>
-		<property name="user" value="demo"/>
-		<property name="password" value="config"/>
+		<property name="user">
+        	<value>#{myDataSource.user}</value>
+		</property>
+		<property name="password">
+        	<value>#{myDataSource.password}</value>
+		</property>
 		<property name="houseKeepingSleepTime" value="90000" />
 		<property name="maximumConnectionCount" value="50" />
 		<property name="minimumConnectionCount" value="10" />

@@ -34,6 +34,47 @@ public class Profile {
 	private String addressTip;
 	private static final String KEY_ADDRESSTIP = "addresstip";
 	
+	private static final String KEY_DBDRIVER = "db_driver";
+	private static final String KEY_DBURL = "db_url";
+	private static final String KEY_DBUSER = "db_user";
+	private static final String KEY_DBPASSWORD = "db_password";
+	private String dbDriver;
+	private String dbUrl;
+	private String dbUser;
+	private String dbPassword;
+	
+	public String getDbDriver() {
+		return dbDriver;
+	}
+
+	public void setDbDriver(String dbDriver) {
+		this.dbDriver = dbDriver;
+	}
+
+	public String getDbUrl() {
+		return dbUrl;
+	}
+
+	public void setDbUrl(String dbUrl) {
+		this.dbUrl = dbUrl;
+	}
+
+	public String getDbUser() {
+		return dbUser;
+	}
+
+	public void setDbUser(String dbUser) {
+		this.dbUser = dbUser;
+	}
+
+	public String getDbPassword() {
+		return dbPassword;
+	}
+
+	public void setDbPassword(String dbPassword) {
+		this.dbPassword = dbPassword;
+	}
+
 	private Pattern addressPattern;
 	
 	public synchronized static Profile getInstance() {
@@ -163,6 +204,11 @@ public class Profile {
 		
 		this.setAddressFilter(getPropertyString(pro, KEY_ADDRESSFILTER, ""));
 		this.setAddressTip(getPropertyString(pro, KEY_ADDRESSTIP, ""));
+		
+		this.setDbDriver(getPropertyString(pro, KEY_DBDRIVER, "com.mysql.jdbc.Driver"));
+		this.setDbUrl(getPropertyString(pro, KEY_DBURL, "jdbc:mysql://localhost:3306/demodb?user=demo&password=config&autoReconnect=true&autoReconnectForPools=true&useunicode=true&characterEncoding=utf8"));
+		this.setDbUser(getPropertyString(pro, KEY_DBUSER, "demo"));
+		this.setDbPassword(getPropertyString(pro, KEY_DBPASSWORD, "config"));
 	}
 	
 	public synchronized void save() {
@@ -176,6 +222,11 @@ public class Profile {
 		pro.setProperty(KEY_MAXBIRTHDAY, TimeUtil.dateToSqlString(getMaxBirthday()));
 		pro.setProperty(KEY_ADDRESSFILTER, getAddressFilter());
 		pro.setProperty(KEY_ADDRESSTIP, getAddressTip());
+		
+		pro.setProperty(KEY_DBDRIVER, getDbDriver());
+		pro.setProperty(KEY_DBURL, getDbUrl());
+		pro.setProperty(KEY_DBUSER, getDbUser());
+		pro.setProperty(KEY_DBPASSWORD, getDbPassword());
 		
 		try {
 			pro.store(new FileOutputStream(profileFile), "protential calculator profile file");

@@ -82,8 +82,8 @@ function submitAgespace() {
 	if(!checkMaxlength('#minbirthday', minbirthday, 20, "起始生日", true))
 		return;
 	
-	var minbirthday = $.trim($('#minbirthday').datetimebox('getValue'));
-	if(!checkMaxlength('#minbirthday', minbirthday, 20, "截止生日", true))
+	var maxbirthday = $.trim($('#maxbirthday').datetimebox('getValue'));
+	if(!checkMaxlength('#maxbirthday', maxbirthday, 20, "截止生日", true))
 		return;
 	
 	$.ajax({
