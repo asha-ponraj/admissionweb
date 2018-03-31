@@ -159,6 +159,7 @@ CREATE TABLE `t_optionitem` (
 	`item_text` VARCHAR(255) NOT NULL,
 	`item_seq` INT NOT NULL,
 	`item_selected` BOOLEAN NOT NULL,
+	`validator` VARCHAR(255) NULL,
 	INDEX `id_optionitem_parent_id` (`parent_id`),
 	INDEX `id_optionitem_com_key` (`com_key`),
 	INDEX `id_optionitem_item_value` (`item_value`),

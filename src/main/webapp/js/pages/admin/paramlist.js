@@ -79,7 +79,7 @@ function initParamTable() {
 		columns : [ [ 
 		  {field : 'name', title : '名字', width : 200, sortable : false},
 		  {field : 'encodedValue', title : '内容', width : 400, sortable : false},
-		  {field : 'description', title : '描述', width : 200, sortable : false}
+		  {field : 'description', title : '描述', width : 400, sortable : false}
 		 ] ],
 		fitColumns: false,
 		pagination:true,
@@ -307,7 +307,7 @@ function onDlgCreateParam() {
 		return;
 	
 	var paramvalue = $.trim($('#paramvalue').val());
-	if(!checkMaxlength('#paramvalue', paramvalue, 12000, "参数内容", true))
+	if(!checkMaxlength('#paramvalue', paramvalue, 12000, "参数内容", false))
 		return;
 	
 	var paramData = JSON.stringify({

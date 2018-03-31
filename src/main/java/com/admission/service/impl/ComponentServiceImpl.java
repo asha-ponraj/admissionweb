@@ -18,6 +18,12 @@ public class ComponentServiceImpl implements ComponentService {
 	@Autowired
 	private OptionItemDao optionItemDao;
 	
+	@Override
+	public OptionItem getOptionItem(String comKey, String itemValue) {
+		return optionItemDao.findByComKeyAndItemValue(comKey, itemValue);
+	}
+	
+	@Override
 	public List<OptionItem> findOptionItemByComKey(String parentComKey, String parentItemValue, String comKey) throws Exception {
 		return optionItemDao.findByComKey(parentComKey, parentItemValue, comKey);
 	}

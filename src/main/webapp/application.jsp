@@ -17,12 +17,22 @@
 <script type="text/javascript" src="js/pages/application.js"></script>
 </head>
 <%
-Timestamp startTime = Profile.getInstance().getStartApplicationTime();
+	Timestamp startTime = Profile.getInstance().getStartApplicationTime();
 String startTimeStr = TimeUtil.getStringTimestamp(startTime);
 Timestamp endTime = Profile.getInstance().getEndApplicationTime();
 String endTimeStr = TimeUtil.getStringTimestamp(endTime);
 String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
+int hkAddressMode = ComponentMode.getHkAddressMode();
+boolean propertyAddressRequired = InputValidatorConfig.getBoolean(InputValidatorConfig.PROPERTYADDRESS_REQUIRED);
+boolean hkAddressRequired = InputValidatorConfig.getBoolean(InputValidatorConfig.HKADDRESS_REQUIRED);
+boolean residentAddressRequired = InputValidatorConfig.getBoolean(InputValidatorConfig.RESIDENTADDRESS_REQUIRED);
 %>
+<script type="text/javascript">
+var hkAddressMode = "<%= hkAddressMode %>";
+var propertyAddressRequired = "<%= propertyAddressRequired %>";
+var hkAddressRequired = "<%= hkAddressRequired %>";
+var residentAddressRequired = "<%= residentAddressRequired %>";
+</script>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
 <div class="page_body">
@@ -240,13 +250,30 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 		<tr>
 			<th rowspan="2">户籍地址<br/>按户口本首页填写</th>
 			<td colspan="6">
-				<input id="hkaddress" style="width: 900px;"></input>
+				<% if(hkAddressMode == 1) { %>
+				区域：
+				<input id="hkaddressarea" class="easyui-combobox" style="width: 100px;"
+	    			data-options="valueField:'id',textField:'text',url:'rest/component/optionitems?parentComKey=&parentItemValue=&comKey=hkaddressarea',editable:false">
+	    			</input>
+				地址:
+				<input id="hkaddressmain" class="easyui-combobox" style="width: 380px;"
+	    			data-options="valueField:'id',textField:'text',url:'',editable:false">
+	    			</input>
+				&nbsp;<input id="hkaddressno" class="easyui-validatebox" data-options="required:true" style="width: 80px;"></input>号
+				&nbsp;<input id="hkaddressroom" class="easyui-validatebox" data-options="required:true" style="width: 120px;"></input>(室)
+				<%} else { %>
+				<input id="hkaddress" style="width: 800px;"
+					<% if(hkAddressRequired) { %>
+					 class="easyui-validatebox" data-options="required:true"
+					<%} %>
+				></input>
+				<%} %>
 	    	</td>
 		</tr>
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="hktown" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	    		<input id="hktown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
@@ -261,13 +288,17 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 		<tr>
 			<th rowspan="2">产权地址<br/>按产证填写</th>
 			<td colspan="6">
-				<input id="praddress" style="width: 900px;"></input>
+				<input id="praddress"
+					<% if(propertyAddressRequired) { %>
+					 class="easyui-validatebox" data-options="required:true"
+					<%} %>
+				 style="width: 800px;"></input>
 	    	</td>
 		</tr>
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="prtown" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	    		<input id="prtown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
@@ -282,13 +313,19 @@ String curTimeStr = TimeUtil.getCurTimeString("yyyy年MM月dd日 HH:mm:ss");
 		<tr>
 			<th rowspan="2">现住地址</th>
 			<td colspan="6">
-				<input id="lvaddress" class="easyui-validatebox" type="text" style="width: 900px;"	data-options="required:true"></input>
+				<input id="lvaddress"
+					<% if(residentAddressRequired) { %>
+					 class="easyui-validatebox" data-options="required:true"
+					<%} %>
+				
+				type="text" style="width: 800px;"	
+				></input>
 	    	</td>
 		</tr>
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="lvtown" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	    		<input id="lvtown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>

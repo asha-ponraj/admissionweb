@@ -125,6 +125,21 @@ $(function(){
 		editable: false
 	});
 	
+	
+	$('#hkaddressarea').combobox({
+		required: true,
+		editable: false,
+		onSelect: function(rec) {
+			updateHkAddressMain();
+		}
+	});
+	
+	$('#hkaddressmain').combobox({
+		required: true,
+		editable: false
+	});
+	
+	
 	$('#resultdlg').dialog({
 		title: '信息提示',
 		width: 400,
@@ -162,6 +177,13 @@ function updateNurseryComponents() {
 		$('#nurserylabel').hide();
 		$('#nursery').hide();
 	}
+}
+
+function updateHkAddressMain() {
+	var areaValue = $.trim($('#hkaddressarea').combobox('getValue'));
+	var url = 'rest/component/optionitems?parentComKey=hkaddressarea&parentItemValue=' 
+		+ areaValue + '&comKey=hkaddressmain';
+	$('#hkaddressmain').combobox('reload', url)
 }
 
 function updatePropertyComponents() {
@@ -375,9 +397,28 @@ function submitApplication() {
 	if(!propertyregdate || propertyregdate=="")
 		propertyregdate = "1800-01-01";
 	
-	var hkaddress = $.trim($('#hkaddress').val());
-	if(!checkMaxlength('#hkaddress', hkaddress, 128, "户籍地址", false))
-		return;
+	var hkaddress = '';
+	var hkcomkey = '';
+	var hkitemvalue = '';
+	var hkaddressno = '';
+	var hkaddressroom = '';
+	
+	if(hkAddressMode == 1) {
+		hkcomkey = 'hkaddressmain';
+		hkitemvalue = $('#hkaddressmain').combobox('getValue');
+		if(!checkMaxlength('#hkaddressmain', hkitemvalue, 255, "户籍地址", true))
+			return;
+		hkaddressno = $.trim($('#hkaddressno').val());
+		if(!checkMaxlength('#hkaddressno', hkaddressno, 10, "户籍地址", true))
+			return;
+		hkaddressroom = $.trim($('#hkaddressroom').val());
+		if(!checkMaxlength('#hkaddressroom', hkaddressroom, 10, "户籍地址", true))
+			return;
+	} else {
+		hkaddress = $.trim($('#hkaddress').val());
+		if(!checkMaxlength('#hkaddress', hkaddress, 128, "户籍地址", hkAddressRequired))
+			return;
+	}
 	var hktown = $.trim($('#hktown').val());
 	if(!checkMaxlength('#hktown', hktown, 64, "户籍地址所属镇", false))
 		return;
@@ -389,7 +430,7 @@ function submitApplication() {
 		return;
 	
 	var praddress = $.trim($('#praddress').val());
-	if(!checkMaxlength('#praddress', praddress, 128, "产权地址", false))
+	if(!checkMaxlength('#praddress', praddress, 128, "产权地址", propertyAddressRequired))
 		return;
 	var prtown = $.trim($('#prtown').val());
 	if(!checkMaxlength('#prtown', prtown, 64, "产权地址所属镇", false))
@@ -503,6 +544,10 @@ function submitApplication() {
 		"addresses": [{
 			"type": 1,
 			"content": hkaddress,
+			"hkComKey": hkcomkey,
+			"hkItemValue": hkitemvalue,
+			"hkAddressNo": hkaddressno,
+			"hkAddressRoom": hkaddressroom,
 			"town": hktown,
 			"residentCouncil": hkresidentcouncil,
 			"postcode": hkpostcode

@@ -9,6 +9,7 @@ public class AppQueryTO extends PageInfo {
 	private static final long serialVersionUID = 1L;
 	private int applicationId;
 	private String pidnumber;
+	private int grade;
 	private String name;
 	private String gender;
 	private String nation;
@@ -56,5 +57,11 @@ public class AppQueryTO extends PageInfo {
 	}
 	public void setBlur(boolean blur) {
 		this.blur = blur;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 }

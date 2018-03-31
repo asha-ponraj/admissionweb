@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,8 @@ import com.admission.service.ApplicationService;
 import com.admission.util.AdmissionWriter;
 import com.admission.util.ApplicationUtil;
 import com.admission.util.BarCodeUtil;
+import com.admission.util.EmptyUtil;
+import com.admission.util.InputValidatorConfig;
 import com.admission.util.NumberPool;
 import com.admission.util.Profile;
 import com.admission.util.TimeUtil;
@@ -99,9 +102,8 @@ public class ApplicationWebService {
 		return res;
 	}
 	
-	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET, produces="text/html", headers="Accept=application/json")
-	@ResponseBody 
-	public String getApplicationDetail(@PathVariable int id) {
+	@RequestMapping(value="/detail", method=RequestMethod.GET, headers="Accept=application/json")
+	public void getApplicationDetail(@RequestParam int id, HttpServletResponse response) {
 		StringBuffer sb = new StringBuffer();
 		
 		try {
@@ -145,14 +147,32 @@ public class ApplicationWebService {
 			log.debug("find application fail", t);
 			sb.append("<div style='color:red'>查找报名表失败: " + t.getMessage() + "</div>");
 		}
-		return sb.toString();
+		
+		response.setContentType(MediaType.TEXT_HTML_VALUE);
+		response.setCharacterEncoding("UTF-8");
+		
+		try {
+			response.getWriter().write(sb.toString());
+			response.flushBuffer();
+		} catch (Exception e) {
+			log.debug("write output failed", e);
+			response.setStatus(500);
+		}
 	}
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST, headers="Accept=application/json")
 	@ResponseBody 
 	public JsonResponse createApplication(@RequestBody AppData appData) {
-		Application application = appData.buildApplication();
 		JsonResponse res = new JsonResponse();
+		Application application = null;
+
+		try {
+			application = appData.buildApplication();
+		} catch (Exception e) {
+			log.debug("build application failed", e);
+			res.setResult(e.getMessage());
+			return res;
+		}
 		
 		Timestamp curTime = TimeUtil.getCurTime();
 		if(curTime.before(Profile.getInstance().getStartApplicationTime())){
@@ -162,20 +182,53 @@ public class ApplicationWebService {
 			res.setResult("报名已经结束，请注意起止时间段");
 			return res;
 		}
+	
+		//户籍地址验证
+		Address hkAddress = application.addressMap().get(Address.TYPE_HUKOU);
+		if(InputValidatorConfig.getBoolean(InputValidatorConfig.HKADDRESS_REQUIRED)) {
+			if(hkAddress == null || EmptyUtil.isEmpty(hkAddress.getContent())) {
+				res.setResult("请输入完整的户籍地址");
+				return res;
+			}
+		}
+		String hkAddressValidator = InputValidatorConfig.getString(InputValidatorConfig.HKADDRESS_VALIDATOR);
+		if(!EmptyUtil.isEmpty(hkAddressValidator) 
+				&& hkAddress != null && !EmptyUtil.isEmpty(hkAddress.getContent()) 
+				&& !Pattern.matches(hkAddressValidator, hkAddress.getContent())) {
+			res.setResult(InputValidatorConfig.getString(InputValidatorConfig.HKADDRESS_VALIDATOR_TIP));
+			return res;
+		}
 		
-		String addressFilter = Profile.getInstance().getAddressFilter();
-		if(addressFilter != null && addressFilter.length() > 0) {
-			Address hkAddress = application.addressMap().get(Address.TYPE_HUKOU);
-			if(hkAddress != null && hkAddress.getContent() != null && Pattern.matches(addressFilter, hkAddress.getContent())) {
-				res.setResult(Profile.getInstance().getAddressTip());
+		//产证地址验证
+		Address propertyAddress = application.addressMap().get(Address.TYPE_PROPERTY);
+		if(InputValidatorConfig.getBoolean(InputValidatorConfig.PROPERTYADDRESS_REQUIRED)) {
+			if(propertyAddress == null || EmptyUtil.isEmpty(propertyAddress.getContent())) {
+				res.setResult("请输入完整的产证地址");
 				return res;
 			}
-			
-			Address propertyAddress = application.addressMap().get(Address.TYPE_PROPERTY);
-			if(propertyAddress != null && propertyAddress.getContent() != null && Pattern.matches(addressFilter, propertyAddress.getContent())) {
-				res.setResult(Profile.getInstance().getAddressTip());
+		}
+		String propertyAddressValidator = InputValidatorConfig.getString(InputValidatorConfig.PROPERTYADDRESS_VALIDATOR);
+		if(!EmptyUtil.isEmpty(propertyAddressValidator) 
+				&& propertyAddress != null && !EmptyUtil.isEmpty(propertyAddress.getContent()) 
+				&& !Pattern.matches(propertyAddressValidator, propertyAddress.getContent())) {
+			res.setResult(InputValidatorConfig.getString(InputValidatorConfig.PROPERTYADDRESS_VALIDATOR_TIP));
+			return res;
+		}
+		
+		//居住地址验证
+		Address residentAddress = application.addressMap().get(Address.TYPE_RESIDENCE);
+		if(InputValidatorConfig.getBoolean(InputValidatorConfig.RESIDENTADDRESS_REQUIRED)) {
+			if(residentAddress == null || EmptyUtil.isEmpty(residentAddress.getContent())) {
+				res.setResult("请输入完整的现住地址");
 				return res;
 			}
+		}
+		String residentAddressValidator = InputValidatorConfig.getString(InputValidatorConfig.RESIDENTADDRESS_VALIDATOR);
+		if(!EmptyUtil.isEmpty(residentAddressValidator) 
+				&& residentAddress != null && !EmptyUtil.isEmpty(residentAddress.getContent()) 
+				&& !Pattern.matches(residentAddressValidator, residentAddress.getContent())) {
+			res.setResult(InputValidatorConfig.getString(InputValidatorConfig.RESIDENTADDRESS_VALIDATOR_TIP));
+			return res;
 		}
 		
 		Date birthday = application.getBirthday();

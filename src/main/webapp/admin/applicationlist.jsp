@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><at:param name="school.name" /> - 申请管理</title>
+<title><at:param name="school.name" /> - 报名管理</title>
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="../plugins/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="../css/admin.css">
@@ -25,7 +25,7 @@
 		<td><input id="applicationid" class="easyui-validatebox" type="text" style="width: 80px;"
 			data-options="required:false"></input></td>
 		<th>证件号码</th>
-		<td><input id="pidnumber" class="easyui-validatebox" type="text" style="width: 170px;"
+		<td><input id="pidnumber" class="easyui-validatebox" type="text" style="width: 140px;"
 			data-options="required:false"></input></td>
 		<th>姓名</th>
 		<td colspan="2"><input id="name" class="easyui-validatebox" type="text" style="width: 140px;"
@@ -44,11 +44,16 @@
 		</td>
 	</tr>
 	<tr>
+		<th>班级</th>
+		<td><select id="grade" style="width:80px">
+				<option value="0" selected>不限</option>
+				<option value="1">小班</option>
+				<option value="2">中班</option>
+				<option value="3">大班</option>
+			</select></td>
 		<th>国籍</th>
-		<td><input id="nation" class="easyui-validatebox" type="text" style="width: 80px;"
+		<td><input id="nation" class="easyui-validatebox" type="text" style="width: 140px;"
 			data-options="required:false"></input></td>
-		<th></th>
-		<td></td>
 		<th>排序</th>
 		<td>
 			<select id="sortname" style="width:80px">

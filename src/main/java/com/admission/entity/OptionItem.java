@@ -13,6 +13,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.admission.dto.OptionTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "t_optionitem")
@@ -27,6 +28,9 @@ public class OptionItem extends BaseEntity {
 	private String itemText;
 	private String itemSeq;
 	private boolean itemSelected;
+	private String validator;
+	
+	@JsonIgnore
 	private OptionItem parent;
 	
 	public static OptionTO from(OptionItem item) {
@@ -107,6 +111,15 @@ public class OptionItem extends BaseEntity {
 
 	public void setParent(OptionItem parent) {
 		this.parent = parent;
+	}
+
+	@Column(name="validator")
+	public String getValidator() {
+		return validator;
+	}
+
+	public void setValidator(String validator) {
+		this.validator = validator;
 	}
 	
 }

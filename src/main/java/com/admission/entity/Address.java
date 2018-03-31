@@ -25,6 +25,7 @@ public class Address  extends BaseEntity {
 	
 	@JsonIgnore
 	private Application application;
+	
 	private Integer id;
 	private int type;
 	private String content;

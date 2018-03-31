@@ -4,6 +4,11 @@ $(function() {
 		editable: false
 	});
 	
+	$('#grade').combobox({
+		required: true,
+		editable: false
+	});
+	
 	$('#status').combobox({
 		required: true,
 		editable: false
@@ -121,6 +126,7 @@ function initApplicationTable() {
 		columns : [ [ 
 		  {field : 'id',title : '报名号', width : 60, sortable : false},
 		  {field : 'statusStr',title : '状态',	width : 100,sortable : false},
+		  {field : 'gradeStr',title : '班级',	width : 100,sortable : false},
 		  {field : 'candidateTypeStr',title : '招生对象属性', width : 85, sortable : false},
 		  {field : 'name',title : '姓名', width : 100, sortable : false},
 		  {field : 'gender',title : '性别', width : 40,sortable : false},
@@ -356,6 +362,7 @@ function reloadApplicationTable(pageNumber) {
 	}
 	var pidnumber = $.trim($('#pidnumber').val());
 	var name = $.trim($('#name').val());
+	var grade = $.trim($('#grade').combobox('getValue'));
 	var gender = $.trim($('#gender').combobox('getValue'));
 	var nation = $.trim($('#nation').val());
 	var status = $.trim($('#status').combobox('getValue'));
@@ -368,6 +375,7 @@ function reloadApplicationTable(pageNumber) {
 	var paramData = JSON.stringify({
 		'applicationId': applicationid,
 		'pidnumber': pidnumber,
+		'grade': grade,
 		'name': name,
 		'gender': gender,
 		'nation': nation,

@@ -57,7 +57,7 @@ public class AppData {
 		
 	}
 	
-	public Application buildApplication() {
+	public Application buildApplication() throws Exception {
 		Application app = new Application();
 		
 		app.setUsername(username);

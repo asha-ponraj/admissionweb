@@ -85,8 +85,12 @@ public class ApplicationDaoImpl extends BaseDaoHibernate<Application> implements
 		if(appQuery.getStatus() != 0) {
 			criteria.add(Restrictions.eq("status", appQuery.getStatus()));
 		}
-		if(appQuery.getGender() != null && appQuery.getGender().length() > 0)
+		if(appQuery.getGender() != null && appQuery.getGender().length() > 0) {
 			criteria.add(Restrictions.eq("gender", appQuery.getGender()));
+		}
+		if(appQuery.getGrade() != 0) {
+			criteria.add(Restrictions.eq("grade", appQuery.getGrade()));
+		}
 		
 		if(appQuery.isBlur()) {
 			if(appQuery.getPidnumber() != null && appQuery.getPidnumber().length() > 0)

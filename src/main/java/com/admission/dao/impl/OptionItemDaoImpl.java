@@ -14,6 +14,21 @@ import com.admission.util.EmptyUtil;
 
 @Repository("optionItemDao")
 public class OptionItemDaoImpl extends BaseDaoHibernate<OptionItem> implements OptionItemDao {
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public OptionItem findByComKeyAndItemValue(String comKey, String itemValue) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(OptionItem.class);
+
+		criteria.add(Restrictions.eq("comKey", comKey));
+		criteria.add(Restrictions.eq("itemValue", itemValue));
+		
+		List<OptionItem> items = getHibernateTemplate().findByCriteria(criteria);
+		if(items != null && items.size() > 0)
+			return items.get(0);
+		
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

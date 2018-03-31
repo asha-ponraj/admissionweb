@@ -14,6 +14,7 @@ import com.admission.entity.FamilyMember;
 public class ApplicationUtil {
 	public static enum KEYS {
 		KEY_APPID("报名号"),
+		KEY_GRADE("班级"),
 		KEY_CANDIDATETYPE("招生对象属性"),
 		KEY_NAME("学生姓名"),
 		KEY_GENDER("性别"),
@@ -58,6 +59,8 @@ public class ApplicationUtil {
 		switch(key) {
 		case KEY_APPID:
 			return String.valueOf(app.getId());
+		case KEY_GRADE:
+			return app.getGradeStr();
 		case KEY_CANDIDATETYPE:
 			return Application.candidateTypeDesc(app.getCandidateType());
 		case KEY_NAME:
