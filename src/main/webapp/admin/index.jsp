@@ -60,7 +60,7 @@ a:active {
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"	style="height: 65px; background: #fe8642; padding: 0px">
-		<div  style='background: url(../images/<at:param name="style.name" defaultValue="my" />_logo.gif) left top no-repeat;padding:0px; margin:0px;font-size: 16px; float:left;height:64px;width:100%;'>
+		<div  style='background: url(../images/my_logo.gif) left top no-repeat;padding:0px; margin:0px;font-size: 16px; float:left;height:64px;width:100%;'>
 			<div style="float:left;font-size:22px;padding-top:18px;padding-left:70px;color:#676767;text-shadow:0px -1px #bbb,0 1px #fff;font-weight:bold;font-family:微软雅黑,Tahoma,Verdana,新宋体;"><at:param name="school.name" />招生报名管理系统</div></div>
 		</div>
 	</div>

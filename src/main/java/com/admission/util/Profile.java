@@ -4,18 +4,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 public class Profile {
+	private static final Logger log = Logger.getLogger(Profile.class);
+	
 	private static Profile instance;
-	private static final String SUBPATH_NAME = "data";
+	public static String CONTEXT_PATH;
 	private static final String PROFILE_FILENAME = "profile.properties";
 	private File profileFile;
+	
+	private static File HOME_PATH;
 	
 	private Timestamp startApplicationTime;
 	private static final String KEY_STARTAPPLICATIONTIME = "startapplicationtime";
@@ -100,16 +105,22 @@ public class Profile {
 		return System.getProperty("file.separator");
 	}
 	
-	public static String getHomePath() {
-		String homeDir = System.getProperty("demo.admission.home");
-//		String homeDir = "c:";
-		String path = MessageFormat.format("{0}{1}{2}", homeDir, getFileSeparator(), SUBPATH_NAME);
-		File f = new File(path);
-		if(!f.exists()) {
-			f.mkdir();
+	public static File getHomePath() {
+		if(HOME_PATH != null)
+			return HOME_PATH;
+		
+		String homePropertyName = CONTEXT_PATH + ".data.dir";
+		log.info("Read homeDir property from java env: " + homePropertyName);
+
+		String homeDir = System.getProperty(homePropertyName);
+		HOME_PATH = new File(homeDir);
+		if(!HOME_PATH.exists()) {
+			HOME_PATH.mkdir();
 		}
 		
-		return path;
+		log.info("Data home path: " + HOME_PATH.getAbsolutePath());
+		
+		return HOME_PATH;
 	}
 	
 	public static File getApplicationPath() {
@@ -130,6 +141,14 @@ public class Profile {
 	
 	public static File getExportPath() {
 		File dir = new File(getHomePath(), "export");
+		if(!dir.exists())
+			dir.mkdir();
+		
+		return dir;
+	}
+	
+	public static File getStylePath() {
+		File dir = new File(getHomePath(), "style");
 		if(!dir.exists())
 			dir.mkdir();
 		

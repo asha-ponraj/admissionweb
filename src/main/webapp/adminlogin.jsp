@@ -8,7 +8,7 @@
 <title><at:param name="school.name" />招生报名系统</title>
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="plugins/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="css/<at:param name="style.name" defaultValue="my" />.css">
+<link rel="stylesheet" type="text/css" href="css/my.css">
 <script type="text/javascript" src="plugins/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="plugins/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="plugins/easyui/locale/easyui-lang-zh_CN.js"></script>

@@ -12,13 +12,12 @@ import com.admission.util.NumberPool;
 public class AppListener implements ServletContextListener {
 
 	@Override
-	public void contextDestroyed(ServletContextEvent arg0) {
+	public void contextDestroyed(ServletContextEvent sce) {
 		ProxoolFacade.shutdown();
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
+	public void contextInitialized(ServletContextEvent sce) {
 		TimeZone time = TimeZone.getTimeZone("GMT+8");
 		TimeZone.setDefault(time);
 		NumberPool.getInstance().init();

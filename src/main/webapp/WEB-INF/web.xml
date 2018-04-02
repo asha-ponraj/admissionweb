@@ -14,6 +14,9 @@
   	<param-value>admissionweb.root</param-value>
   </context-param>
   <listener>
+  	<listener-class>com.admission.web.listener.InitListener</listener-class>
+  </listener>
+  <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
@@ -85,6 +88,16 @@
   <filter-mapping>
     <filter-name>hibReqSessionFilter</filter-name>
     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+  	<filter-name>stylefilter</filter-name>
+  	<filter-class>com.admission.web.filter.StyleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>stylefilter</filter-name>
+  	<url-pattern>/css/my.css</url-pattern>
+  	<url-pattern>/images/my_logo.gif</url-pattern>
+  	<url-pattern>/images/head_bg.gif</url-pattern>
   </filter-mapping>
   <servlet>
  <servlet-name>dispatcher</servlet-name>
