@@ -409,10 +409,10 @@ function submitApplication() {
 		if(!checkMaxlength('#hkaddressmain', hkitemvalue, 255, "户籍地址", true))
 			return;
 		hkaddressno = $.trim($('#hkaddressno').val());
-		if(!checkMaxlength('#hkaddressno', hkaddressno, 10, "户籍地址", true))
+		if(!checkMaxlength('#hkaddressno', hkaddressno, 24, "户籍地址", true))
 			return;
 		hkaddressroom = $.trim($('#hkaddressroom').val());
-		if(!checkMaxlength('#hkaddressroom', hkaddressroom, 10, "户籍地址", true))
+		if(!checkMaxlength('#hkaddressroom', hkaddressroom, 24, "户籍地址", false))
 			return;
 	} else {
 		hkaddress = $.trim($('#hkaddress').val());

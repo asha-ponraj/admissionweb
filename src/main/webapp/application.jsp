@@ -260,7 +260,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    			data-options="valueField:'id',textField:'text',url:'',editable:false">
 	    			</input>
 				&nbsp;<input id="hkaddressno" class="easyui-validatebox" data-options="required:true" style="width: 80px;"></input>号
-				&nbsp;<input id="hkaddressroom" class="easyui-validatebox" data-options="required:true" style="width: 120px;"></input>(室)
+				&nbsp;<input id="hkaddressroom" class="easyui-validatebox" data-options="required:false" style="width: 120px;"></input>(室)
 				<%} else { %>
 				<input id="hkaddress" style="width: 800px;"
 					<% if(hkAddressRequired) { %>
