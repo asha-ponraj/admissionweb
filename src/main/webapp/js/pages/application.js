@@ -222,6 +222,7 @@ function updateHkAddressMain() {
 		success: function(response, textStatus, xhr) {
 			$('#hkaddressmain').combobox('clear');
 			$('#hkaddressmain').combobox('loadData', response);
+			$('#hkaddressmain').combobox('validate');
 		}
 	});
 }
