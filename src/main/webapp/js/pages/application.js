@@ -215,7 +215,8 @@ function updateHkAddressMain() {
 			}
 		},
 		success: function(response, textStatus, xhr) {
-			$.trim($('#hkaddressmain').combobox('loadData', response));
+			$('#hkaddressmain').combobox('clear');
+			$('#hkaddressmain').combobox('loadData', response);
 		}
 	});
 }
