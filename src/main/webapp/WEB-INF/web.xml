@@ -9,10 +9,6 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
-  <context-param>
-  	<param-name>webAppRootKey</param-name>
-  	<param-value>admissionweb.root</param-value>
-  </context-param>
   <listener>
   	<listener-class>com.admission.web.listener.InitListener</listener-class>
   </listener>
