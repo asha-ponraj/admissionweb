@@ -76,6 +76,12 @@ CREATE TABLE `t_application` (
 	`allergic` BOOLEAN NOT NULL,
 	`specific_disease` VARCHAR(32) NULL,
 	`immunity_cert` BOOLEAN NOT NULL,
+	`junlie` INT NULL,
+	`budui` INT NULL,
+	`youfu` INT NULL,
+	`dibao` INT NULL,
+	`suiqian` INT NULL,
+	`liushou` INT NULL,
 	`remark` TEXT NOT NULL,
 	`create_time` DATETIME NOT NULL,
 	`status` INT NOT NULL,
@@ -140,6 +146,7 @@ CREATE TABLE `t_news` (
 	INDEX `id_news_top_time` (`top_time`),
 	INDEX `id_news_seq` (`seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `t_parameters`;
 CREATE TABLE `t_parameters` (

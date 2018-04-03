@@ -98,6 +98,7 @@
   	<url-pattern>/css/my.css</url-pattern>
   	<url-pattern>/images/my_logo.gif</url-pattern>
   	<url-pattern>/images/head_bg.gif</url-pattern>
+  	<url-pattern>/images/head_bg.jpg</url-pattern>
   </filter-mapping>
   <servlet>
  <servlet-name>dispatcher</servlet-name>
