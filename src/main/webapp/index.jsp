@@ -27,7 +27,7 @@
 	<div class="content">
 		<div class="block1">
 			<div class="title"><%=Profile.getInstance().getApplicationYear() %>年<at:param name="school.name" />招生报名安排</div>
-			<div class="oflowitem" style="margin-left: 50px;">4月21日-5月7日<br>登记报名</div>
+			<div class="oflowitem" style="margin-left: 50px;"><at:param name="admission.submittimespace" /><br>登记报名</div>
 			<div class="oflowrightarrow" ></div>
 			<div class="oflowitem"><at:param name="admission.accepttimespace" /><br>发放通知</div>
 			<div class="oflowrightarrow" ></div>
