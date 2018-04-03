@@ -163,9 +163,14 @@ $(function(){
 		}
 	});
 	
+	initComponents();
 	updateNurseryComponents();
 	updatePropertyComponents();
 });
+
+function initComponents() {
+	$('#hkaddressarea').combobox('clear');
+}
 
 function updateNurseryComponents() {
 	var kindergartened = $.trim($('#kindergartened').combobox('getValue'));
