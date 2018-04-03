@@ -181,10 +181,43 @@ function updateNurseryComponents() {
 
 function updateHkAddressMain() {
 	var areaValue = $.trim($('#hkaddressarea').combobox('getValue'));
-	$.trim($('#hkaddressarea').combobox('setValue', ''));
+
 	var url = 'rest/component/optionitems?parentComKey=hkaddressarea&parentItemValue=' 
 		+ areaValue + '&comKey=hkaddressmain';
-	$('#hkaddressmain').combobox('reload', url)
+
+	$.ajax({
+		url: 'rest/component/optionitems',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		type: 'GET',
+		dataType: "json",
+		contentType: 'application/json;charset=UTF-8',
+		beforeSend: function(x) {
+            if (x && x.overrideMimeType) {
+              x.overrideMimeType("application/j-son;charset=UTF-8");
+            }
+            //跨域使用
+            x.setRequestHeader("Accept", "application/json");
+        },
+		timeout: gAjaxTimeout,
+		data: ({
+			'parentComKey': 'hkaddressarea',
+			'parentItemValue': areaValue,
+			'comKey': 'hkaddressmain'
+		}),
+		error: function(xhr, textStatus, thrownError){
+			if(xhr.readyState != 0 && xhr.readyState != 1) {
+				alert("获取地址列表失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
+			}else{
+			 	alert("获取地址列表失败，错误信息:  " + textStatus);
+			}
+		},
+		success: function(response, textStatus, xhr) {
+			$.trim($('#hkaddressarea').combobox('loadData', response));
+		}
+	});
 }
 
 function updatePropertyComponents() {
