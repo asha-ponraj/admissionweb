@@ -181,6 +181,7 @@ function updateNurseryComponents() {
 
 function updateHkAddressMain() {
 	var areaValue = $.trim($('#hkaddressarea').combobox('getValue'));
+	$.trim($('#hkaddressarea').combobox('setValue', ''));
 	var url = 'rest/component/optionitems?parentComKey=hkaddressarea&parentItemValue=' 
 		+ areaValue + '&comKey=hkaddressmain';
 	$('#hkaddressmain').combobox('reload', url)
