@@ -11,7 +11,7 @@
   </context-param>
   <context-param>
     <param-name>webAppRootKey</param-name>
-    <param-value>guanghai</param-value>
+    <param-value>${webapp.rootname}</param-value>
   </context-param>
   <listener>
   	<listener-class>com.admission.web.listener.InitListener</listener-class>
