@@ -5,9 +5,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.admission.entity.Address;
 import com.admission.entity.Application;
 import com.admission.entity.FamilyMember;
+import com.admission.entity.Parameter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Cell;
 import com.lowagie.text.Document;
@@ -22,6 +25,8 @@ import com.lowagie.text.rtf.headerfooter.RtfHeaderFooter;
 import com.lowagie.text.rtf.style.RtfFont;
 
 public class AdmissionWriter {
+	private static final Logger log = Logger.getLogger(AdmissionWriter.class);
+	
 	private static final char CHECKED = '\u2611';
 	private static final char UNCHECKED = '\u2610';
 
@@ -81,9 +86,31 @@ public class AdmissionWriter {
 
 //			RtfHeaderFooter header = new RtfHeaderFooter(barcodeImg);
 //			writer.setHeader(header);
+	        StringBuilder sbFoot = new StringBuilder();
+	        try {
+	        	sbFoot.append("地址:");
+	        	Parameter paramSchoolAddress = ServiceAccess.getInstance().getParameterService().findParameterByName("school.address");
+	        	if(paramSchoolAddress != null) {
+	        		sbFoot.append(paramSchoolAddress.getValue());
+	        	}
+	        	
+	        	sbFoot.append("  电话:");
+	        	Parameter paramSchoolPhone = ServiceAccess.getInstance().getParameterService().findParameterByName("school.phone");
+	        	if(paramSchoolPhone != null) {
+	        		sbFoot.append(paramSchoolPhone.getValue());
+	        	}
+	        	
+	        	sbFoot.append("  网址:");
+	        	Parameter paramSchoolWebsite = ServiceAccess.getInstance().getParameterService().findParameterByName("school.website");
+	        	if(paramSchoolWebsite != null) {
+	        		sbFoot.append(paramSchoolWebsite.getValue());
+	        	}
+	        } catch (Exception e) {
+	        	log.debug("fetch parameter failed", e);
+	        }
+	        
 
-			Paragraph footPara = new Paragraph(
-					"地址:上海市闵行区新镇路1085号  电话:021-54859690  网址:http://qyyey.age06.com");
+			Paragraph footPara = new Paragraph(sbFoot.toString());
 			footPara.setFont(bfont);
 			RtfHeaderFooter footer = new RtfHeaderFooter(footPara);
 			footer.setAlignment(HeaderFooter.ALIGN_CENTER);
@@ -97,8 +124,26 @@ public class AdmissionWriter {
 	        doc.add(headerTable);
 
 			// 构建标题，居中对齐，12f表示单倍行距
+	        StringBuilder sbTitle = new StringBuilder();
+	        try {
+	        	Parameter paramYear = ServiceAccess.getInstance().getParameterService().findParameterByName("admission.year");
+	        	if(paramYear != null) {
+	        		sbTitle.append(paramYear.getValue());
+	        	}
+	        	
+	        	Parameter paramSchoolName = ServiceAccess.getInstance().getParameterService().findParameterByName("school.name");
+	        	if(paramSchoolName != null) {
+	        		sbTitle.append(paramSchoolName.getValue());
+	        	}
+	        	
+	        	sbTitle.append("报名表");
+	        } catch (Exception e) {
+	        	log.debug("fetch parameter failed", e);
+	        }
+	        
+	        
 			Paragraph title = RTFDocStyleUtils.setParagraphStyle(
-					"2017年上海闵行区启英幼儿园报名表", tfont, 16f, Paragraph.ALIGN_CENTER);
+					sbTitle.toString(), tfont, 16f, Paragraph.ALIGN_CENTER);
 			doc.add(title);
 
 			Paragraph gradePar = RTFDocStyleUtils.setParagraphStyle("申请班级："

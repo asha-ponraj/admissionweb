@@ -501,7 +501,7 @@ public class ApplicationWebService {
 			} else {
 				try {
 					String ts = barcode.substring(4);
-					id = Integer.parseInt(ts.substring(0, ts.length() - 1));
+					id = Integer.parseInt(ts);
 				} catch (Exception e){}
 			}
 			

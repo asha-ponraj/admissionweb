@@ -64,7 +64,7 @@ function query(params) {
 					$('#t_name').html(response.data.appData.name);
 					$('#t_gender').html(response.data.appData.gender);
 					$('#t_birthday').html(response.data.appData.birthdayStr);
-					$('#t_idnumber').html(response.data.appData.idNumber);
+					$('#t_idnumber').html(response.data.appData.pidNumber);
 					$('#t_nation').html(response.data.appData.nation);
 					$('#t_checkintime').html(response.data.appData.checkinTimeStr);
 					$('#t_recheckin').html(response.data.appData.recheckinStr);
