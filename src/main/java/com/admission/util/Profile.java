@@ -155,6 +155,14 @@ public class Profile {
 		return dir;
 	}
 	
+	public static File getResourcePath() {
+		File dir = new File(getHomePath(), "resource");
+		if(!dir.exists())
+			dir.mkdir();
+		
+		return dir;
+	}
+	
 	public synchronized void load() {
 		Properties pro = new Properties();
 		try {
