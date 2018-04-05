@@ -20,8 +20,15 @@
 <div data-options="region:'center',border:false,title:'系统工具'">
 <table align="center" style="margin-top: 10px;" cellspacing="10">
 	<tr>
-		<td></td>
-		<td><a id="reloadcfgbtn" href="#" onClick="reloadcfg()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">重新加载配置</a></td>
+		<td>系统配置：</td>
+		<td><a id="reloadcfgbtn" href="#" onClick="reloadcfg()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">重新加载</a></td>
+	</tr>
+	<tr>
+		<td colspan="2"></td>
+	</tr>
+	<tr>
+		<td>报名数据重置：</td>
+		<td><a id="resetadmissionbtn" href="#" onClick="resetadmission()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">重置报名数据</a></td>
 	</tr>
 </table>
 </div>

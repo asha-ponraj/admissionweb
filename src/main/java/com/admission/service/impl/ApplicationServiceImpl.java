@@ -91,6 +91,13 @@ public class ApplicationServiceImpl implements ApplicationService {
 		
 		applicationDao.delete(app);
 	}
+	
+	@Override
+	public void deleteAllApplications() throws Exception {
+		addressDao.deleteAll();
+		familyMemberDao.deleteAll();
+		applicationDao.deleteAll();
+	}
 
 	@Override
 	public Application checkinApplication(int applicationId) throws Exception {

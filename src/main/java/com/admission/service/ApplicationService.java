@@ -11,6 +11,8 @@ public interface ApplicationService {
 	
 	public void deleteApplication(int id) throws Exception;
 	
+	public void deleteAllApplications() throws Exception;
+	
 	public Application denyApplication(int id, String reason) throws Exception;
 	
 	public Application resetApplication(int id) throws Exception;

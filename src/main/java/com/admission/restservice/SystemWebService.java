@@ -19,6 +19,7 @@ import com.admission.dto.ChangePwdData;
 import com.admission.dto.JsonResponse;
 import com.admission.dto.LoginData;
 import com.admission.entity.User;
+import com.admission.service.ApplicationService;
 import com.admission.service.UserService;
 import com.admission.util.Profile;
 import com.admission.util.TimeUtil;
@@ -31,6 +32,9 @@ public class SystemWebService {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ApplicationService applicationService;
 
 	@RequestMapping(value="/login", method=RequestMethod.POST, headers="Accept=application/json")
 	@ResponseBody 
@@ -152,6 +156,22 @@ public class SystemWebService {
 			log.debug("set age space fail", t);
 			res.setResult("设置年龄段错误: " + t.getMessage());
 		}
+		return res;
+	}
+
+	@RequestMapping(value="/clearapplications", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse clearApplications() {
+		JsonResponse res = new JsonResponse();
+
+		try {
+			applicationService.deleteAllApplications();
+		} catch (Exception e) {
+			log.debug("delete all applications failed", e);
+			res.setResult(e.getMessage());
+		}
+		res.setResult("ok");
+		
 		return res;
 	}
 }
