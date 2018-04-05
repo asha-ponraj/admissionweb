@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<td>报名数据重置：</td>
-		<td><a id="resetadmissionbtn" href="#" onClick="resetadmission()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">重置报名数据</a></td>
+		<td><a id="resetadmissionbtn" href="#" onClick="resetadmission()" class="easyui-linkbutton" data-options="iconCls:'icon-save'">清除报名数据</a></td>
 	</tr>
 </table>
 </div>
