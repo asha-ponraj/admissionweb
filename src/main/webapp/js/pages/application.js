@@ -258,6 +258,8 @@ function viewApplication() {
 }
 
 function submitApplication() {
+	$('html, body').scrollTop(0);
+	
 	var username = $.trim($('#username').val());
 	if(username == "") {
 		$('#username').focus();
