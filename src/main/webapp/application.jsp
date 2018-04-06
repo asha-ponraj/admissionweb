@@ -65,7 +65,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    			</input>&nbsp;&nbsp;</b>
 		<b>招生对象属性: 
 			<input id="candidatetype" class="easyui-combobox" style="width: 120px;"
-	    			data-options="valueField:'id',textField:'text',url:'json_data/candidatetype_data.json',editable:false">
+	    			data-options="valueField:'id',textField:'text',url:'rest/component/optionitems?parentComKey=&parentItemValue=&comKey=candidatetype',editable:false">
 	    			</input>
 	    </b>
 	</div>
