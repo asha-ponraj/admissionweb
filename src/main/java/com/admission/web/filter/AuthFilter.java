@@ -43,7 +43,7 @@ public class AuthFilter implements Filter {
 		
 		String uri = req.getRequestURI();
 		boolean isJsp = false;
-		if(uri.endsWith(".jsp") || uri.endsWith("/"))
+		if(uri.endsWith(".jsp") || uri.endsWith("/") || uri.endsWith("/admin"))
 			isJsp = true;
 		
 		if(user == null) {

@@ -59,16 +59,21 @@
 		<url-pattern>/admin/*</url-pattern>
 		<url-pattern>/rest/system/password</url-pattern>
 		<url-pattern>/rest/system/reloadcfg</url-pattern>
+		<url-pattern>/rest/system/settimespace</url-pattern>
+		<url-pattern>/rest/system/setagespace</url-pattern>
+		<url-pattern>/rest/system/clearapplications</url-pattern>
 		<url-pattern>/rest/application/find</url-pattern>
-		<url-pattern>/rest/application/delete/*</url-pattern>
 		<url-pattern>/rest/application/detail</url-pattern>
-		<url-pattern>/rest/application/settimespace</url-pattern>
+		<url-pattern>/rest/application/delete/*</url-pattern>
 		<url-pattern>/rest/application/accept</url-pattern>
+		<url-pattern>/rest/application/deny/*</url-pattern>
+		<url-pattern>/rest/application/reset/*</url-pattern>
 		<url-pattern>/rest/application/notify</url-pattern>
 		<url-pattern>/rest/application/downloadall</url-pattern>
-		<url-pattern>/rest/application/selectednotify</url-pattern>
-		<url-pattern>/rest/application/setselectednotifytip</url-pattern>
 		<url-pattern>/rest/application/resetquerypassword</url-pattern>
+		<url-pattern>/rest/application/getpassword</url-pattern>
+		<url-pattern>/rest/application/findbc</url-pattern>
+		<url-pattern>/rest/application/recheckin/*</url-pattern>
 		<url-pattern>/rest/news/create</url-pattern>
 		<url-pattern>/rest/news/update</url-pattern>
 		<url-pattern>/rest/news/delete/*</url-pattern>
