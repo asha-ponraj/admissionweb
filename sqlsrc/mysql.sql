@@ -171,6 +171,6 @@ CREATE TABLE `t_optionitem` (
 	INDEX `id_optionitem_com_key` (`com_key`),
 	INDEX `id_optionitem_item_value` (`item_value`),
 	INDEX `id_optionitem_item_seq` (`item_seq`),
-	CONSTRAINT `uid_optionitem_com_key_item_value` UNIQUE INDEX(`com_key`, `item_value`),
+	CONSTRAINT `uid_optionitem_com_key_item_value` UNIQUE INDEX(`parent_id`, `com_key`, `item_value`),
 	FOREIGN KEY(`parent_id`) REFERENCES `t_optionitem`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
