@@ -8,5 +8,6 @@ var menuAdmissionData=[
 var menuSystemData=[
     {id:21,text:"修改密码",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"修改密码",url:"changepwd.jsp"}},
     {id:22,text:"系统工具",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"系统工具",url:"systool.jsp"}},
-    {id:23,text:"参数配置",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"参数配置",url:"paramlist.jsp"}}
+    {id:23,text:"参数配置",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"参数配置",url:"paramlist.jsp"}},
+    {id:24,text:"候选项管理",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"候选项管理",url:"optionitems.jsp"}}
 ];

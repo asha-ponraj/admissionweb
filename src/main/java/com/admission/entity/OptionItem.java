@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class OptionItem extends BaseEntity {
 	private static final long serialVersionUID = 2086040663326998265L;
 	
-	private int id;
+	private Integer id;
 	private String comKey;
 	private String itemValue;
 	private String itemText;
@@ -32,6 +33,8 @@ public class OptionItem extends BaseEntity {
 	
 	@JsonIgnore
 	private OptionItem parent;
+	
+	private int parentId;
 	
 	public static OptionTO from(OptionItem item) {
 		OptionTO optionTO = new OptionTO();
@@ -50,11 +53,11 @@ public class OptionItem extends BaseEntity {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(name = "id")
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -122,4 +125,12 @@ public class OptionItem extends BaseEntity {
 		this.validator = validator;
 	}
 	
+	@Transient
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
 }

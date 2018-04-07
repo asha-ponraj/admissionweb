@@ -47,4 +47,22 @@ public class OptionItemDaoImpl extends BaseDaoHibernate<OptionItem> implements O
 		
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OptionItem> findByParent(Integer parentId) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(OptionItem.class);
+		
+		if(parentId == null) {
+			criteria.add(Restrictions.isNull("parent"));
+		} else {
+			criteria.createAlias("parent", "parentcom");
+			criteria.add(Restrictions.eq("parentcom.id", parentId));
+		}
+		criteria.addOrder(Order.asc("comKey"));
+		criteria.addOrder(Order.asc("itemSeq"));
+		criteria.addOrder(Order.asc("itemValue"));
+		
+		return getHibernateTemplate().findByCriteria(criteria);
+	}
 }
