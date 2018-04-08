@@ -273,12 +273,12 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="hktown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
+	    		<input id="hktown" class="easyui-validatebox" type="text" name="hktown" style="width:160px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
 	    	<td colspan="5">
-	     		<input id="hkresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	     		<input id="hkresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:180px;"
 	    		 	data-options="required:false"><input id="hkpostcode" type="hidden" name="hktown">
 	    	</td>
 		</tr>
@@ -295,12 +295,12 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="prtown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
+	    		<input id="prtown" class="easyui-validatebox" type="text" name="hktown" style="width:160px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
 	    	<td colspan="5">
-	     		<input id="prresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	     		<input id="prresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:180px;"
 	    		 	data-options="required:false"><input id="prpostcode" type="hidden" name="hktown">
 	    	</td>
 		</tr>
@@ -319,12 +319,12 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 		<tr>
 			<th>所属镇(街道)</th>
 			<td>
-	    		<input id="lvtown" class="easyui-validatebox" type="text" name="hktown" style="width:200px;"
+	    		<input id="lvtown" class="easyui-validatebox" type="text" name="hktown" style="width:160px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
 	    	<td>
-	     		<input id="lvresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
+	     		<input id="lvresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:180px;"
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>邮编</th>
