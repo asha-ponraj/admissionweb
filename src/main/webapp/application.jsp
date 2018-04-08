@@ -277,12 +277,10 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
-	    	<td>
+	    	<td colspan="4">
 	     		<input id="hkresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
-	    		 	data-options="required:false">
+	    		 	data-options="required:false"><input id="hkpostcode" type="hidden" name="hktown">
 	    	</td>
-	    	<th colspan="3"></th>
-	    	<td><input id="hkpostcode" type="hidden" name="hktown"></td>
 		</tr>
 		<tr>
 			<th rowspan="2">产权地址<br/>按产证填写</th>
@@ -301,12 +299,10 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
-	    	<td>
+	    	<td colspan="4">
 	     		<input id="prresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
-	    		 	data-options="required:false">
+	    		 	data-options="required:false"><input id="prpostcode" type="hidden" name="hktown">
 	    	</td>
-	    	<th colspan="3"></th>
-	    	<td><input id="prpostcode" type="hidden" name="hktown"></td>
 		</tr>
 		<tr>
 			<th rowspan="2">现住地址</th>
