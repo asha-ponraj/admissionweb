@@ -17,6 +17,7 @@ public class AddressData {
 	private String town;
 	private String residentCouncil;
 	private String postcode;
+	private String phone;
 	
 	private String hkComKey;
 	private String hkItemValue;
@@ -67,6 +68,7 @@ public class AddressData {
 		add.setTown(town);
 		add.setResidentCouncil(residentCouncil);
 		add.setPostcode(postcode);
+		add.setPhone(phone);
 		
 		return add;
 	}
@@ -141,5 +143,13 @@ public class AddressData {
 
 	public void setHkAddressRoom(String hkAddressRoom) {
 		this.hkAddressRoom = hkAddressRoom;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

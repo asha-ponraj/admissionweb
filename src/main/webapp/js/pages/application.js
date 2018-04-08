@@ -468,9 +468,7 @@ function submitApplication() {
 	var hkresidentcouncil = $.trim($('#hkresidentcouncil').val());
 	if(!checkMaxlength('#hkresidentcouncil', hkresidentcouncil, 32, "户籍地址所属居委会", false))
 		return;
-	var hkpostcode = $.trim($('#hkpostcode').val());
-	if(!checkMaxlength('#hkpostcode', hkpostcode, 8, "户籍地址邮编", false))
-		return;
+	var hkpostcode = '';
 	
 	var praddress = $.trim($('#praddress').val());
 	if(!checkMaxlength('#praddress', praddress, 128, "产权地址", propertyAddressRequired))
@@ -481,9 +479,7 @@ function submitApplication() {
 	var prresidentcouncil = $.trim($('#prresidentcouncil').val());
 	if(!checkMaxlength('#prresidentcouncil', prresidentcouncil, 32, "产权地址所属居委会", false))
 		return;
-	var prpostcode = $.trim($('#prpostcode').val());
-	if(!checkMaxlength('#prpostcode', prpostcode, 8, "产权地址邮编", false))
-		return;
+	var prpostcode = '';
 	
 	var lvaddress = $.trim($('#lvaddress').val());
 	if(!checkMaxlength('#lvaddress', lvaddress, 128, "现住地址", true))
@@ -497,12 +493,19 @@ function submitApplication() {
 	var lvpostcode = $.trim($('#lvpostcode').val());
 	if(!checkMaxlength('#lvpostcode', lvpostcode, 8, "现住地址邮编", false))
 		return;
+	var lvphone = $.trim($('#lvphone').val());
+	if(!checkMaxlength('#lvphone', lvphone, 8, "家庭电话", false))
+		return;
+
 
 	var name1 = $.trim($('#name1').val());
 	if(!checkMaxlength('#name1', name1, 32, "父亲的姓名", false))
 		return;
+	var idtype1 = $.trim($('#idtype1').val());
+	if(!checkMaxlength('#idtype1', idtype1, 32, "父亲的证件类型", false))
+		return;
 	var idnumber1 = $.trim($('#idnumber1').val());
-	if(!checkMaxlength('#idnumber1', idnumber1, 32, "父亲的身份证", false))
+	if(!checkMaxlength('#idnumber1', idnumber1, 32, "父亲的证件号码", false))
 		return;
 	var company1 = $.trim($('#company1').val());
 	if(!checkMaxlength('#company1', company1, 64, "父亲的工作单位", false))
@@ -520,8 +523,11 @@ function submitApplication() {
 	var name2 = $.trim($('#name2').val());
 	if(!checkMaxlength('#name2', name2, 32, "母亲的姓名", false))
 		return;
+	var idtype2 = $.trim($('#idtype2').val());
+	if(!checkMaxlength('#idtype2', idtype2, 32, "母亲的证件类型", false))
+		return;
 	var idnumber2 = $.trim($('#idnumber2').val());
-	if(!checkMaxlength('#idnumber2', idnumber2, 32, "母亲的身份证", false))
+	if(!checkMaxlength('#idnumber2', idnumber2, 32, "母亲的证件号码", false))
 		return;
 	var company2 = $.trim($('#company2').val());
 	if(!checkMaxlength('#company2', company2, 64, "母亲的工作单位", false))
@@ -593,23 +599,27 @@ function submitApplication() {
 			"hkAddressRoom": hkaddressroom,
 			"town": hktown,
 			"residentCouncil": hkresidentcouncil,
-			"postcode": hkpostcode
+			"postcode": hkpostcode,
+			"phone": ''
 		},{
 			"type": 2,
 			"content": praddress,
 			"town": prtown,
 			"residentCouncil": prresidentcouncil,
-			"postcode": prpostcode
+			"postcode": prpostcode,
+			"phone": ''
 		},{
 			"type": 3,
 			"content": lvaddress,
 			"town": lvtown,
 			"residentCouncil": lvresidentcouncil,
-			"postcode": lvpostcode
+			"postcode": lvpostcode,
+			"phone": lvphone
 		}],
 		"members": [{
 			"type": 1,
 			"name": name1,
+			"idType": idtype1,
 			"idNumber": idnumber1,
 			"company": company1,
 			"residentPermit": residentpermit1,
@@ -618,6 +628,7 @@ function submitApplication() {
 		},{
 			"type": 2,
 			"name": name2,
+			"idType": idtype2,
 			"idNumber": idnumber2,
 			"company": company2,
 			"residentPermit": residentpermit2,

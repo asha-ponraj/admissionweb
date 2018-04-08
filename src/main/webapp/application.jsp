@@ -249,7 +249,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	<table border="0" cellspacing="1" cellpadding="4" width="100%">
 		<tr>
 			<th rowspan="2">户籍地址<br/>按户口本首页填写</th>
-			<td colspan="6">
+			<td colspan="8">
 				<% if(hkAddressMode == 1) { %>
 				区域：
 				<input id="hkaddressarea" class="easyui-combobox" style="width: 100px;"
@@ -281,13 +281,12 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	     		<input id="hkresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
 	    		 	data-options="required:false">
 	    	</td>
-	    	<th>邮编</th>
-	    	<td><input id="hkpostcode" class="easyui-validatebox" type="text" name="hktown" style="width:100px;"
-	    		 	data-options="required:false"></td>
+	    	<th colspan="3"></th>
+	    	<td><input id="hkpostcode" type="hidden" name="hktown"></td>
 		</tr>
 		<tr>
 			<th rowspan="2">产权地址<br/>按产证填写</th>
-			<td colspan="6">
+			<td colspan="8">
 				<input id="praddress"
 					<% if(propertyAddressRequired) { %>
 					 class="easyui-validatebox" data-options="required:true"
@@ -306,13 +305,12 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	     		<input id="prresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
 	    		 	data-options="required:false">
 	    	</td>
-	    	<th>邮编</th>
-	    	<td><input id="prpostcode" class="easyui-validatebox" type="text" name="hktown" style="width:100px;"
-	    		 	data-options="required:false"></td>
+	    	<th colspan="3"></th>
+	    	<td><input id="prpostcode" type="hidden" name="hktown"></td>
 		</tr>
 		<tr>
 			<th rowspan="2">现住地址</th>
-			<td colspan="6">
+			<td colspan="8">
 				<input id="lvaddress"
 					<% if(residentAddressRequired) { %>
 					 class="easyui-validatebox" data-options="required:true"
@@ -336,6 +334,9 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    	<th>邮编</th>
 	    	<td><input id="lvpostcode" class="easyui-validatebox" type="text" name="hktown" style="width:100px;"
 	    		 	data-options="required:false"></td>
+	    	<th>家庭电话</th>
+	    	<td><input id="lvphone" class="easyui-validatebox" type="text" name="lvphone" style="width:100px;"
+	    		 	data-options="required:false"></td>
 		</tr>
 	</table><br />
 	<table border="0" cellspacing="1" cellpadding="4" width="100%">
@@ -343,12 +344,16 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 			<th colspan="9">家长信息</th>
 		</tr>
 		<tr>
-			<th>称谓</th><th>姓名</th><th>身份证</th><th>工作单位及地址</th><th>居住证号码<br/>(非沪籍填写)</th><th>单位电话</th><th>移动电话</th>
+			<th>称谓</th><th>姓名</th><th>证件类型</th><th>证件号码</th><th>工作单位及地址</th><th>居住证号码<br/>(非沪籍填写)</th><th>单位电话</th><th>移动电话</th>
 		</tr>
 		<tr>
 			<td>父</td>
 			<td>
 				<input id="name1" class="easyui-validatebox" type="text" style="width: 80px;"
+					data-options="required:false"></input>
+			</td>
+			<td>
+				<input id="idtype1" class="easyui-validatebox" type="text" style="width: 140px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
@@ -376,6 +381,10 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 			<td>母</td>
 			<td>
 				<input id="name2" class="easyui-validatebox" type="text" style="width: 80px;"
+					data-options="required:false"></input>
+			</td>
+			<td>
+				<input id="idtype2" class="easyui-validatebox" type="text" style="width: 140px;"
 					data-options="required:false"></input>
 			</td>
 			<td>

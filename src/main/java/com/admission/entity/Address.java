@@ -32,6 +32,7 @@ public class Address  extends BaseEntity {
 	private String town;
 	private String residentCouncil;
 	private String postcode;
+	private String phone;
 	
 	public Address() {
 		
@@ -92,6 +93,15 @@ public class Address  extends BaseEntity {
 
 	public void setPostcode(String postcode) {
 		this.postcode = postcode;
+	}
+
+	@Column(name = "phone")
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@XmlTransient

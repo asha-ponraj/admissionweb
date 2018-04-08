@@ -342,9 +342,9 @@ public class AdmissionWriter {
 			s.append("  街镇  ");
 			s.append(addressMap.get(Address.TYPE_HUKOU).getResidentCouncil());
 			s.append("  居委");
-			addTableCell(table, 1, 5, s.toString(), tableFont);
-			addTableCell(table, 1, 1, "邮编", tableFont);
-			addTableCell(table, 1, 3, addressMap.get(Address.TYPE_HUKOU).getPostcode(), tableFont);
+			addTableCell(table, 1, 9, s.toString(), tableFont);
+//			addTableCell(table, 1, 1, "邮编", tableFont);
+//			addTableCell(table, 1, 3, addressMap.get(Address.TYPE_HUKOU).getPostcode(), tableFont);
 			addTableCell(table, 1, 4, "户籍登记日", tableFont);
 			addTableCell(table, 1, 2, app.getHkRegDateStr(), tableFont);
 			

@@ -38,6 +38,7 @@ public class FamilyMember  extends BaseEntity {
 	private int type;
 	private String typeStr;
 	private String name;
+	private String idType;
 	private String idNumber;
 	private String company;
 	private String residentPermit;
@@ -86,6 +87,15 @@ public class FamilyMember  extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "id_type")
+	public String getIdType() {
+		return idType;
+	}
+
+	public void setIdType(String idType) {
+		this.idType = idType;
 	}
 
 	@Column(name = "id_number")

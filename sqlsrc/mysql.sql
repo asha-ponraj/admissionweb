@@ -109,6 +109,7 @@ CREATE TABLE `t_address` (
 	`town` VARCHAR(64) NULL,
 	`resident_council` VARCHAR(32) NULL,
 	`postcode` VARCHAR(8) NULL,
+	`phone` VARCHAR(32) NULL,
 	CONSTRAINT `uid_address_application_id_type` UNIQUE INDEX(`application_id`, `type`),
 	INDEX `id_address_application_id` (`application_id`),
 	FOREIGN KEY(`application_id`) REFERENCES `t_application`(`id`)
@@ -119,6 +120,7 @@ CREATE TABLE `t_familymember` (
 	`type` INT NOT NULL,
 	`name` VARCHAR(32) NOT NULL,
 	`education` VARCHAR(32) NULL,
+	`id_type` VARCHAR(32) NULL,
 	`id_number` VARCHAR(32) null,
 	`company` VARCHAR(255) NULL,
 	`resident_permit` VARCHAR(255) NULL,

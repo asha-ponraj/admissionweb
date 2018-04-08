@@ -8,6 +8,7 @@ import com.admission.entity.FamilyMember;
 public class FamilyMemberData {
 	private String type;
 	private String name;
+	private String idType;
 	private String idNumber;
 	private String company;
 	private String residentPermit;
@@ -25,6 +26,7 @@ public class FamilyMemberData {
 			fm.setType(Integer.parseInt(type));
 		} catch (Exception e){}
 		fm.setName(name);
+		fm.setIdType(idType);
 		fm.setIdNumber(idNumber);
 		fm.setCompany(company);
 		fm.setResidentPermit(residentPermit);
@@ -88,6 +90,14 @@ public class FamilyMemberData {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getIdType() {
+		return idType;
+	}
+
+	public void setIdType(String idType) {
+		this.idType = idType;
 	}
 
 }
