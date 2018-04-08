@@ -277,7 +277,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
-	    	<td colspan="4">
+	    	<td colspan="5">
 	     		<input id="hkresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
 	    		 	data-options="required:false"><input id="hkpostcode" type="hidden" name="hktown">
 	    	</td>
@@ -299,7 +299,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    		 	data-options="required:false">
 	    	</td>
 	    	<th>所属居委会</th>
-	    	<td colspan="4">
+	    	<td colspan="5">
 	     		<input id="prresidentcouncil" class="easyui-validatebox" type="text" name="hktown" style="width:230px;"
 	    		 	data-options="required:false"><input id="prpostcode" type="hidden" name="hktown">
 	    	</td>
@@ -349,7 +349,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="idtype1" class="easyui-validatebox" type="text" style="width: 140px;"
+				<input id="idtype1" class="easyui-validatebox" type="text" style="width: 80px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
@@ -380,7 +380,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 					data-options="required:false"></input>
 			</td>
 			<td>
-				<input id="idtype2" class="easyui-validatebox" type="text" style="width: 140px;"
+				<input id="idtype2" class="easyui-validatebox" type="text" style="width: 80px;"
 					data-options="required:false"></input>
 			</td>
 			<td>
