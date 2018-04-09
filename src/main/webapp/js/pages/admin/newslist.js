@@ -1,16 +1,43 @@
 var ckeditor;
 $(function() {
-	ckeditor = $('#newscontent').ckeditor();
+	DecoupledDocumentEditor
+    .create( '<p>The initial editor data</p>', {
+        // Define the containers for the toolbar and editable.
+        toolbarContainer: document.querySelector( '.toolbar-container' ),
+        editableContainer: document.querySelector( '.editable-container' )
+    } )
+    .then(editor => {
+    	ckeditor = editor;
+    })
+    .catch( error => {
+        console.error( error );
+    } );
 	initDialog();
 	initNewsTable();
 	reloadNewsTable(1);
+	
+	$('#sourcemodebtn').click(function() {
+		switchMode();
+	})
 });
+
+function switchMode() {
+	if($('#newscontent').css("display") == "none") {
+		$('#newscontent').val(ckeditor.getData());
+		$('#newscontent').css("display", "block");
+		$('#newscontenteditor').css("display", "none");
+	} else {
+		ckeditor.setData($('#newscontent').val());
+		$('#newscontent').css("display", "none");
+		$('#newscontenteditor').css("display", "block");
+	}
+}
 
 function initDialog() {
 	$('#newsdlg').dialog({
 		title: '新闻添加与编辑',
-		width: 700,
-		height: 450,
+		width: 900,
+		height: 530,
 		closable: true,
 		closed: true,
 		modal: true,
@@ -181,7 +208,8 @@ function showCreateNewsDlg() {
 	$('#actiontype').val('create');
 	$('#newsid').val('0');
 	$('#newstitle').val('');
-	ckeditor.val('');
+	ckeditor.setData('');
+	$('#newscontent').val('');
 	$('#topchk').prop('checked', false);
 	
 	$('#newsdlg').dialog('setTitle', '添加新闻');
@@ -220,7 +248,8 @@ function showEditNewsDlg() {
 						$('#actiontype').val('edit');
 						$('#newsid').val(node.id);
 						$('#newstitle').val(response.data.title);
-						ckeditor.val(response.data.content);
+						ckeditor.setData(response.data.content);
+						$('#newscontent').val(response.data.content);
 						$('#topchk').prop('checked', response.data.top);
 						
 						$('#newsdlg').dialog('setTitle', '查看/编辑新闻');
@@ -293,7 +322,7 @@ function onDlgCreateNews() {
 	if(!checkMaxlength('#newstitle', newstitle, 120, "新闻标题", true))
 		return;
 	
-	var newscontent = $.trim(ckeditor.val());
+	var newscontent = $.trim(ckeditor.getData());
 	if(!checkMaxlength('#newscontent', newscontent, 12000, "新闻内容", true))
 		return;
 
@@ -349,7 +378,7 @@ function onDlgEditNews() {
 	if(!checkMaxlength('#newstitle', newstitle, 120, "新闻标题", true))
 		return;
 	
-	var newscontent = $.trim(ckeditor.val());
+	var newscontent = $.trim(ckeditor.getData());
 	if(!checkMaxlength('#newscontent', newscontent, 12000, "新闻内容", true))
 		return;
 

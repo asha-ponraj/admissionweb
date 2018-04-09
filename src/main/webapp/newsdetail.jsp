@@ -15,7 +15,8 @@
 <script type="text/javascript" src="plugins/easyui/datagrid-detailview.js"></script>
 <script type="text/javascript" src="plugins/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
-<script type="text/javascript" src="js/pages/newsdetail.js"></script>
+<script type="text/javascript" src="plugins/ckeditor5/ckeditor.js"></script>
+<script type="text/javascript" src="plugins/ckeditor5/translations/zh-cn.js"></script>
 </head>
 <body>
 <input type="hidden" id="id" value="${param.id}" />
@@ -24,15 +25,17 @@
 	<div class="hmenu">
 		<jsp:include page="menu.jsp"></jsp:include>
 	</div>
-	<div class="content">
-		<div class="block1">
-			<div id="title" style="text-align: center; font-size: 18px;"></div>
-			<div id="createtime" style="text-align: center; font-size: 12px;"></div>
+	<at:newsdetail newsId="${param.id}" var="currentnews">
+		<div class="content">
+			<div class="block1">
+				<div id="title" style="text-align: center; font-size: 18px;">${currentnews.title }</div>
+				<div id="createtime" style="text-align: center; font-size: 12px;">${currentnews.createTimeStr }</div>
+			</div>
+			<div class="block2">
+				<div id="content">${currentnews.content }</div>
+			</div>
 		</div>
-		<div class="block2">
-			<div id="content"></div>
-		</div>
-	</div>
+	</at:newsdetail>
 	<div class="end" ></div>
 </div>
 <jsp:include page="foot.jsp"></jsp:include>
