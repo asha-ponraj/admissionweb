@@ -322,8 +322,13 @@ function onDlgCreateNews() {
 	if(!checkMaxlength('#newstitle', newstitle, 120, "新闻标题", true))
 		return;
 	
-	var newscontent = $.trim(ckeditor.getData());
-	if(!checkMaxlength('#newscontent', newscontent, 12000, "新闻内容", true))
+	var newscontent = '';
+	if($('#newscontent').css("display") == "none") {
+	  newscontent = $.trim(ckeditor.getData());
+        } else {
+	  newscontent = $.trim($('#newscontent').val());
+        }
+	if(!checkMaxlength('#newscontent', newscontent, 64000, "新闻内容", true))
 		return;
 
 	var top = $("#topchk").is(":checked");
@@ -378,8 +383,13 @@ function onDlgEditNews() {
 	if(!checkMaxlength('#newstitle', newstitle, 120, "新闻标题", true))
 		return;
 	
-	var newscontent = $.trim(ckeditor.getData());
-	if(!checkMaxlength('#newscontent', newscontent, 12000, "新闻内容", true))
+	var newscontent = '';
+	if($('#newscontent').css("display") == "none") {
+	  newscontent = $.trim(ckeditor.getData());
+        } else {
+	  newscontent = $.trim($('#newscontent').val());
+        }
+	if(!checkMaxlength('#newscontent', newscontent, 64000, "新闻内容", true))
 		return;
 
 	var top = $("#topchk").is(":checked");

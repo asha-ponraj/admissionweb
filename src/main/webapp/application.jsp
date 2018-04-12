@@ -231,7 +231,7 @@ var residentAddressRequired = "<%= residentAddressRequired %>";
 	    	</td>
 		</tr>
 		<tr>
-			<th colspan="2">进程务工人员随迁子女</th>
+			<th colspan="2">进城务工人员随迁子女</th>
 			<td colspan="2">
 				<input id="suiqian" class="easyui-combobox" style="width: 180px;"
 	    			data-options="valueField:'id',textField:'text',url:'json_data/yesno_int_data.json',editable:false">
