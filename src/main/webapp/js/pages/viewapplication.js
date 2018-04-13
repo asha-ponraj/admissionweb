@@ -23,9 +23,9 @@ function searchApplication() {
 	        'Accept': 'application/json',
 	        'Content-Type': 'application/json' 
 	    },
-		type: 'GET',
+		type: 'POST',
 		timeout: gAjaxTimeout,//超时时间设定
-		data: ({
+		data: JSON.stringify({
 			'username': username,
 			'password': password
 		}),//参数设置

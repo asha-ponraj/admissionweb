@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -56,10 +57,12 @@ public class ApplicationWebService {
 	@Autowired
 	private ApplicationService applicationService;
 
-	@RequestMapping(value="/get", method=RequestMethod.GET, headers="Accept=application/json")
+	@RequestMapping(value="/get", method=RequestMethod.POST, headers="Accept=application/json")
 	@ResponseBody 
-	public JsonResponse getApplication(@RequestParam String username, @RequestParam String password, HttpSession session) {
+	public JsonResponse getApplication(@RequestBody Map<String,String> paramMap, HttpSession session) {
 		JsonResponse res = new JsonResponse();
+                String username = paramMap.get("username");
+                String password = paramMap.get("password");
 
 		try {
 			Application app = applicationService.findApplication(username, password);
