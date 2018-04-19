@@ -125,6 +125,7 @@ function initApplicationTable() {
 		}],
 		columns : [ [ 
 		  {field : 'id',title : '报名号', width : 60, sortable : false},
+		  {field : 'username',title : '用户名', width : 100, sortable : false},
 		  {field : 'statusStr',title : '状态',	width : 100,sortable : false},
 		  {field : 'gradeStr',title : '班级',	width : 100,sortable : false},
 		  {field : 'candidateTypeStr',title : '招生对象属性', width : 85, sortable : false},
