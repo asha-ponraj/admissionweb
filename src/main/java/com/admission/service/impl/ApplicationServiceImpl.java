@@ -24,6 +24,7 @@ import com.admission.util.TimeUtil;
 @Transactional(propagation=Propagation.REQUIRED)
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService {
+	private static Object CREATE_APP_LOCK = new Object();
 
 	@Autowired
 	private ApplicationDao applicationDao;
@@ -36,46 +37,48 @@ public class ApplicationServiceImpl implements ApplicationService {
 
 	@Override
 	public void createApplication(Application application) throws Exception {
-		Application app = null;
-		app = applicationDao.findByProperty("username", application.getUsername());
-		if(app != null)
-			throw new Exception("相同的用户名已经存在,请重新输入一个用户名.");
-		
-		int pidType = application.getPidType();
-		String pidNumber = application.getPidNumber();
-		if(pidNumber != null)	pidNumber = pidNumber.trim();
-		if(pidNumber == null || pidNumber.length() == 0) {
-			throw new Exception("请输入身份证件号码");
-		}
-		
-		List<Application> apps = applicationDao.find(pidType, pidNumber);
-		if(apps != null && apps.size() > 0)
-			throw new Exception("该身份证件的报名表已经注册,请不要重复登记.");
-		
-		if(application.getRemark().length() > 500) {
-			throw new Exception("家长特别说明的内容长度不要超过500个字.");
-		}
-		
-		application.setCreateTime(TimeUtil.getCurTime());
-		application.setStatus(Application.AS_SUBMITED);
-		application.setSubbarcode(StrUtil.getRandomString(4));
-		applicationDao.save(application);
-		
-		for(Address ta : application.getAddresses()) {
-			ta.setApplication(application);
-			addressDao.save(ta);
-		}
-		
-		Set<Integer> fmTypes = new HashSet<Integer>();
-		for(FamilyMember tm : application.getMembers()) {
-			switch(tm.getType()) {
-			case FamilyMember.TYPE_FATHER:
-			case FamilyMember.TYPE_MOTHER:
-				if(!fmTypes.contains(tm.getType())) {
-					tm.setApplication(application);
-					familyMemberDao.save(tm);
+		synchronized(CREATE_APP_LOCK) {
+			Application app = null;
+			app = applicationDao.findByProperty("username", application.getUsername());
+			if(app != null)
+				throw new Exception("相同的用户名已经存在,请重新输入一个用户名.");
+			
+			int pidType = application.getPidType();
+			String pidNumber = application.getPidNumber();
+			if(pidNumber != null)	pidNumber = pidNumber.trim();
+			if(pidNumber == null || pidNumber.length() == 0) {
+				throw new Exception("请输入身份证件号码");
+			}
+			
+			List<Application> apps = applicationDao.find(pidType, pidNumber);
+			if(apps != null && apps.size() > 0)
+				throw new Exception("该身份证件的报名表已经注册,请不要重复登记.");
+			
+			if(application.getRemark().length() > 500) {
+				throw new Exception("家长特别说明的内容长度不要超过500个字.");
+			}
+			
+			application.setCreateTime(TimeUtil.getCurTime());
+			application.setStatus(Application.AS_SUBMITED);
+			application.setSubbarcode(StrUtil.getRandomString(4));
+			applicationDao.save(application);
+			
+			for(Address ta : application.getAddresses()) {
+				ta.setApplication(application);
+				addressDao.save(ta);
+			}
+			
+			Set<Integer> fmTypes = new HashSet<Integer>();
+			for(FamilyMember tm : application.getMembers()) {
+				switch(tm.getType()) {
+				case FamilyMember.TYPE_FATHER:
+				case FamilyMember.TYPE_MOTHER:
+					if(!fmTypes.contains(tm.getType())) {
+						tm.setApplication(application);
+						familyMemberDao.save(tm);
+					}
+					break;
 				}
-				break;
 			}
 		}
 	}

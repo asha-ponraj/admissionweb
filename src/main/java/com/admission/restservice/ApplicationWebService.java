@@ -409,6 +409,37 @@ public class ApplicationWebService {
 		}
 	}
 	
+	@RequestMapping(value="/downloadapp/{id}", method=RequestMethod.GET, produces="application/msword", headers="Accept=application/json")
+	public void downloadApplication(@PathVariable int id, HttpServletResponse response, HttpSession session) {
+		File appFile = new File(Profile.getApplicationPath(), "application-"+id+".doc");
+		
+		try {
+			Application app = applicationService.findApplication(id);
+			if(app == null) {
+				response.setStatus(204);
+				return;
+			} else {
+				String barcode = app.getBarcode();
+				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
+				if(!barcodeFile.exists())
+					BarCodeUtil.build(barcode, barcodeFile);
+				
+				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
+				
+				response.setContentType("application/msword");
+				response.setContentLength((int)appFile.length());
+				response.addHeader("Content-Disposition", "attachment; filename=application_" + id + ".doc");
+				InputStream is = new FileInputStream(appFile);
+				org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+			    response.flushBuffer();
+			}
+		} catch (Throwable t) {
+			log.debug("download application", t);
+			response.setStatus(500);
+			return;
+		}
+	}
+	
 	@RequestMapping(value="/downloadall", method=RequestMethod.GET, produces="application/vnd.ms-excel", headers="Accept=application/json")
 	public void downloadApplicationAll(HttpServletResponse response) {
 		File file = new File(Profile.getExportPath(), TimeUtil.getCurTimeString()+".xls");

@@ -122,6 +122,21 @@ function initApplicationTable() {
 						}
 				});
 			}
+		}, {
+			id: 'downloadapplicationbtn',
+			iconCls: 'icon-down',
+			text: '下载报名表',
+			handler: function() {
+				$.messager.defaults.ok = '确定';
+				$.messager.defaults.cancel = '取消';
+				var tip = '确定要下载报名表吗？'; 
+				$.messager.confirm('确认提示', tip,
+					function(sure) {
+						if(sure) {
+							downloadApplication();
+						}
+				});
+			}
 		}],
 		columns : [ [ 
 		  {field : 'id',title : '报名号', width : 60, sortable : false},
@@ -167,9 +182,11 @@ function initApplicationTable() {
 			$('#deleteapplicationbtn').linkbutton('disable');
 			$('#denyapplicationbtn').linkbutton('disable');
 			$('#resetapplicationbtn').linkbutton('disable');
+			$('#downloadapplicationbtn').linkbutton('disable');
 		},
 		onSelect : function(rowIndex, rowData) {
 			$('#resetquerypasswordbtn').linkbutton('enable');
+			$('#downloadapplicationbtn').linkbutton('enable');
 			$('#deleteapplicationbtn').linkbutton('enable');
 			if(rowData.status == 1) {
 				$('#denyapplicationbtn').linkbutton('enable');
@@ -187,6 +204,7 @@ function initApplicationTable() {
 	$('#deleteapplicationbtn').linkbutton('disable');
 	$('#denyapplicationbtn').linkbutton('disable');
 	$('#resetapplicationbtn').linkbutton('disable');
+	$('#downloadapplicationbtn').linkbutton('disable');
 	
 	//初始化分页信息
 	var pageInfo = $('#applicationTable').datagrid('getPager');
@@ -486,5 +504,19 @@ function resetQueryPassword() {
 				}
 			}
 		});
+	}
+}
+
+
+function downloadApplication() {
+	var node = $('#applicationTable').datagrid('getSelected');
+	if(node){
+		var file_path = '../rest/application/downloadapp/' + node.id;
+		var a = document.createElement('A');
+		a.href = file_path;
+		a.download = file_path.substr(file_path.lastIndexOf('/') + 1);
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 	}
 }
