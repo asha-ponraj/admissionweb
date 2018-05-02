@@ -5,14 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.krysalis.barcode4j.impl.code39.Code39Bean;
+import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
 
 public class BarCodeUtil {
 	public static void main(String args[]) {
-		String code = "230000198";
-		File outfile = new File("/Users/steven/barcode.jpg");
+		String code = "230000000198";
+		File outfile = new File("/home/steven.chen/barcode.jpg");
 		
 		try {
 			build(code, outfile);
@@ -29,16 +29,17 @@ public class BarCodeUtil {
 	}
 	
 	public static void build(String code, File outputFile) throws Exception {
-        Code39Bean bean = new Code39Bean();
-        
         final int dpi = 150;
+        EAN13Bean bean = new EAN13Bean();
         
         //Configure the barcode generator
-        bean.setModuleWidth(UnitConv.in2mm(0.7f / dpi)); //makes the narrow bar 
-                                                         //width exactly one pixel
-        bean.setBarHeight(7);
-        bean.setWideFactor(3);
-        bean.doQuietZone(false);
+        bean.setHeight(10d);
+    	bean.setModuleWidth(UnitConv.in2mm(1.0f / 100));
+    	bean.setFontSize(2);
+//        bean.setModuleWidth(UnitConv.in2mm(0.7f / dpi)); //makes the narrow bar 
+//        bean.setBarHeight(7);
+//        bean.setWideFactor(3);
+//        bean.doQuietZone(false);
         
         //Open output file
         OutputStream out = null;
@@ -51,6 +52,7 @@ public class BarCodeUtil {
         
             //Generate the barcode
             bean.generateBarcode(canvas, code);
+//            gen.generateBarcode(canvas, code);
         
             //Signal end of generation
             canvas.finish();

@@ -534,7 +534,7 @@ public class ApplicationWebService {
 				} catch (Exception e){}
 			} else {
 				try {
-					String ts = barcode.substring(4);
+					String ts = barcode.substring(4, barcode.length() - 1);
 					id = Integer.parseInt(ts);
 				} catch (Exception e){}
 			}
