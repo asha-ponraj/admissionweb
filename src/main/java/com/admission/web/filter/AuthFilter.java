@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import com.admission.entity.User;
 import com.admission.web.config.WebProfile;
 
+import net.sf.json.JSONObject;
+
 public class AuthFilter implements Filter {
 	private static String systemError = "{\"result\":\"please login first!\",\"data\":\"\"}";
 	
@@ -51,6 +53,7 @@ public class AuthFilter implements Filter {
 		
 		if(user == null) {
 			if(isRestRequest){
+				response.setContentType("application/json");
 				response.getOutputStream().print(systemError);
 			}
 			else
@@ -65,6 +68,12 @@ public class AuthFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		 restUrlPrefix = fConfig.getServletContext().getContextPath() + "/rest/";
+		 
+		 JSONObject sysErrorObj = new JSONObject();
+		 sysErrorObj.put("result", "please login first!");
+		 sysErrorObj.put("data", "");
+		 
+		 systemError = sysErrorObj.toString();
 	}
 
 }
