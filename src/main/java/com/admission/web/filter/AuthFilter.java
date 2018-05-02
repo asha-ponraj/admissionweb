@@ -17,6 +17,9 @@ import com.admission.web.config.WebProfile;
 
 public class AuthFilter implements Filter {
 	private static String systemError = "{\"result\":\"please login first!\",\"data\":\"\"}";
+	
+	private String restUrlPrefix;
+
     /**
      * Default constructor. 
      */
@@ -42,12 +45,12 @@ public class AuthFilter implements Filter {
 		User user = (User)session.getAttribute(WebProfile.SESSION_ADMINUSER);
 		
 		String uri = req.getRequestURI();
-		boolean isJsp = false;
-		if(uri.endsWith(".jsp") || uri.endsWith("/") || uri.endsWith("/admin"))
-			isJsp = true;
+		boolean isRestRequest = false;
+		if(uri.startsWith(restUrlPrefix))
+			isRestRequest = true;
 		
 		if(user == null) {
-			if(!isJsp){
+			if(isRestRequest){
 				response.getOutputStream().print(systemError);
 			}
 			else
@@ -61,7 +64,7 @@ public class AuthFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-	
+		 restUrlPrefix = fConfig.getServletContext().getContextPath() + "/rest/";
 	}
 
 }
