@@ -5,14 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
+import org.krysalis.barcode4j.impl.upcean.UPCABean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
 
 public class BarCodeUtil {
 	public static void main(String args[]) {
-		String code = "230000000198";
-		File outfile = new File("/home/steven.chen/barcode.jpg");
+		String code = "23000000198";
+		File outfile = new File("/Users/steven/barcode.jpg");
 		
 		try {
 			build(code, outfile);
@@ -30,7 +30,8 @@ public class BarCodeUtil {
 	
 	public static void build(String code, File outputFile) throws Exception {
         final int dpi = 150;
-        EAN13Bean bean = new EAN13Bean();
+//        EAN13Bean bean = new EAN13Bean();
+        UPCABean bean = new UPCABean();
         
         //Configure the barcode generator
         bean.setHeight(10d);

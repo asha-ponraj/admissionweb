@@ -351,7 +351,7 @@ public class Application  extends BaseEntity {
 		if(subbarcode == null)
 			return null;
 		
-		DecimalFormat df = new DecimalFormat("00000000");
+		DecimalFormat df = new DecimalFormat("0000000");
 		StringBuffer sb = new StringBuffer(subbarcode);
 		sb.append(df.format(id));
 		return sb.toString();

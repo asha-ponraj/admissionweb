@@ -176,3 +176,40 @@ CREATE TABLE `t_optionitem` (
 	CONSTRAINT `uid_optionitem_com_key_item_value` UNIQUE INDEX(`parent_id`, `com_key`, `item_value`),
 	FOREIGN KEY(`parent_id`) REFERENCES `t_optionitem`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `t_option`;
+DROP TABLE IF EXISTS `t_component`;
+CREATE TABLE `t_component` (
+	`id` INT NOT NULL PRIMARY KEY,
+	`parent_id` INT NULL,
+	`type` INT NOT NULL,
+	`required` BOOLEAN NOT NULL,
+	`keyword` VARCHAR(64) NOT NULL,
+	`name` VARCHAR(64) NOT NULL,
+	`description` VARCHAR(255) NULL,
+	`width` INT NOT NULL,
+	`height` INT NOT NULL,
+	`validator` VARCHAR(255) NULL,
+	INDEX `id_component_parent_id` (`parent_id`),
+	CONSTRAINT `uid_component_keyword` UNIQUE INDEX(`keyword`),
+	FOREIGN KEY(`parent_id`) REFERENCES `t_component`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `t_option` (
+	`id` INT NOT NULL PRIMARY KEY,
+	`parent_id` INT NULL,
+	`component_id` INT NOT NULL,
+	`text` VARCHAR(255) NOT NULL,
+	`value` VARCHAR(255) NOT NULL,
+	`seq` INT NOT NULL,
+	`selected` BOOLEAN NOT NULL,
+	`validator` VARCHAR(255) NULL,
+	INDEX `id_option_parent_id` (`parent_id`),
+	INDEX `id_option_component_id` (`component_id`),
+	INDEX `id_option_value` (`value`),
+	INDEX `id_option_seq` (`seq`),
+	CONSTRAINT `uid_option_component_parent_value` UNIQUE INDEX(`parent_id`, `component_id`, `value`),
+	FOREIGN KEY(`component_id`) REFERENCES `t_component`(`id`),
+	FOREIGN KEY(`parent_id`) REFERENCES `t_option`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
