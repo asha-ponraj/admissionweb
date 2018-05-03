@@ -396,9 +396,9 @@ public class ApplicationWebService {
 				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
 				String barcode = app.getBarcode();
 				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-				if(!barcodeFile.exists()) {
-					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
-				}
+//				if(!barcodeFile.exists()) {
+				BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+//				}
 				
 				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
 				
@@ -432,9 +432,9 @@ public class ApplicationWebService {
 				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
 				String barcode = app.getBarcode();
 				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-				if(!barcodeFile.exists()) {
-					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
-				}
+//				if(!barcodeFile.exists()) {
+				BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+//				}
 				
 				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
 				

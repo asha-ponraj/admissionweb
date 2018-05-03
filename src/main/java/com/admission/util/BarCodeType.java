@@ -35,6 +35,6 @@ public enum BarCodeType {
 				return bct;
 		}
 		
-		return CODE128;
+		return EAN13;
 	}
 }
