@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.admission.util.BarCodeType;
+import com.admission.util.ServiceAccess;
 import com.admission.util.StrUtil;
 import com.admission.util.TimeUtil;
 
@@ -351,7 +353,17 @@ public class Application  extends BaseEntity {
 		if(subbarcode == null)
 			return null;
 		
-		DecimalFormat df = new DecimalFormat("0000000");
+		BarCodeType barCodeType = BarCodeType.fromName("");
+		try {
+			Parameter barCodeParam = ServiceAccess.getInstance().getParameterService().findParameterByName(BarCodeType.KEY_NAME);
+			barCodeType = BarCodeType.fromName(barCodeParam.getValue());
+		} catch (Exception e) {}
+		
+		StringBuffer fmtBuf = new StringBuffer();
+		for(int i=0; i<barCodeType.getCodeLength() - subbarcode.length(); i++) {
+			fmtBuf.append("0");
+		}
+		DecimalFormat df = new DecimalFormat(fmtBuf.toString());
 		StringBuffer sb = new StringBuffer(subbarcode);
 		sb.append(df.format(id));
 		return sb.toString();

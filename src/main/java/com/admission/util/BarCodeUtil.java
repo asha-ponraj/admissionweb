@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import org.krysalis.barcode4j.impl.AbstractBarcodeBean;
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.impl.upcean.UPCABean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
@@ -12,10 +15,10 @@ import org.krysalis.barcode4j.tools.UnitConv;
 public class BarCodeUtil {
 	public static void main(String args[]) {
 		String code = "23000000198";
-		File outfile = new File("/Users/steven/barcode.jpg");
+		File outfile = new File("/home/steven.chen/barcode.jpg");
 		
 		try {
-			build(code, outfile);
+			build(BarCodeType.CODE128, code, outfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -28,10 +31,21 @@ public class BarCodeUtil {
 		return sb.toString();
 	}
 	
-	public static void build(String code, File outputFile) throws Exception {
+	public static void build(BarCodeType codeType, String code, File outputFile) throws Exception {
         final int dpi = 150;
-//        EAN13Bean bean = new EAN13Bean();
-        UPCABean bean = new UPCABean();
+        AbstractBarcodeBean bean = null;
+        switch(codeType) {
+        case EAN13:
+        	bean = new EAN13Bean();
+        	break;
+        case CODE128:
+        	bean = new Code128Bean();
+        	break;
+        case UPCA:
+    	default:
+        	bean = new UPCABean();
+        	break;
+        }
         
         //Configure the barcode generator
         bean.setHeight(10d);

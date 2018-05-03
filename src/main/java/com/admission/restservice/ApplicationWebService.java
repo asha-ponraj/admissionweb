@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,9 +38,12 @@ import com.admission.dto.NotifyAppData;
 import com.admission.entity.Address;
 import com.admission.entity.Application;
 import com.admission.entity.FamilyMember;
+import com.admission.entity.Parameter;
 import com.admission.service.ApplicationService;
+import com.admission.service.ParameterService;
 import com.admission.util.AdmissionWriter;
 import com.admission.util.ApplicationUtil;
+import com.admission.util.BarCodeType;
 import com.admission.util.BarCodeUtil;
 import com.admission.util.EmptyUtil;
 import com.admission.util.InputValidatorConfig;
@@ -56,6 +59,9 @@ public class ApplicationWebService {
 
 	@Autowired
 	private ApplicationService applicationService;
+	
+	@Autowired
+	private ParameterService parameterService;
 
 	@RequestMapping(value="/get", method=RequestMethod.POST, headers="Accept=application/json")
 	@ResponseBody 
@@ -386,10 +392,13 @@ public class ApplicationWebService {
 				response.setStatus(204);
 				return;
 			} else {
+				Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
+				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
 				String barcode = app.getBarcode();
 				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-				if(!barcodeFile.exists())
-					BarCodeUtil.build(barcode, barcodeFile);
+				if(!barcodeFile.exists()) {
+					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+				}
 				
 				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
 				
@@ -419,10 +428,13 @@ public class ApplicationWebService {
 				response.setStatus(204);
 				return;
 			} else {
+				Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
+				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
 				String barcode = app.getBarcode();
 				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-				if(!barcodeFile.exists())
-					BarCodeUtil.build(barcode, barcodeFile);
+				if(!barcodeFile.exists()) {
+					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+				}
 				
 				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
 				
@@ -523,18 +535,21 @@ public class ApplicationWebService {
 		JsonResponse res = new JsonResponse();
 
 		try {
+			Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
+			BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
+			
 			if(barcode != null) {
 				barcode = barcode.trim();
 			}
 			
 			int id = 0;
-			if(barcode == null || barcode.length() <= 5) {
+			if(barcode == null || barcode.length() < barcodeType.getCodeStartPos() + barcodeType.getCodeLength()) {
 				try {
 					id = Integer.parseInt(barcode);
 				} catch (Exception e){}
 			} else {
 				try {
-					String ts = barcode.substring(4, barcode.length() - 1);
+					String ts = barcode.substring(barcodeType.getCodeStartPos() + 4, barcodeType.getCodeStartPos() + barcodeType.getCodeLength());
 					id = Integer.parseInt(ts);
 				} catch (Exception e){}
 			}
