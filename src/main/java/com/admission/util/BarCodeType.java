@@ -3,6 +3,7 @@ package com.admission.util;
 public enum BarCodeType {
 	UPCA("upc_a", 0, 11), 
 	EAN13("ean_13", 0, 12), 
+	CODE39("code_39", 0, 12),
 	CODE128("code_128", 0, 12);
 	
 	public static final String KEY_NAME = "sys.barcode.type";

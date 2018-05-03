@@ -7,15 +7,11 @@ import java.io.OutputStream;
 
 import org.krysalis.barcode4j.impl.AbstractBarcodeBean;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.impl.upcean.UPCABean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 
 public class BarCodeUtil {
 	public static void main(String args[]) {
@@ -23,10 +19,10 @@ public class BarCodeUtil {
 		File outfile = new File("/Users/steven/barcode.jpg");
 		
 		try {
-	        MultiFormatWriter barcodeWriter = new MultiFormatWriter();
-	        BitMatrix barcodeBitMatrix = barcodeWriter.encode(code, BarcodeFormat.CODE_128, 180, 48);
-	        MatrixToImageWriter.writeToPath(barcodeBitMatrix, "PNG", outfile.toPath());
-//			build(BarCodeType.CODE128, code, outfile);
+//	        MultiFormatWriter barcodeWriter = new MultiFormatWriter();
+//	        BitMatrix barcodeBitMatrix = barcodeWriter.encode(code, BarcodeFormat.CODE_128, 180, 48);
+//	        MatrixToImageWriter.writeToPath(barcodeBitMatrix, "PNG", outfile.toPath());
+			build(BarCodeType.CODE39, code, outfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,6 +41,9 @@ public class BarCodeUtil {
         switch(codeType) {
         case EAN13:
         	bean = new EAN13Bean();
+        	break;
+        case CODE39:
+        	bean = new Code39Bean();
         	break;
         case CODE128:
         	bean = new Code128Bean();
