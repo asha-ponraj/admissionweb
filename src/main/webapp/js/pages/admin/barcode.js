@@ -49,10 +49,10 @@ function query(params) {
 		data: (params),//参数设置
 		error: function(xhr, textStatus, thrownError){
 			if(xhr.readyState != 0 && xhr.readyState != 1) {
-	     		alert("条码查询失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
+				showErrorTip("条码查询失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
 			}
 			else {
-			 	alert("条码查询失败，错误信息:  " + textStatus);
+				showErrorTip("条码查询失败，错误信息:  " + textStatus);
 			}
 			focusBarcode();
 		},
@@ -68,22 +68,36 @@ function query(params) {
 					$('#t_nation').html(response.data.appData.nation);
 					$('#t_checkintime').html(response.data.appData.checkinTimeStr);
 					$('#t_recheckin').html(response.data.appData.recheckinStr);
+					showTip("");
 					
 					if(params.checkin) {
 						if(response.data.recheckin) {
 							if(window.confirm("该条码已签到，是否登记为重复签到?")) {
 								recheckin(response.data.appData.id);
+							} else {
+								showTip("签到成功, 报名号:" + response.data.appData.id);
 							}
 						} else {
-							alert("签到成功");
+							showTip("签到成功, 报名号:" + response.data.appData.id);
 						}
+					} else {
+						showTip("报名表存在, 报名号:" + response.data.appData.id);
 					}
 				}
 				else {
-					alert(response.result);
+					showErrorTip(response.result);
+					$('#t_number').html("");
+					$('#t_barcode').html("");
+					$('#t_name').html("");
+					$('#t_gender').html("");
+					$('#t_birthday').html("");
+					$('#t_idnumber').html("");
+					$('#t_nation').html("");
+					$('#t_checkintime').html("");
+					$('#t_recheckin').html("");
 				}
 			} else {
-				alert("条码查询失败，错误号: " + xhr.status);
+				showErrorTip("条码查询失败，错误号: " + xhr.status);
 			}
 			
 			focusBarcode();
@@ -100,10 +114,10 @@ function recheckin(appId) {
 		}),//参数设置
 		error: function(xhr, textStatus, thrownError){
 			if(xhr.readyState != 0 && xhr.readyState != 1) {
-	     		alert("登记重复签到失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
+				showErrorTip("登记重复签到失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
 			}
 			else {
-			 	alert("登记重复签到失败，错误信息:  " + textStatus);
+				showErrorTip("登记重复签到失败，错误信息:  " + textStatus);
 			}
 			focusBarcode();
 		},
@@ -111,16 +125,26 @@ function recheckin(appId) {
 			if(xhr.status == 200) {
 				if(response.result == "ok") {
 					$('#t_recheckin').html(response.data.recheckinStr);
-					alert("登记重复签到成功");
+					showTip("登记重复签到成功");
 				}
 				else {
-					alert(response.result);
+					showErrorTip(response.result);
 				}
 			} else {
-				alert("登记重复签到失败，错误号: " + xhr.status);
+				showErrorTip("登记重复签到失败，错误号: " + xhr.status);
 			}
 			
 			focusBarcode();
 		}
 	});
+}
+
+function showTip(tipMsg) {
+	$('#errortip').css("color", "black");
+	$('#errortip').html(tipMsg);
+}
+
+function showErrorTip(tipMsg) {
+	$('#errortip').css("color", "red");
+	$('#errortip').html(tipMsg);
 }

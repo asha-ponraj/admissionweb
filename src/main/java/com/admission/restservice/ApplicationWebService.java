@@ -579,7 +579,7 @@ public class ApplicationWebService {
 					res.setResult("ok");
 					res.setData(checkinTo);
 				} else {
-					res.setResult("查询报名表失败,请确认条码是否正确.");
+					res.setResult("报名表不存在.");
 				}
 			}
 		} catch (Exception e) {

@@ -27,6 +27,7 @@
 	</tr>
 	<tr>
 		<td colspan="4" align="left">
+			<div id="errortip" style="font-size: 32px; color: red;"></div>
 			<table cellpadding="5" border="1" style="margin-top: 30px; border-collapse: collapse;">
 				<tr>
 					<th>报名号</th>
