@@ -15,14 +15,14 @@ import org.krysalis.barcode4j.tools.UnitConv;
 
 public class BarCodeUtil {
 	public static void main(String args[]) {
-		String code = "230000000198";
+		String code = "230000000000000198";
 		File outfile = new File("/Users/steven/barcode.jpg");
 		
 		try {
 //	        MultiFormatWriter barcodeWriter = new MultiFormatWriter();
 //	        BitMatrix barcodeBitMatrix = barcodeWriter.encode(code, BarcodeFormat.CODE_128, 180, 48);
 //	        MatrixToImageWriter.writeToPath(barcodeBitMatrix, "PNG", outfile.toPath());
-			build(BarCodeType.CODE39, code, outfile);
+			build(BarCodeType.CODE128, code, outfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
