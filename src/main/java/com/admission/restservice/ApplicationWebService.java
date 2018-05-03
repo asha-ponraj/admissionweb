@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.admission.cache.DownloadLockCache;
 import com.admission.dto.AppData;
 import com.admission.dto.AppQueryTO;
 import com.admission.dto.ApplicationOverviewTo;
@@ -392,24 +393,27 @@ public class ApplicationWebService {
 				response.setStatus(204);
 				return;
 			} else {
-				Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
-				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
-				String barcode = app.getBarcode();
-				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-//				if(!barcodeFile.exists()) {
-				BarCodeUtil.build(barcodeType, barcode, barcodeFile);
-//				}
-				
-				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
-				
-				applicationService.markApplicationDownloaded(id);
-				
-				response.setContentType("application/msword");
-				response.setContentLength((int)appFile.length());
-				response.addHeader("Content-Disposition", "attachment; filename=application.doc");
-				InputStream is = new FileInputStream(appFile);
-				org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
-			    response.flushBuffer();
+				Object lockObj = DownloadLockCache.getInstance().getLockObject(id);
+				synchronized(lockObj) {
+					Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
+					BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
+					String barcode = app.getBarcode();
+					File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
+	//				if(!barcodeFile.exists()) {
+					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+	//				}
+					
+					AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
+					
+					applicationService.markApplicationDownloaded(id);
+					
+					response.setContentType("application/msword");
+					response.setContentLength((int)appFile.length());
+					response.addHeader("Content-Disposition", "attachment; filename=application.doc");
+					InputStream is = new FileInputStream(appFile);
+					org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+				    response.flushBuffer();
+				}
 			}
 		} catch (Throwable t) {
 			log.debug("download application", t);
@@ -428,22 +432,25 @@ public class ApplicationWebService {
 				response.setStatus(204);
 				return;
 			} else {
-				Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
-				BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
-				String barcode = app.getBarcode();
-				File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
-//				if(!barcodeFile.exists()) {
-				BarCodeUtil.build(barcodeType, barcode, barcodeFile);
-//				}
-				
-				AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
-				
-				response.setContentType("application/msword");
-				response.setContentLength((int)appFile.length());
-				response.addHeader("Content-Disposition", "attachment; filename=application_" + id + ".doc");
-				InputStream is = new FileInputStream(appFile);
-				org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
-			    response.flushBuffer();
+				Object lockObj = DownloadLockCache.getInstance().getLockObject(id);
+				synchronized(lockObj) {
+					Parameter barcodeParam = parameterService.findParameterByName("sys.barcode.type");
+					BarCodeType barcodeType = BarCodeType.fromName(barcodeParam == null?"":barcodeParam.getValue());
+					String barcode = app.getBarcode();
+					File barcodeFile = new File(Profile.getBarcodePath(), barcode + ".jpg");
+	//				if(!barcodeFile.exists()) {
+					BarCodeUtil.build(barcodeType, barcode, barcodeFile);
+	//				}
+					
+					AdmissionWriter.buildRTFDoc(app, barcodeFile, appFile);
+					
+					response.setContentType("application/msword");
+					response.setContentLength((int)appFile.length());
+					response.addHeader("Content-Disposition", "attachment; filename=application_" + id + ".doc");
+					InputStream is = new FileInputStream(appFile);
+					org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
+				    response.flushBuffer();
+				}
 			}
 		} catch (Throwable t) {
 			log.debug("download application", t);
