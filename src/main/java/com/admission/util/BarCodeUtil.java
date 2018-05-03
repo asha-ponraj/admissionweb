@@ -12,13 +12,21 @@ import org.krysalis.barcode4j.impl.upcean.UPCABean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+
 public class BarCodeUtil {
 	public static void main(String args[]) {
-		String code = "23000000198";
-		File outfile = new File("/home/steven.chen/barcode.jpg");
+		String code = "230000000198";
+		File outfile = new File("/Users/steven/barcode.jpg");
 		
 		try {
-			build(BarCodeType.CODE128, code, outfile);
+	        MultiFormatWriter barcodeWriter = new MultiFormatWriter();
+	        BitMatrix barcodeBitMatrix = barcodeWriter.encode(code, BarcodeFormat.CODE_128, 180, 48);
+	        MatrixToImageWriter.writeToPath(barcodeBitMatrix, "PNG", outfile.toPath());
+//			build(BarCodeType.CODE128, code, outfile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,6 +54,10 @@ public class BarCodeUtil {
         	bean = new UPCABean();
         	break;
         }
+        
+//        MultiFormatWriter barcodeWriter = new MultiFormatWriter();
+//        BitMatrix barcodeBitMatrix = barcodeWriter.encode(code, BarcodeFormat.QR_CODE, 64, 64);
+//        MatrixToImageWriter.writeToPath(barcodeBitMatrix, "PNG", outputFile.toPath());
         
         //Configure the barcode generator
         bean.setHeight(10d);

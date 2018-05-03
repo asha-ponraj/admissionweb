@@ -35,6 +35,6 @@ public enum BarCodeType {
 				return bct;
 		}
 		
-		return UPCA;
+		return CODE128;
 	}
 }
