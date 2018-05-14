@@ -486,7 +486,7 @@ function getQueryPassword() {
 			success: function(response, textStatus, xhr) {
 				if(xhr.status == 200) {
 					if(response.result == "ok") {
-						$.messager.alert('提示',"密码是: <b>" + response.data + "</b>",'info');
+						$.messager.alert('提示',"<table><tr><th>用户名: </th><th>" + node.username + "</th></tr><tr><th>密码: </th><th>" + response.data + "</th></tr></table>",'info');
 					}
 					else {
 						$.messager.alert('错误',response.result,'error');
