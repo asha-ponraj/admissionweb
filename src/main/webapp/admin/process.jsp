@@ -21,7 +21,7 @@
 <table border="0" cellspacing="10" align="center">
 <tr>
 <td></td>
-<td colspan="4" class="tip">不输入报名号范围表示全部受理</td>
+<td colspan="4" class="tip">不输入报名号范围表示全部受理，输入相同号码表示只受理号码</td>
 </tr>
 <tr>
 <th>报名号从</th>
@@ -42,7 +42,7 @@
 <table border="0" cellspacing="10" cellpadding="0" align="center">
 <tr>
 	<td></td>
-	<td colspan="3" class="tip">不输入报名号范围表示全部通知</td>
+	<td colspan="3" class="tip">不输入报名号范围表示全部通知，输入相同号码表示只给改号码发送通知</td>
 </tr>
 <tr>
 	<th>报名号从</th>
