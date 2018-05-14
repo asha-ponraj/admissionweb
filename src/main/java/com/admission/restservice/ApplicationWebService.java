@@ -495,19 +495,22 @@ public class ApplicationWebService {
 		}
 	}
 	
-	@RequestMapping(value="/resetquerypassword/{id}", method=RequestMethod.GET, headers="Accept=application/json")
+	@RequestMapping(value="/getquerypassword/{id}", method=RequestMethod.GET, headers="Accept=application/json")
 	@ResponseBody 
 	public JsonResponse resetApplicationPassword(@PathVariable int id) {
 		JsonResponse res = new JsonResponse();
 		
 		try {
-			String newPwd = applicationService.resetApplicationPassword(id);
-			
-			res.setResult("ok");
-			res.setData(newPwd);
+			Application app = applicationService.findApplication(id);
+			if(app != null) {
+				res.setResult("ok");
+				res.setData(app.getPassword());
+			} else {
+				res.setResult("报名数据不存在，请确认报名号是否正确");
+			}
 		} catch (Throwable t) {
-			log.debug("reset application password", t);
-			res.setResult("重置查询密码错误: " + t.getMessage());
+			log.debug("get application password failed", t);
+			res.setResult("获取查询密码错误: " + t.getMessage());
 		}
 		return res;
 	}

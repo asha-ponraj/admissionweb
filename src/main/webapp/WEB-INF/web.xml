@@ -70,7 +70,7 @@
 		<url-pattern>/rest/application/reset/*</url-pattern>
 		<url-pattern>/rest/application/notify</url-pattern>
 		<url-pattern>/rest/application/downloadall</url-pattern>
-		<url-pattern>/rest/application/resetquerypassword</url-pattern>
+		<url-pattern>/rest/application/getquerypassword</url-pattern>
 		<url-pattern>/rest/application/getpassword</url-pattern>
 		<url-pattern>/rest/application/findbc</url-pattern>
 		<url-pattern>/rest/application/recheckin/*</url-pattern>

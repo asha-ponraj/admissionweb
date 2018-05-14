@@ -71,19 +71,11 @@ function initApplicationTable() {
 		pageSize : 50,
 		showFooter:false,
 		toolbar: [{
-			id: 'resetquerypasswordbtn',
+			id: 'getquerypasswordbtn',
 			iconCls: 'icon-edit',
-			text: '重置查询密码',
+			text: '显示查询密码',
 			handler: function() {
-				$.messager.defaults.ok = '确定';
-				$.messager.defaults.cancel = '取消';
-				var tip = '确定要重置密码吗？'; 
-				$.messager.confirm('确认提示', tip,
-					function(sure) {
-						if(sure) {
-							resetQueryPassword();
-						}
-				});
+				getQueryPassword();
 			}
 		}, {
 			id: 'deleteapplicationbtn',
@@ -178,14 +170,14 @@ function initApplicationTable() {
 		},
 		onLoadSuccess : function(data) {
 			$(this).datagrid('unselectAll');
-			$('#resetquerypasswordbtn').linkbutton('disable');
+			$('#getquerypasswordbtn').linkbutton('disable');
 			$('#deleteapplicationbtn').linkbutton('disable');
 			$('#denyapplicationbtn').linkbutton('disable');
 			$('#resetapplicationbtn').linkbutton('disable');
 			$('#downloadapplicationbtn').linkbutton('disable');
 		},
 		onSelect : function(rowIndex, rowData) {
-			$('#resetquerypasswordbtn').linkbutton('enable');
+			$('#getquerypasswordbtn').linkbutton('enable');
 			$('#downloadapplicationbtn').linkbutton('enable');
 			$('#deleteapplicationbtn').linkbutton('enable');
 			if(rowData.status == 1) {
@@ -200,7 +192,7 @@ function initApplicationTable() {
 			}
 		}
 	});
-	$('#resetquerypasswordbtn').linkbutton('disable');
+	$('#getquerypasswordbtn').linkbutton('disable');
 	$('#deleteapplicationbtn').linkbutton('disable');
 	$('#denyapplicationbtn').linkbutton('disable');
 	$('#resetapplicationbtn').linkbutton('disable');
@@ -469,11 +461,11 @@ function exportApplication() {
 	});
 }
 
-function resetQueryPassword() {
+function getQueryPassword() {
 	var node = $('#applicationTable').datagrid('getSelected');
 	if(node){
 		$.ajax({
-			url: '../rest/application/resetquerypassword/' + node.id,
+			url: '../rest/application/getquerypassword/' + node.id,
 			headers: { 
 		        'Accept': 'application/json',
 		        'Content-Type': 'application/json' 
@@ -485,22 +477,22 @@ function resetQueryPassword() {
 			}),//参数设置
 			error: function(xhr, textStatus, thrownError){
 				if(xhr.readyState != 0 && xhr.readyState != 1) {
-					$.messager.alert('错误',"重置查询密码失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus,'error');
+					$.messager.alert('错误',"获取查询密码失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus,'error');
 				}
 				else {
-					$.messager.alert('错误',"重置查询密码失败，错误信息:  " + textStatus,'error');
+					$.messager.alert('错误',"获取查询密码失败，错误信息:  " + textStatus,'error');
 				}
 			},
 			success: function(response, textStatus, xhr) {
 				if(xhr.status == 200) {
 					if(response.result == "ok") {
-						$.messager.alert('提示',"重置查询密码成功, 新密码: <b>" + response.data + "</b>",'info');
+						$.messager.alert('提示',"密码是: <b>" + response.data + "</b>",'info');
 					}
 					else {
 						$.messager.alert('错误',response.result,'error');
 					}
 				} else {
-					$.messager.alert('错误',"重置查询密码失败，错误号: " + xhr.status,'error');
+					$.messager.alert('错误',"获取查询密码失败，错误号: " + xhr.status,'error');
 				}
 			}
 		});
