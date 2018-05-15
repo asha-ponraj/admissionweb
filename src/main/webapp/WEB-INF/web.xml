@@ -66,6 +66,7 @@
 		<url-pattern>/rest/application/detail</url-pattern>
 		<url-pattern>/rest/application/delete/*</url-pattern>
 		<url-pattern>/rest/application/accept</url-pattern>
+		<url-pattern>/rest/application/acceptall</url-pattern>
 		<url-pattern>/rest/application/deny/*</url-pattern>
 		<url-pattern>/rest/application/reset/*</url-pattern>
 		<url-pattern>/rest/application/notify</url-pattern>

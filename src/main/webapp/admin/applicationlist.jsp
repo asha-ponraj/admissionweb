@@ -102,5 +102,18 @@
 		</tr>
 	</table>
 </div>
+<div id="batchacceptdlg">
+	<table cellspacing="7">
+		<tr>
+			<th colspan="4" class="tip">不输入报名号范围表示全部受理，输入相同号码表示只受理号码</th>
+		</tr>
+		<tr>
+			<th>报名号从</th>
+			<td><input id="afromid" class="easyui-validatebox" style="width: 200px;" type="text"></input></td>
+			<th>到</th>
+			<td><input id="atoid" class="easyui-validatebox" style="width: 200px;" type="text"></input></td>
+		</tr>
+	</table>
+</div>
 </body>
 </html>

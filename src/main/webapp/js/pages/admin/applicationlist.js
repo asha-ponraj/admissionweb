@@ -26,6 +26,7 @@ $(function() {
 	});
 	
 	initDenyDialog();
+	initBatchAcceptDialog();
 	initApplicationTable();
 	
 });
@@ -54,6 +55,30 @@ function initDenyDialog() {
 	});
 }
 
+function initBatchAcceptDialog() {
+	$('#batchacceptdlg').dialog({
+		title: '批量受理报名',
+		width: 580,
+		height: 150,
+		closable: true,
+		closed: true,
+		modal: true,
+		buttons: [{
+			iconCls:'icon-ok',
+			text: '确定',
+			handler: function() {
+				onDlgBatchAcceptApplication();
+			}
+		}, {
+			iconCls:'icon-cancel',
+			text: '取消',
+			handler: function() {
+				$('#batchacceptdlg').dialog('close');
+			}
+		}]
+	});
+}
+
 function initApplicationTable() {
 	$('#applicationTable').datagrid({
 		title: "报名信息查询列表",
@@ -71,8 +96,52 @@ function initApplicationTable() {
 		pageSize : 50,
 		showFooter:false,
 		toolbar: [{
-			id: 'getquerypasswordbtn',
+			id: 'acceptapplicationbtn',
 			iconCls: 'icon-edit',
+			text: '受理报名',
+			handler: function() {
+				$.messager.defaults.ok = '确定';
+				$.messager.defaults.cancel = '取消';
+				var tip = '确定要受理报名表吗？'; 
+				$.messager.confirm('确认提示', tip,
+					function(sure) {
+						if(sure) {
+							acceptApplication();
+						}
+				});
+			}
+		}, {
+			id: 'denyapplicationbtn',
+			iconCls: 'icon-cancel',
+			text: '拒绝报名',
+			handler: function() {
+				showDenyDlg();
+			}
+		}, {
+			id: 'resetapplicationbtn',
+			iconCls: 'icon-ok',
+			text: '恢复报名',
+			handler: function() {
+				$.messager.defaults.ok = '确定';
+				$.messager.defaults.cancel = '取消';
+				var tip = '确定要恢复报名吗？'; 
+				$.messager.confirm('确认提示', tip,
+					function(sure) {
+						if(sure) {
+							resetApplication();
+						}
+				});
+			}
+		}, {
+			id: 'acceptallapplicationsbtn',
+			iconCls: 'icon-sum',
+			text: '批量受理报名',
+			handler: function() {
+				batchAcceptApplications();
+			}
+		},'-', {
+			id: 'getquerypasswordbtn',
+			iconCls: 'icon-tip',
 			text: '显示查询密码',
 			handler: function() {
 				getQueryPassword();
@@ -89,28 +158,6 @@ function initApplicationTable() {
 					function(sure) {
 						if(sure) {
 							deleteApplication();
-						}
-				});
-			}
-		}, {
-			id: 'denyapplicationbtn',
-			iconCls: 'icon-cancel',
-			text: '拒绝报名',
-			handler: function() {
-				showDenyDlg();
-			}
-		}, {
-			id: 'resetapplicationbtn',
-			iconCls: 'icon-cancel',
-			text: '恢复报名',
-			handler: function() {
-				$.messager.defaults.ok = '确定';
-				$.messager.defaults.cancel = '取消';
-				var tip = '确定要恢复报名吗？'; 
-				$.messager.confirm('确认提示', tip,
-					function(sure) {
-						if(sure) {
-							resetApplication();
 						}
 				});
 			}
@@ -170,6 +217,7 @@ function initApplicationTable() {
 		},
 		onLoadSuccess : function(data) {
 			$(this).datagrid('unselectAll');
+			$('#acceptapplicationbtn').linkbutton('disable');
 			$('#getquerypasswordbtn').linkbutton('disable');
 			$('#deleteapplicationbtn').linkbutton('disable');
 			$('#denyapplicationbtn').linkbutton('disable');
@@ -181,8 +229,10 @@ function initApplicationTable() {
 			$('#downloadapplicationbtn').linkbutton('enable');
 			$('#deleteapplicationbtn').linkbutton('enable');
 			if(rowData.status == 1) {
+				$('#acceptapplicationbtn').linkbutton('enable');
 				$('#denyapplicationbtn').linkbutton('enable');
 			} else {
+				$('#acceptapplicationbtn').linkbutton('disable');
 				$('#denyapplicationbtn').linkbutton('disable');
 			}
 			if(rowData.status == 10) {
@@ -192,6 +242,8 @@ function initApplicationTable() {
 			}
 		}
 	});
+	
+	$('#acceptapplicationbtn').linkbutton('disable');
 	$('#getquerypasswordbtn').linkbutton('disable');
 	$('#deleteapplicationbtn').linkbutton('disable');
 	$('#denyapplicationbtn').linkbutton('disable');
@@ -215,6 +267,53 @@ function initApplicationTable() {
 			}
 		});
 	}
+}
+
+function acceptApplication() {
+	var node = $('#applicationTable').datagrid('getSelected');
+	if(node){
+		$.ajax({
+			url: '../rest/application/accept/' + node.id,
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			'dataType': 'json',
+			type: 'GET',
+			timeout: gAjaxTimeout,//超时时间设定
+			data: ({
+			}),//参数设置
+			error: function(xhr, textStatus, thrownError){
+				if(xhr.readyState != 0 && xhr.readyState != 1) {
+					$.messager.alert('错误',"受理报名失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus,'error');
+				}
+				else {
+					$.messager.alert('错误',"受理报名失败，错误信息:  " + textStatus,'error');
+				}
+			},
+			success: function(response, textStatus, xhr) {
+				if(xhr.status == 200) {
+					if(response.result == "ok") {
+						var index = $('#applicationTable').datagrid('getRowIndex', node);
+						$('#applicationTable').datagrid('updateRow', {'index' : index, 'row' : response.data});
+						$.messager.alert('提示',"受理报名成功!",'info');
+					}
+					else {
+						$.messager.alert('错误',response.result,'error');
+					}
+				} else {
+					$.messager.alert('错误',"受理报名失败，错误号: " + xhr.status,'error');
+				}
+			}
+		});
+	}
+}
+
+function batchAcceptApplications() {
+	$('#afromid').val('');
+	$('#atoid').val('');
+
+	$('#batchacceptdlg').dialog('open');
 }
 
 function deleteApplication() {
@@ -310,6 +409,47 @@ function onDlgDenyApplication() {
 				}
 			} else {
 				$.messager.alert('错误',"拒绝报名失败，错误号: " + xhr.status,'error');
+			}
+		}
+	});
+}
+
+function onDlgBatchAcceptApplication() {
+	var fromid = $.trim($('#afromid').val());
+	var toid = $.trim($('#atoid').val());
+	
+	$.ajax({
+		url: '../rest/application/batchaccept',
+		headers: { 
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json' 
+	    },
+		'dataType': 'json',
+		type: 'GET',
+		timeout: gAjaxTimeout,//超时时间设定
+		data: ({
+			"fromId" : fromid,
+			"toId" : toid
+		}),//参数设置
+		error: function(xhr, textStatus, thrownError){
+			if(xhr.readyState != 0 && xhr.readyState != 1) {
+				$.messager.alert('错误',"批量受理报名失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus,'error');
+			}
+			else {
+				$.messager.alert('错误',"批量受理报名失败，错误信息:  " + textStatus,'error');
+			}
+		},
+		success: function(response, textStatus, xhr) {
+			if(xhr.status == 200) {
+				if(response.result == "ok") {
+					$('#batchacceptdlg').dialog('close');
+					$.messager.alert('提示',"批量受理报名成功!",'info');
+				}
+				else {
+					$.messager.alert('错误',response.result,'error');
+				}
+			} else {
+				$.messager.alert('错误',"批量受理报名失败，错误号: " + xhr.status,'error');
 			}
 		}
 	});

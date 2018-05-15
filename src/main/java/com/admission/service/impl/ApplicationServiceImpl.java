@@ -158,7 +158,26 @@ public class ApplicationServiceImpl implements ApplicationService {
 	}
 
 	@Override
-	public void acceptApplication(int fromId, int toId) throws Exception {
+	public Application acceptApplication(int id) throws Exception {
+		Application app = applicationDao.findById(id);
+		if(app == null) {
+			throw new Exception("报名表不存在");
+		}
+		
+		if(app.getStatus() >= Application.AS_ACCEPTED) {
+			throw new Exception("报名已处理，不能再次受理");
+		}
+		
+		app.setStatus(Application.AS_ACCEPTED);
+		app.setAcceptTime(TimeUtil.getCurTime());
+		
+		applicationDao.save(app);
+		
+		return app;
+	}
+	
+	@Override
+	public void acceptApplications(int fromId, int toId) throws Exception {
 		applicationDao.accept(fromId, toId);
 	}
 

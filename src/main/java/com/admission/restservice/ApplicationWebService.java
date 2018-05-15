@@ -304,17 +304,44 @@ public class ApplicationWebService {
 		return res;
 	}
 	
-	@RequestMapping(value="/accept", method=RequestMethod.GET, headers="Accept=application/json")
+	@RequestMapping(value="/accept/{id}", method=RequestMethod.GET, headers="Accept=application/json")
 	@ResponseBody 
-	public JsonResponse acceptApplication(@RequestParam int fromId, @RequestParam int toId) {
+	public JsonResponse acceptApplication(@PathVariable("id") int id) {
 		JsonResponse res = new JsonResponse();
 		
 		try {
-			applicationService.acceptApplication(fromId, toId);
+			Application app = applicationService.acceptApplication(id);
 			res.setResult("ok");
+			res.setData(ApplicationOverviewTo.from(app));
 		} catch(Throwable t) {
 			log.debug("accept application", t);
 			res.setResult("受理报名失败: " + t.getMessage());
+		}
+		return res;
+	}
+	
+	@RequestMapping(value="/batchaccept", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse batchAcceptApplications(@RequestParam String fromId, @RequestParam String toId) {
+		int iFromId = 0;
+		int iToId = 0;
+		
+		try {
+			iFromId = Integer.parseInt(fromId);
+		}catch(Exception e) {}
+		
+		try {
+			iFromId = Integer.parseInt(toId);
+		}catch(Exception e) {}
+
+		JsonResponse res = new JsonResponse();
+		
+		try {
+			applicationService.acceptApplications(iFromId, iToId);
+			res.setResult("ok");
+		} catch(Throwable t) {
+			log.debug("accept all application", t);
+			res.setResult("受理所有报名失败: " + t.getMessage());
 		}
 		return res;
 	}

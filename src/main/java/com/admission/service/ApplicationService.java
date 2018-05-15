@@ -29,7 +29,9 @@ public interface ApplicationService {
 
 	public List<Application> findApplication(int fromId, int toId);
 	
-	public void acceptApplication(int fromId, int toId) throws Exception;
+	public Application acceptApplication(int id) throws Exception;
+	
+	public void acceptApplications(int fromId, int toId) throws Exception;
 	
 	public void notifyApplication(int fromId, int toId, String notify) throws Exception;
 	

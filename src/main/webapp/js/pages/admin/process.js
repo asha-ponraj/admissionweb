@@ -20,7 +20,7 @@ function acceptApplication() {
 	}
 	
 	$.ajax({
-		url: '../rest/application/accept',
+		url: '../rest/application/batchaccept',
 		type: 'GET',
 		timeout: gAjaxTimeout,//超时时间设定
 		data: ({
