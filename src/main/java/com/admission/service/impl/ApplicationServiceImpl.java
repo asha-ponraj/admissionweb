@@ -122,6 +122,32 @@ public class ApplicationServiceImpl implements ApplicationService {
 			throw new Exception("要登记重复签到报名表不存在，请重新查询");
 		
 		app.setRecheckin(1);
+		if(app.getStatus() != Application.AS_CHECKIN) {
+			app.setStatus(Application.AS_CHECKIN);
+		}
+		applicationDao.save(app);
+		
+		return app;
+	}
+
+	@Override
+	public Application uncheckinApplication(int applicationId) throws Exception {
+		Application app = applicationDao.findById(applicationId);
+		if(app == null)
+			throw new Exception("要取消签到的报名表不存在，请重新查询");
+		
+		app.setRecheckin(0);
+		app.setCheckinTime(null);
+		if(app.getDownloadTime() != null) {
+			app.setStatus(Application.AS_DOWNLOADED);
+		} else if(app.getNotifyTime() != null) {
+			app.setStatus(Application.AS_NOTIFIED);
+		} else if(app.getAcceptTime() != null) {
+			app.setStatus(Application.AS_ACCEPTED);
+		} else {
+			app.setStatus(Application.AS_SUBMITED);
+		}
+
 		applicationDao.save(app);
 		
 		return app;

@@ -41,6 +41,8 @@ public interface ApplicationService {
 	
 	public Application recheckinApplication(int applicationId) throws Exception;
 	
+	public Application uncheckinApplication(int applicationId) throws Exception;
+	
 	public String resetApplicationPassword(int applicationId) throws Exception;
 	
 	public List<Integer> getApplicationIdList() throws Exception;

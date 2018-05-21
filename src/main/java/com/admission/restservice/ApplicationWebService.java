@@ -600,7 +600,7 @@ public class ApplicationWebService {
 					CheckinTo checkinTo = new CheckinTo();
 					checkinTo.setRecheckin(false);
 					if(checkin) {
-						if(app.getCheckinTime() != null)
+						if(app.getStatus() == Application.AS_CHECKIN && app.getCheckinTime() != null)
 							checkinTo.setRecheckin(true);
 						else
 							app = applicationService.checkinApplication(id);
@@ -637,6 +637,28 @@ public class ApplicationWebService {
 		} catch (Exception e) {
 			log.debug("find application fail", e);
 			res.setResult("登记重复签到失败: " + e.getMessage());
+		}
+
+		return res;
+	}
+	
+	@RequestMapping(value="/uncheckin/{id}", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse uncheckinApplication(@PathVariable int id) {
+		JsonResponse res = new JsonResponse();
+
+		try {
+			Application app = applicationService.uncheckinApplication(id);
+
+			if(app != null) {
+				res.setResult("ok");
+				res.setData(app);
+			} else {
+				res.setResult("取消签到失败，报名表不存在.");
+			}
+		} catch (Exception e) {
+			log.debug("find application fail", e);
+			res.setResult("取消签到失败: " + e.getMessage());
 		}
 
 		return res;

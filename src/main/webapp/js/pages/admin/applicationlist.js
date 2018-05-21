@@ -176,6 +176,21 @@ function initApplicationTable() {
 						}
 				});
 			}
+		}, {
+			id: 'uncheckinapplicationbtn',
+			iconCls: 'icon-cancel',
+			text: '取消签到',
+			handler: function() {
+				$.messager.defaults.ok = '确定';
+				$.messager.defaults.cancel = '取消';
+				var tip = '确定要取消签到吗？'; 
+				$.messager.confirm('确认提示', tip,
+					function(sure) {
+						if(sure) {
+							uncheckinApplication();
+						}
+				});
+			}
 		}],
 		columns : [ [ 
 		  {field : 'id',title : '报名号', width : 60, sortable : false},
@@ -223,6 +238,7 @@ function initApplicationTable() {
 			$('#denyapplicationbtn').linkbutton('disable');
 			$('#resetapplicationbtn').linkbutton('disable');
 			$('#downloadapplicationbtn').linkbutton('disable');
+			$('#uncheckinapplicationbtn').linkbutton('disable');
 		},
 		onSelect : function(rowIndex, rowData) {
 			$('#getquerypasswordbtn').linkbutton('enable');
@@ -240,6 +256,11 @@ function initApplicationTable() {
 			} else {
 				$('#resetapplicationbtn').linkbutton('disable');
 			}
+			if(rowData.status >= 5) {
+				$('#uncheckinapplicationbtn').linkbutton('enable');
+			} else {
+				$('#uncheckinapplicationbtn').linkbutton('disable');
+			}
 		}
 	});
 	
@@ -249,6 +270,7 @@ function initApplicationTable() {
 	$('#denyapplicationbtn').linkbutton('disable');
 	$('#resetapplicationbtn').linkbutton('disable');
 	$('#downloadapplicationbtn').linkbutton('disable');
+	$('#uncheckinapplicationbtn').linkbutton('disable');
 	
 	//初始化分页信息
 	var pageInfo = $('#applicationTable').datagrid('getPager');
@@ -650,5 +672,47 @@ function downloadApplication() {
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
+	}
+}
+
+function uncheckinApplication() {
+	var node = $('#applicationTable').datagrid('getSelected');
+	if(node){
+		$.ajax({
+			url: '../rest/application/uncheckin/' + node.id,
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			'dataType': 'json',
+			type: 'GET',
+			timeout: gAjaxTimeout,//超时时间设定
+			data: ({
+			}),//参数设置
+			error: function(xhr, textStatus, thrownError){
+				if(xhr.readyState != 0 && xhr.readyState != 1) {
+					$.messager.alert('错误',"取消签到失败， 错误号:  " + xhr.status + ", 错误信息: " + textStatus,'error');
+				}
+				else {
+					$.messager.alert('错误',"取消签到失败，错误信息:  " + textStatus,'error');
+				}
+			},
+			success: function(response, textStatus, xhr) {
+				if(xhr.status == 200) {
+					if(response.result == "ok") {
+						var node = $('#applicationTable').datagrid('getSelected');
+						var index = $('#applicationTable').datagrid('getRowIndex', node);
+						$('#applicationTable').datagrid('updateRow', {'index' : index, 'row' : response.data});
+						$('#uncheckinapplicationbtn').linkbutton('disable');
+						$.messager.alert('提示',"取消签到成功!",'info');
+					}
+					else {
+						$.messager.alert('错误',response.result,'error');
+					}
+				} else {
+					$.messager.alert('错误',"取消签到失败，错误号: " + xhr.status,'error');
+				}
+			}
+		});
 	}
 }
