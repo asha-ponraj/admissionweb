@@ -1,4 +1,5 @@
 var menuAdmissionData=[
+	{id:10,text:"数据统计",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"数据统计",url:"statistics.jsp"}},
 	{id:11,text:"报名表查询",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"报名表查询",url:"applicationlist.jsp"}},
 	{id:12,text:"受理与通知",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"受理与通知",url:"process.jsp"}},
 	{id:13,text:"条码查询与签到",iconCls:"icon-statistic",state:"opened",attributes:{type:"menuitem",title:"条码查询与签到",url:"barcode.jsp"}},
