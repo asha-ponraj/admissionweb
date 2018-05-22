@@ -20,4 +20,6 @@ public interface ApplicationDao extends AbstractDao<Application> {
 	public void exNotify(int fromId, int toId, String notify);
 	
 	public List<Integer> getIdList();
+	
+	public long countByStatus(int status);
 }

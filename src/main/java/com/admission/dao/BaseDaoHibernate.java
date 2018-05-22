@@ -498,10 +498,7 @@ public abstract class BaseDaoHibernate<E extends BaseEntity> extends
 	}
 
 	public long getTotalCount() {
-
-		String hql = "select count(*) from " + clazz.getName();
-		List<?> list = queryList(hql);
-		return (Long) list.get(0);
+		return this.querySize(clazz);
 	}
 
 	public Pagination queryAllForPage(Map<String, Object> values,

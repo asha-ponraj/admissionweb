@@ -1,7 +1,9 @@
 package com.admission.service.impl;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.admission.entity.Address;
 import com.admission.entity.Application;
 import com.admission.entity.FamilyMember;
 import com.admission.service.ApplicationService;
+import com.admission.util.StatisticsOptions;
 import com.admission.util.StrUtil;
 import com.admission.util.TimeUtil;
 
@@ -302,5 +305,39 @@ public class ApplicationServiceImpl implements ApplicationService {
 		applicationDao.saveOrUpdate(app);
 		
 		return app;
+	}
+
+	public Map<String, String> getApplicationStatistics() throws Exception {
+		Map<String, String> statisticsData = new HashMap<String, String>();
+		
+		// Get total application count
+		long applicationCount = applicationDao.getTotalCount();
+		statisticsData.put(StatisticsOptions.SO_ALL, Long.toString(applicationCount));
+		
+		// Get the application count under submitted status
+		applicationCount = applicationDao.countByStatus(Application.AS_SUBMITED);
+		statisticsData.put(StatisticsOptions.SO_SUBMITTED, Long.toString(applicationCount));
+		
+		// Get the application count under accepted status
+		applicationCount = applicationDao.countByStatus(Application.AS_ACCEPTED);
+		statisticsData.put(StatisticsOptions.SO_ACCEPTED, Long.toString(applicationCount));
+		
+		// Get the application count under accepted status
+		applicationCount = applicationDao.countByStatus(Application.AS_NOTIFIED);
+		statisticsData.put(StatisticsOptions.SO_NOTIFIED, Long.toString(applicationCount));
+		
+		// Get the application count under accepted status
+		applicationCount = applicationDao.countByStatus(Application.AS_DOWNLOADED);
+		statisticsData.put(StatisticsOptions.SO_DOWNLOADED, Long.toString(applicationCount));
+		
+		// Get the application count under accepted status
+		applicationCount = applicationDao.countByStatus(Application.AS_CHECKIN);
+		statisticsData.put(StatisticsOptions.SO_CHECKIN, Long.toString(applicationCount));
+		
+		// Get the application count under accepted status
+		applicationCount = applicationDao.countByStatus(Application.AS_DENIED);
+		statisticsData.put(StatisticsOptions.SO_DENIED, Long.toString(applicationCount));
+		
+		return statisticsData;
 	}
 }

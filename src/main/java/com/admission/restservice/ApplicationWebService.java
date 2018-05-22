@@ -663,4 +663,26 @@ public class ApplicationWebService {
 
 		return res;
 	}
+	
+	@RequestMapping(value="/getstatistics", method=RequestMethod.GET, headers="Accept=application/json")
+	@ResponseBody 
+	public JsonResponse getApplicationStatistic() {
+		JsonResponse res = new JsonResponse();
+
+		try {
+			Map<String, String> statisticsData = applicationService.getApplicationStatistics();
+
+			if(statisticsData != null) {
+				res.setResult("ok");
+				res.setData(statisticsData);
+			} else {
+				res.setResult("获取统计数据失败.");
+			}
+		} catch (Exception e) {
+			log.debug("get application statistics fail", e);
+			res.setResult("获取统计数据失败: " + e.getMessage());
+		}
+
+		return res;
+	}
 }

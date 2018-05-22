@@ -210,4 +210,9 @@ public class ApplicationDaoImpl extends BaseDaoHibernate<Application> implements
 		
 		return getHibernateTemplate().findByCriteria(criteria);
 	}
+	
+	@Override
+	public long countByStatus(int status) {
+		return querySize("select count(*) from Application a where a.status=?", status);
+	}
 }

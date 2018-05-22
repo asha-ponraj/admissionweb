@@ -1,6 +1,7 @@
 package com.admission.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admission.dto.AppQueryTO;
 import com.admission.dto.PageInfo;
@@ -46,4 +47,6 @@ public interface ApplicationService {
 	public String resetApplicationPassword(int applicationId) throws Exception;
 	
 	public List<Integer> getApplicationIdList() throws Exception;
+	
+	public Map<String, String> getApplicationStatistics() throws Exception;
 }
