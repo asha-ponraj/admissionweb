@@ -76,6 +76,7 @@
 		<url-pattern>/rest/application/findbc</url-pattern>
 		<url-pattern>/rest/application/recheckin/*</url-pattern>
 		<url-pattern>/rest/application/uncheckin/*</url-pattern>
+		<url-pattern>/rest/application/getstatistics</url-pattern>
 		<url-pattern>/rest/news/create</url-pattern>
 		<url-pattern>/rest/news/update</url-pattern>
 		<url-pattern>/rest/news/delete/*</url-pattern>
