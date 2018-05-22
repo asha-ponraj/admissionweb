@@ -3,6 +3,8 @@ $(function() {
 });
 
 function refreshStatistics() {
+	$('#statusbar').html("正在获取统计数据......");
+	
 	$.ajax({
 		url: '../rest/application/getstatistics',
 		type: 'GET',
@@ -10,6 +12,7 @@ function refreshStatistics() {
 		data: ({
 		}),//参数设置
 		error: function(xhr, textStatus, thrownError){
+			$('#statusbar').html("");
 			if(xhr.readyState != 0 && xhr.readyState != 1) {
 	     		alert("获取统计信息失败, 错误号:  " + xhr.status + ", 错误信息: " + textStatus);
 			}
@@ -18,6 +21,8 @@ function refreshStatistics() {
 			}
 		},
 		success: function(response, textStatus, xhr) {
+			$('#statusbar').html("");
+			
 			if(xhr.status == 200) {
 				if(response.result == "ok") {
 					$('#so_all').html(response.data.so_all);

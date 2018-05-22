@@ -48,7 +48,7 @@
 		<th id="so_denied"></th>
 	</tr>
 	<tr style="background-color: white;">
-		<td></td>
+		<td id="statusbar"></td>
 		<td align="right"><a id="submitbtn" href="#" onClick="refreshStatistics()" class="easyui-linkbutton" data-options="iconCls:'icon-reload'">刷新</a></td>
 	</tr>
 </table>
