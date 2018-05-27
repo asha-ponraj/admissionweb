@@ -17,27 +17,6 @@
 <script type="text/javascript" src="../js/pages/admin/process.js"></script>
 </head>
 <body class="easyui-layout">
-<div data-options="region:'north',border:false,title:'受理报名表'" style="height: 120px;">
-<table border="0" cellspacing="10" align="center">
-<tr>
-<td></td>
-<td colspan="4" class="tip">不输入报名号范围表示全部受理，输入相同号码表示只受理号码</td>
-</tr>
-<tr>
-<th>报名号从</th>
-<td>
-<input id="afromid" class="easyui-validatebox" style="width: 200px;" type="text"></input>
-</td>
-<th>到</th>
-<td>
-<input id="atoid" class="easyui-validatebox" style="width: 200px;" type="text"></input>
-</td>
-<td>
-<a id="acceptbtn" href="#" onClick="acceptApplication()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">受理报名</a>
-</td>
-</tr>
-</table>
-</div>
 <div data-options="region:'center',border:false,title:'通知招生活动'">
 <table border="0" cellspacing="10" cellpadding="0" align="center">
 <tr>
